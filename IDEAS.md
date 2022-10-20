@@ -1,9 +1,4 @@
-La classe "Test" qui hérite de la classe "Qcm" n'est pas créée dans la BDD.
-On a à la place une colonne "dtype" qui je le pense va nous permettre de déterminer si il s'agit d'un
-qcm ou d'un test. Mais je pense que ça va mettre le bordel.
-Je dois tester tout ça et voir si je dois faire une réplique de qcm mais sans héritage.
-
-Il va aussi falloir trouver une solution pour les réponses, comment est-ce que je peux gérer un "test" renvoyé
+Il va falloir trouver une solution pour les réponses, comment est-ce que je peux gérer un "test" renvoyé
 par l'utilisateur et ne récupérer que les réponses sélectionnées par ce dernier pour les comparer ensuite à la réponse
 créée dans la BDD et voir si elle est correcte ?
 

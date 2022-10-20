@@ -4,6 +4,7 @@ import aubay.lu.projetrh.model.Question;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.UUID;
 
 public interface QuestionService {
@@ -12,11 +13,11 @@ public interface QuestionService {
 
     public Optional<Question> getQuestionById(UUID questionId);
 
-    public Optional<Question> getQuestionByQcm(UUID qcmId);
+    public Set<Question> getQuestionByQcmId(UUID qcmId);
 
-    public Question createQuestion();
+    public Question createQuestion(Question question);
 
-    public Question updateQuestion();
+    public Question updateQuestion(Question question);
 
     public String deleteQuestion(UUID questionId);
 }

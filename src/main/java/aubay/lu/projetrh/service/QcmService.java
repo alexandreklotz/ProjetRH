@@ -12,7 +12,7 @@ public interface QcmService {
 
     public Optional<Qcm> getQcmById(UUID qcmId);
 
-    public Optional<Qcm> getQcmByTitle(String title);
+    public List<Qcm> getQcmByTitle(String title);
 
     public Qcm createQcm(Qcm qcm);
 

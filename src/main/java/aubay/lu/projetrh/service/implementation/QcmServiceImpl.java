@@ -35,7 +35,7 @@ public class QcmServiceImpl implements QcmService {
     }
 
     @Override
-    public Optional<Qcm> getQcmByTitle(String title) {
+    public List<Qcm> getQcmByTitle(String title) {
         return qcmRepository.findQcmByName(title);
     }
 
