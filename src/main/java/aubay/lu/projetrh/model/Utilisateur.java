@@ -1,9 +1,12 @@
 package aubay.lu.projetrh.model;
 
+import aubay.lu.projetrh.view.CustomJsonView;
+import com.fasterxml.jackson.annotation.JsonView;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -12,31 +15,57 @@ public class Utilisateur {
 
     @Id
     @GeneratedValue(
-            strategy = GenerationType.AUTO,
+            strategy = GenerationType.IDENTITY,
             generator = "UUID")
     @GenericGenerator(
             name = "UUID",
             strategy = "org.hibernate.id.UUIDGenerator"
     )
-    @Column
+    @JsonView(CustomJsonView.UtilisateurView.class)
+    @Column(columnDefinition = "BINARY(16)")
     private UUID id;
 
+    @JsonView(CustomJsonView.UtilisateurView.class)
     @Column(nullable = false)
     private String firstName;
 
+    @JsonView(CustomJsonView.UtilisateurView.class)
     @Column(nullable = false)
     private String lastName;
 
+    @JsonView(CustomJsonView.UtilisateurView.class)
+    @Column(nullable = false)
+    private String userLogin;
+
+    @JsonView(CustomJsonView.UtilisateurView.class)
+    @Column(nullable = false)
+    private String userPassword;
+
+    @JsonView(CustomJsonView.UtilisateurView.class)
     @Column(nullable = false)
     private String mailAddress;
 
+    @JsonView(CustomJsonView.UtilisateurView.class)
     @Column
     private double globalScore;
 
 
-    public Utilisateur() {}
+    // CONSTRUCTOR //
+    public Utilisateur(){}
 
 
+    // RELATIONS //
+    @JsonView(CustomJsonView.UtilisateurView.class)
+    @OneToMany(mappedBy = "utilisateur")
+    private Set<Test> tests;
+
+    @JsonView(CustomJsonView.UtilisateurView.class)
+    @ManyToOne
+    @JoinColumn(name = "roles_id", nullable = false)
+    private Roles role;
+
+
+    // GETTERS AND SETTERS//
     public UUID getId() {
         return id;
     }
@@ -61,6 +90,22 @@ public class Utilisateur {
         this.lastName = lastName;
     }
 
+    public String getUserLogin() {
+        return userLogin;
+    }
+
+    public void setUserLogin(String userLogin) {
+        this.userLogin = userLogin;
+    }
+
+    public String getUserPassword() {
+        return userPassword;
+    }
+
+    public void setUserPassword(String userPassword) {
+        this.userPassword = userPassword;
+    }
+
     public String getMailAddress() {
         return mailAddress;
     }
@@ -75,5 +120,21 @@ public class Utilisateur {
 
     public void setGlobalScore(double globalScore) {
         this.globalScore = globalScore;
+    }
+
+    public Set<Test> getTests() {
+        return tests;
+    }
+
+    public void setTests(Set<Test> tests) {
+        this.tests = tests;
+    }
+
+    public Roles getRole() {
+        return role;
+    }
+
+    public void setRole(Roles role) {
+        this.role = role;
     }
 }

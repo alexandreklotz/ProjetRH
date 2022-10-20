@@ -1,10 +1,11 @@
 package aubay.lu.projetrh.model;
 
-import org.hibernate.annotations.GenericGenerator;
+import aubay.lu.projetrh.view.CustomJsonView;
+import com.fasterxml.jackson.annotation.JsonView;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
-import java.util.UUID;
+import java.util.Set;
 
 @Entity
 @EntityListeners(AuditingEntityListener.class)
@@ -12,31 +13,33 @@ public class Roles {
 
 
     @Id
-    @GeneratedValue(
-            strategy = GenerationType.AUTO,
-            generator = "UUID")
-    @GenericGenerator(
-            name = "UUID",
-            strategy = "org.hibernate.id.UUIDGenerator"
-    )
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonView(CustomJsonView.RolesView.class)
     @Column
-    private UUID id;
+    private Long id;
 
 
+    @JsonView({CustomJsonView.RolesView.class, CustomJsonView.UtilisateurView.class})
     @Column(nullable = false)
     private String denomination;
 
 
-
+    // CONSTRUCTOR //
     public Roles(){}
 
 
+    // RELATIONS //
+    @JsonView(CustomJsonView.RolesView.class)
+    @OneToMany(mappedBy = "role")
+    private Set<Utilisateur> utilisateurs;
 
-    public UUID getId() {
+
+    // GETTERS AND SETTERS //
+    public Long getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -46,5 +49,13 @@ public class Roles {
 
     public void setDenomination(String denomination) {
         this.denomination = denomination;
+    }
+
+    public Set<Utilisateur> getUtilisateurs() {
+        return utilisateurs;
+    }
+
+    public void setUtilisateurs(Set<Utilisateur> utilisateurs) {
+        this.utilisateurs = utilisateurs;
     }
 }

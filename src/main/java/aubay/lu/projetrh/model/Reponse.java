@@ -6,12 +6,11 @@ import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
-import java.util.Set;
 import java.util.UUID;
 
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-public class Question {
+public class Reponse {
 
     @Id
     @GeneratedValue(
@@ -21,34 +20,31 @@ public class Question {
             name = "UUID",
             strategy = "org.hibernate.id.UUIDGenerator"
     )
-    @JsonView(CustomJsonView.QuestionView.class)
+    @JsonView(CustomJsonView.ReponseView.class)
     @Column(columnDefinition = "BINARY(16)")
     private UUID id;
 
-    @JsonView(CustomJsonView.QuestionView.class)
+    @JsonView(CustomJsonView.ReponseView.class)
     @Column(nullable = false)
     private String texte;
 
-    @JsonView(CustomJsonView.QuestionView.class)
+    @JsonView(CustomJsonView.ReponseView.class)
     @Column(nullable = false)
-    private int tempsReponse;
+    private boolean correctAnswer;
 
 
     // CONSTRUCTOR //
-    public Question(){}
+    public Reponse(){}
 
 
     // RELATIONS //
-    @JsonView(CustomJsonView.QuestionView.class)
+    @JsonView(CustomJsonView.ReponseView.class)
     @ManyToOne
-    @JoinColumn(name = "qcm_id")
-    private Qcm qcm;
-
-    @JsonView(CustomJsonView.QuestionView.class)
-    @OneToMany(mappedBy = "question")
-    private Set<Reponse> reponses;
+    @JoinColumn(name="question_id", nullable = false)
+    private Question question;
 
 
+    // GETTERS AND SETTERS //
     public UUID getId() {
         return id;
     }
@@ -65,27 +61,19 @@ public class Question {
         this.texte = texte;
     }
 
-    public int getTempsReponse() {
-        return tempsReponse;
+    public boolean isCorrectAnswer() {
+        return correctAnswer;
     }
 
-    public void setTempsReponse(int tempsReponse) {
-        this.tempsReponse = tempsReponse;
+    public void setCorrectAnswer(boolean correctAnswer) {
+        this.correctAnswer = correctAnswer;
     }
 
-    public Qcm getQcm() {
-        return qcm;
+    public Question getQuestion() {
+        return question;
     }
 
-    public void setQcm(Qcm qcm) {
-        this.qcm = qcm;
-    }
-
-    public Set<Reponse> getReponses() {
-        return reponses;
-    }
-
-    public void setReponses(Set<Reponse> reponses) {
-        this.reponses = reponses;
+    public void setQuestion(Question question) {
+        this.question = question;
     }
 }

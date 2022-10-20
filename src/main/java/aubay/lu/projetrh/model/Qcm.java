@@ -1,33 +1,47 @@
 package aubay.lu.projetrh.model;
 
+import aubay.lu.projetrh.view.CustomJsonView;
+import com.fasterxml.jackson.annotation.JsonView;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-public class QCM {
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+public class Qcm {
 
     @Id
     @GeneratedValue(
-            strategy = GenerationType.AUTO,
+            strategy = GenerationType.IDENTITY,
             generator = "UUID")
     @GenericGenerator(
             name = "UUID",
             strategy = "org.hibernate.id.UUIDGenerator"
     )
-    @Column
+    @JsonView(CustomJsonView.QcmView.class)
+    @Column(columnDefinition = "BINARY(16)")
     private UUID id;
 
+    @JsonView(CustomJsonView.QcmView.class)
     @Column(nullable = false)
     private String titre;
 
 
-    public QCM(){}
+    // CONSTRUCTOR //
+    public Qcm(){}
 
 
+    // RELATIONS //
+    @JsonView(CustomJsonView.QcmView.class)
+    @OneToMany(mappedBy = "qcm")
+    private Set<Question> questions;
+
+
+    // GETTERS AND SETTERS //
     public UUID getId() {
         return id;
     }
@@ -42,5 +56,13 @@ public class QCM {
 
     public void setTitre(String titre) {
         this.titre = titre;
+    }
+
+    public Set<Question> getQuestions() {
+        return questions;
+    }
+
+    public void setQuestions(Set<Question> questions) {
+        this.questions = questions;
     }
 }
