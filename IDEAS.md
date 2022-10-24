@@ -1,3 +1,8 @@
+Comment gérer la création d'un nouveau test ? On envoie un QCM à partir duquel on créé un test ?
+Niveau front, comment gérer ? On récupère la liste de tous les qcm et on sélectionne celui qu'on veut assigner à un candidat pour le tester
+et la création du test se fait à ce moment la ? Y réfléchir.
+
+---
 Il va falloir trouver une solution pour les réponses, comment est-ce que je peux gérer un "test" renvoyé
 par l'utilisateur et ne récupérer que les réponses sélectionnées par ce dernier pour les comparer ensuite à la réponse
 créée dans la BDD et voir si elle est correcte ?

@@ -13,7 +13,7 @@ public interface QuestionService {
 
     public Optional<Question> getQuestionById(UUID questionId);
 
-    public Set<Question> getQuestionByQcmId(UUID qcmId);
+    public List<Question> getQuestionByQcmId(UUID qcmId);
 
     public Question createQuestion(Question question);
 

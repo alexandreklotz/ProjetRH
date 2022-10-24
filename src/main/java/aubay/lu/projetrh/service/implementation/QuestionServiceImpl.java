@@ -2,8 +2,10 @@ package aubay.lu.projetrh.service.implementation;
 
 import aubay.lu.projetrh.model.Qcm;
 import aubay.lu.projetrh.model.Question;
+import aubay.lu.projetrh.model.Reponse;
 import aubay.lu.projetrh.repository.QcmRepository;
 import aubay.lu.projetrh.repository.QuestionRepository;
+import aubay.lu.projetrh.repository.ReponseRepository;
 import aubay.lu.projetrh.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,11 +20,13 @@ public class QuestionServiceImpl implements QuestionService {
 
     private QuestionRepository questionRepository;
     private QcmRepository qcmRepository;
+    private ReponseRepository reponseRepository;
 
     @Autowired
-    QuestionServiceImpl(QuestionRepository questionRepository, QcmRepository qcmRepository){
+    QuestionServiceImpl(QuestionRepository questionRepository, QcmRepository qcmRepository, ReponseRepository reponseRepository){
         this.questionRepository = questionRepository;
         this.qcmRepository = qcmRepository;
+        this.reponseRepository = reponseRepository;
     }
 
     @Override
@@ -36,12 +40,8 @@ public class QuestionServiceImpl implements QuestionService {
     }
 
     @Override
-    public Set<Question> getQuestionByQcmId(UUID qcmId) {
-        Optional<Qcm> searchedQcm = qcmRepository.findById(qcmId);
-        if(searchedQcm.isEmpty()){
-            return null; //return error
-        }
-        return searchedQcm.get().getQuestions();
+    public List<Question> getQuestionByQcmId(UUID qcmId) {
+        return questionRepository.findQuestionByQcmId(qcmId);
     }
 
     @Override
@@ -55,12 +55,21 @@ public class QuestionServiceImpl implements QuestionService {
         }
 
         if(question.getReponses() != null){
-            //Comment implémenter cette partie ? Gérer les réponses non existantes en les sauvegardant en live ?
-            //Vérifier que les réponses existent à travers le service ou le repository ?
+            if(question.getReponses().size() <= 1){
+                return null; //return qu'il faut au minimum 2 réponses. //TODO : tester
+            }
+            for(Reponse reponse : question.getReponses()){
+                Optional<Reponse> reponseQuestion = reponseRepository.findById(reponse.getId());
+                if(reponseQuestion.isEmpty()){
+                    return null; //return erreur
+                }
+                reponseQuestion.get().setQuestion(question);
+            }
         }
 
         return questionRepository.saveAndFlush(question);
     }
+
 
     @Override
     public Question updateQuestion(Question question) {
@@ -69,11 +78,26 @@ public class QuestionServiceImpl implements QuestionService {
             return null; //return une erreur
         }
 
+        if(question.getQcm() == null){
+            return null; //return une erreur
+        }
+
         if(question.getTexte() == null){
             question.setTexte(questionToUpdate.get().getTexte());
         }
 
-        //TODO : gérer les réponses
+        if(question.getReponses() != null){
+            if(question.getReponses().size() <= 1){
+                return null; //return qu'il faut au minimum 2 réponses. //TODO : tester
+            }
+            for(Reponse reponse : question.getReponses()){
+                Optional<Reponse> reponseQuestion = reponseRepository.findById(reponse.getId());
+                if(reponseQuestion.isEmpty()){
+                    return null; //return erreur
+                }
+                reponseQuestion.get().setQuestion(question);
+            }
+        }
 
         return questionRepository.saveAndFlush(question);
     }
