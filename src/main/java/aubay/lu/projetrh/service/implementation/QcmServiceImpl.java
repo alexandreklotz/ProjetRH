@@ -48,7 +48,6 @@ public class QcmServiceImpl implements QcmService {
                     return null; //return erreur
                 }
                 qcmQuestion.get().setQcm(qcm);
-                questionRepository.saveAndFlush(qcmQuestion.get());
                 //Cette manière de vérifier si les questions assignées au qcm existent peut être lente.
             }
         }
@@ -75,7 +74,6 @@ public class QcmServiceImpl implements QcmService {
                     return null; //return erreur
                 }
                 qcmQuestion.get().setQcm(qcm);
-                questionRepository.saveAndFlush(qcmQuestion.get());
                 //Cette manière de vérifier si les questions assignées au qcm existent peut être lente.
             }
         }

@@ -1,5 +1,6 @@
 package aubay.lu.projetrh.service;
 
+import aubay.lu.projetrh.model.Qcm;
 import aubay.lu.projetrh.model.Test;
 
 import java.util.List;
@@ -14,9 +15,12 @@ public interface TestService {
 
     public List<Test> getTestByCandidat(UUID userId);
 
-    public Test createTest(Test test);
+    public Test createTest(Qcm qcm, String title, UUID utilisateurId);
 
     public Test updateTest(Test test);
 
     public String deleteTest(UUID testId);
+
+    //TODO: Implémenter une méthode "submit" pour que le candidat puisse soumettre son test une fois fini
+
 }

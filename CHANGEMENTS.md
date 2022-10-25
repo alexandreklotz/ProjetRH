@@ -1,3 +1,24 @@
+### 25/10/2022
+
+*Le "return type" des méthodes __delete__ des services sera modifié. Pour l'instant ces méthodes renvoient un string
+mais je vais implémenter à terme des ResponseEntity ou une classe qui renverra un objet créé à cet effet.*
+
+__Modifications apportées au code :__
+- Dans `UtilisateurController`, j'avais fait un @Autowired sur `UtilisateurServiceImpl` au lieu de l'interface `UtilisateurService`. Ceci a été corrigé.
+- Mappings créés dans `TestController`, `ReponseController` et `QuestionController`
+- Des modifications dans le code de `QuestionServiceImpl` ont été effectuées.
+- La méthode `createTest` doit être testée. On envoie un QCM à partir duquel on créé un test en reprenant ses éléments.
+
+*Je suis en train de réfléchir à comment implémenter la méthode "submit" pour que le candidat puisse envoyer son test mais aussi comment le modifier.
+Il faudra aussi gérer l'éventualité ou l'utilisateur est vide et que ce champ sera renseigné lorsque le candidat s'inscrira pour passer ce test.
+Une méthode et un mapping dans le controller doivent être créés à cet effet.*
+
+*Il faudra aussi mettre en place une méthode pour que les utilisateurs puissent changer leur mot de passe si nécessaire.*
+
+*Aussi penser à implémenter des vérifications comme par exemple pour update un utilisateur, s'assurer que le login n'est pas pris,
+et des méthodes similaires pour les autres classes.*
+
+---
 ### 24/10/2022
 
 __Modifications apportées au code :__

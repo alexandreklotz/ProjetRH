@@ -7,6 +7,7 @@ import aubay.lu.projetrh.repository.QcmRepository;
 import aubay.lu.projetrh.repository.QuestionRepository;
 import aubay.lu.projetrh.repository.ReponseRepository;
 import aubay.lu.projetrh.service.QuestionService;
+import aubay.lu.projetrh.service.ReponseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -46,9 +47,15 @@ public class QuestionServiceImpl implements QuestionService {
 
     @Override
     public Question createQuestion(Question question) {
-        if(question.getQcm() == null){
-            return null; //return une erreur
+
+        if(question.getQcm() != null){
+            Optional<Qcm> qcm = qcmRepository.findById(question.getQcm().getId());
+            if(qcm.isEmpty()){
+                return null; //return une erreur
+            }
+            question.setQcm(qcm.get());
         }
+
 
         if(question.getTexte() == null){
             return null; //return une erreur
@@ -78,8 +85,12 @@ public class QuestionServiceImpl implements QuestionService {
             return null; //return une erreur
         }
 
-        if(question.getQcm() == null){
-            return null; //return une erreur
+        if(question.getQcm() != null){
+            Optional<Qcm> qcm = qcmRepository.findById(question.getQcm().getId());
+            if(qcm.isEmpty()){
+                return null; //return une erreur
+            }
+            question.setQcm(qcm.get());
         }
 
         if(question.getTexte() == null){

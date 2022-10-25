@@ -1,6 +1,8 @@
 package aubay.lu.projetrh.service.implementation;
 
+import aubay.lu.projetrh.model.Qcm;
 import aubay.lu.projetrh.model.Test;
+import aubay.lu.projetrh.model.Utilisateur;
 import aubay.lu.projetrh.repository.QcmRepository;
 import aubay.lu.projetrh.repository.TestRepository;
 import aubay.lu.projetrh.repository.UtilisateurRepository;
@@ -42,14 +44,35 @@ public class TestServiceImpl implements TestService {
     }
 
     @Override
-    public Test createTest(Test test) {
-        return null; //TODO
+    public Test createTest(Qcm qcm, String title, UUID utilisateurId) {
+
+        Optional<Qcm> qcmTest = qcmRepository.findById(qcm.getId());
+        if(qcmTest.isEmpty()){
+            return null; //return une erreur
+        }
+
+        Test test = new Test();
+        test.setQuestions(qcmTest.get().getQuestions());
+        test.setTitre(title);
+
+        Optional<Utilisateur> testUser = utilisateurRepository.findById(utilisateurId);
+        if(testUser.isEmpty()){
+            return null; //return une erreur
+        } else if (test.getUtilisateur() == null){
+            test.setUtilisateur(null);
+        }
+        test.setUtilisateur(testUser.get());
+
+        return testRepository.saveAndFlush(test);
+        //TODO : tester cette méthode et mettre en place le calcul du score. Implémenter dates ?
     }
 
     @Override
     public Test updateTest(Test test) {
         return null; //TODO
     }
+
+    //TODO: Implémenter une méthode "submit" pour que le candidat puisse soumettre son test une fois fini
 
     @Override
     public String deleteTest(UUID testId) {
