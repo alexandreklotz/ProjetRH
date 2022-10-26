@@ -7,7 +7,7 @@ __Modifications apportées au code :__
 - Création d'un nouvel INSERT dans import.sql pour créer un admin par défaut
 - Modification d'une erreur dans les mappings du __Post__ et du __Put__ pour créer et update un QCM dans `QcmController`. Au lieu de demander un body, je demandais un PathVariable, ce qui n'est pas possible.
 
-Toutes les requêtes POST de base fonctionnent comme voulu sauf pour `Test`.
+Toutes les requêtes CRUD de base fonctionnent comme voulu sauf pour `Test`.
 Pour créer un test, je lui envoie un QCM et l'id de l'utilisateur qui va le passer et récupère les éléments du QCM.
 Cependant, les questions, étant liées qu QCM ne peuvent pas être réassignées au Test. Trouver une solution.
 Des modifications de la logique dans certains services seront effectuées, notamment pour le trio question/reponse/qcm
