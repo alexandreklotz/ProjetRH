@@ -1,3 +1,24 @@
+### 26/10/2022
+
+__Modifications apportées au code :__
+- Création d'une Query SQL dans `UtilisateurRepository` pour la mise en place future de la sécurité
+- Petites modifications de code dans `ReponseServiceImpl`, `TestServiceImpl`.
+- La méthode `createTest` a été modifiée dans `TestService` et partout ou elle a été implémentée. Pour créer un test, on envoie l'UUID de l'utilisateur (dans le cas ou il existe déja) et le qcm choisi puis le service créé un Test à partir du qcm.
+- Création d'un nouvel INSERT dans import.sql pour créer un admin par défaut
+- Modification d'une erreur dans les mappings du __Post__ et du __Put__ pour créer et update un QCM dans `QcmController`. Au lieu de demander un body, je demandais un PathVariable, ce qui n'est pas possible.
+
+Toutes les requêtes POST de base fonctionnent comme voulu sauf pour `Test`.
+Pour créer un test, je lui envoie un QCM et l'id de l'utilisateur qui va le passer et récupère les éléments du QCM.
+Cependant, les questions, étant liées qu QCM ne peuvent pas être réassignées au Test. Trouver une solution.
+Des modifications de la logique dans certains services seront effectuées, notamment pour le trio question/reponse/qcm
+pour la liaison d'une question à un qcm. Il faut vérifier que la question a bien deux réponses minimum et le code
+actuel ne fonctionne pas. Il faudrait pouvoir mettre en place un mécanisme d'ajout des réponses aux questions au fur et à mesure.
+Une idée, récupérer les questions/réponses au fur et à mesure via un mapping GET ? Et créer un PostMapping pour que lors
+de l'envoi la réponse soit prise en compte et processée directement. Réfléchir.
+__Créer une entité réplique de question, par exemple TestQuestion ? De même pour Reponse ?__
+(la méthode de mise à jour de `Test` n'a par conséquent pas été testée.)
+
+---
 ### 25/10/2022
 
 *Le "return type" des méthodes __delete__ des services sera modifié. Pour l'instant ces méthodes renvoient un string

@@ -43,13 +43,13 @@ public class QcmController {
 
     @JsonView(CustomJsonView.QcmView.class)
     @PostMapping("admin/qcm/create")
-    public Qcm createQcm(@PathVariable Qcm qcm){
+    public Qcm createQcm(@RequestBody Qcm qcm){
         return qcmService.createQcm(qcm);
     }
 
     @JsonView(CustomJsonView.QcmView.class)
     @PutMapping("admin/qcm/update")
-    public Qcm updateQcm(@PathVariable Qcm qcm){
+    public Qcm updateQcm(@RequestBody Qcm qcm){
         return qcmService.updateQcm(qcm);
     }
 

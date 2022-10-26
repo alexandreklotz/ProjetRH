@@ -1,5 +1,6 @@
 package aubay.lu.projetrh.controller;
 
+import aubay.lu.projetrh.model.Qcm;
 import aubay.lu.projetrh.model.Test;
 import aubay.lu.projetrh.service.QcmService;
 import aubay.lu.projetrh.service.TestService;
@@ -43,9 +44,9 @@ public class TestController {
     }
 
     @JsonView(CustomJsonView.TestView.class)
-    @PostMapping("admin/test/create")
-    public Test createTest(@RequestBody Test test){
-        return testService.createTest(test);
+    @PostMapping("admin/test/create/{candidatId}")
+    public Test createTest(@RequestBody Qcm qcm, @PathVariable UUID candidatId){
+        return testService.createTest(qcm, candidatId);
     }
 
     @JsonView(CustomJsonView.TestView.class)

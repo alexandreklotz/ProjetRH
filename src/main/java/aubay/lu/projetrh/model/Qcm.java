@@ -26,7 +26,7 @@ public class Qcm {
     @Column(columnDefinition = "BINARY(16)")
     private UUID id;
 
-    @JsonView(CustomJsonView.QcmView.class)
+    @JsonView({CustomJsonView.QcmView.class, CustomJsonView.QuestionView.class})
     @Column(nullable = false)
     private String titre;
 

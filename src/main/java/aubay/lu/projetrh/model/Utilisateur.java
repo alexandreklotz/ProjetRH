@@ -33,7 +33,7 @@ public class Utilisateur {
     @Column(nullable = false)
     private String lastName;
 
-    @JsonView(CustomJsonView.UtilisateurView.class)
+    @JsonView({CustomJsonView.UtilisateurView.class, CustomJsonView.TestView.class})
     @Column(nullable = false)
     private String userLogin;
 

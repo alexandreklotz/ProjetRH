@@ -99,7 +99,7 @@ public class QuestionServiceImpl implements QuestionService {
 
         if(question.getReponses() != null){
             if(question.getReponses().size() <= 1){
-                return null; //return qu'il faut au minimum 2 réponses. //TODO : tester
+                return null; //return qu'il faut au minimum 2 réponses. //TODO : tester/modifier, pas correct
             }
             for(Reponse reponse : question.getReponses()){
                 Optional<Reponse> reponseQuestion = reponseRepository.findById(reponse.getId());

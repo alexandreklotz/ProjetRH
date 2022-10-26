@@ -24,7 +24,7 @@ public class Reponse {
     @Column(columnDefinition = "BINARY(16)")
     private UUID id;
 
-    @JsonView(CustomJsonView.ReponseView.class)
+    @JsonView({CustomJsonView.ReponseView.class, CustomJsonView.QuestionView.class})
     @Column(nullable = false)
     private String texte;
 

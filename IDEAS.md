@@ -1,3 +1,7 @@
+Mettre en place un mécanisme d'ajout au fur et à mesure de réponses à une question et ensuite d'ajout d'une question au qcm.
+Si la question n'a pas deux réponses minimum, elle ne sera pas liée au QCM.
+
+---
 Comment gérer la création d'un nouveau test ? On envoie un QCM à partir duquel on créé un test ?
 Niveau front, comment gérer ? On récupère la liste de tous les qcm et on sélectionne celui qu'on veut assigner à un candidat pour le tester
 et la création du test se fait à ce moment la ? Y réfléchir.

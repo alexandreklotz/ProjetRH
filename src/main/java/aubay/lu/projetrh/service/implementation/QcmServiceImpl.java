@@ -50,6 +50,8 @@ public class QcmServiceImpl implements QcmService {
                 qcmQuestion.get().setQcm(qcm);
                 //Cette manière de vérifier si les questions assignées au qcm existent peut être lente.
             }
+        } else if(qcm.getQuestions() == null){
+            qcm.setQuestions(null);
         }
         return qcmRepository.saveAndFlush(qcm);
     }
