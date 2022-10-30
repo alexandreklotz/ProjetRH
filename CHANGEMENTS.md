@@ -1,3 +1,20 @@
+###27/10/2022
+
+*Commit/push avec 3 jours de retard*
+
+__Modifications apportées au code :__
+- Création d'une variable de type __Double__ appelée *points* dans `Reponse`. Détermine le nombre de points qu'attribue la question.
+
+Je me suis penché sur le souci du submit d'un test, et j'ai peut-être une solution autre qu'un @ManyToMany qui créerait
+d'autres problèmes en même temps qu'il en corrigerait d'autres et j'ai aussi laissé tomber l'idée d'une classe
+réplique de question et réponse qui aussi créerait des problèmes.
+Je pense qu'un Test n'aurait qu'un Id et pointerai vers le Qcm voulu via son Id et récupèrerait les questions/réponses
+pour les envoyer au front. Lors du submit, le JSON comporterait ces éléments en plus de l'Id de l'utilisateur (ce qui
+nous servira à calculer son globalScore et à avoir un historique des tests passés) et d'un array des réponses choisies
+avec leur Id. On pourrait vérifier si chaque réponse renvoyée est correcte grâce à un foreach et une Query SQL
+ou du code tout simple.
+
+---
 ### 26/10/2022
 
 __Modifications apportées au code :__

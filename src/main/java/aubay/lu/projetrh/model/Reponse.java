@@ -36,6 +36,9 @@ public class Reponse {
     @Column(nullable = false)
     private boolean selectedAnswer; //TODO : ce booléen sera supprimé si pas utile. Pourrait me servir à implémenter la vérification des réponses choisies par le candidat
 
+    @JsonView(CustomJsonView.ReponseView.class)
+    @Column(nullable = false)
+    private Double points;
 
     // CONSTRUCTOR //
     public Reponse(){}
@@ -79,6 +82,14 @@ public class Reponse {
 
     public void setSelectedAnswer(boolean selectedAnswer) {
         this.selectedAnswer = selectedAnswer;
+    }
+
+    public Double getPoints() {
+        return points;
+    }
+
+    public void setPoints(Double points) {
+        this.points = points;
     }
 
     public Question getQuestion() {
