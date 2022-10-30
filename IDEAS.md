@@ -1,3 +1,45 @@
+Voila comment j'avais imaginé la méthode submitTest pour la soumission des tests par le candidat et la vérification des réponses :
+J'ai du modifier la conception de la classe Test et supprimer l'héritage entre Qcm et Test. J'ai du créer des nouvelles relations, lire CHANGEMENTS.md.
+
+Logique :
+
+    public Test submitTest(Test test){
+
+	Double scoreTemp = utilisateur.getGlobalScore();
+	
+	Optional<Qcm> qcmTest = qcmRepository.findById(test.getQcm().getId());
+	if(qcmTest.isEmpty()){
+		return erreur;
+	}
+	List<Reponse> qcmReponses = qcmTest.get().getQuestions().getReponses();
+	for(Reponse reponse : qcmReponses){
+		boolean isCorrect = reponseRepository.findCorrectAnswerById(reponse.getId());  /////Voir pour passer deux paramètres, QcmId en plus pour sécuriser.
+		if(isCorrect == true){
+			test.setScore+=reponse.getPoints(); //pas correct mais l'idée est la
+			scoreTemp+=reponse.getPoints();
+		}
+	}
+	utilisateur.setGlobalScore(scoreTemp);
+    }
+
+Pour cela il me fallait qu'un objet de type Test corresponde au JSON suivant :
+
+    {
+	"id" : "xxxxxxx",
+	"utilisateur" : {
+		"id" : "xxxxxx"
+	    },
+	"qcm" : {
+		"id" : "xxxxxx"
+	    },
+	"reponses" : {
+		"id" : "xxxxxx"
+	    }
+    }
+
+Le résultat final est assez proche.
+
+---
 Mettre en place un mécanisme d'ajout au fur et à mesure de réponses à une question et ensuite d'ajout d'une question au qcm.
 Si la question n'a pas deux réponses minimum, elle ne sera pas liée au QCM.
 

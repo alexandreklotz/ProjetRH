@@ -15,7 +15,7 @@ public interface TestService {
 
     public List<Test> getTestByCandidat(UUID userId);
 
-    public Test createTest(Qcm qcm, UUID utilisateurId);
+    public Test createTest(Test test, UUID utilisateurId);
 
     public Test updateTest(Test test);
 

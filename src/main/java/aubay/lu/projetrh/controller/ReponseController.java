@@ -40,11 +40,11 @@ public class ReponseController {
         return reponseService.getReponsesByQuestion(questionId);
     }
 
-    @JsonView(CustomJsonView.ReponseView.class)
+    /*@JsonView(CustomJsonView.ReponseView.class)
     @PostMapping("admin/reponse/create")
     public Reponse createReponse(@RequestBody Reponse reponse){
         return reponseService.createReponse(reponse);
-    }
+    }*/
 
     @JsonView(CustomJsonView.ReponseView.class)
     @PutMapping("admin/reponse/update")

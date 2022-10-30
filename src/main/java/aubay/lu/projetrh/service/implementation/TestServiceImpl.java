@@ -1,18 +1,15 @@
 package aubay.lu.projetrh.service.implementation;
 
-import aubay.lu.projetrh.model.Qcm;
-import aubay.lu.projetrh.model.Test;
-import aubay.lu.projetrh.model.Utilisateur;
+import aubay.lu.projetrh.model.*;
 import aubay.lu.projetrh.repository.QcmRepository;
+import aubay.lu.projetrh.repository.ReponseRepository;
 import aubay.lu.projetrh.repository.TestRepository;
 import aubay.lu.projetrh.repository.UtilisateurRepository;
 import aubay.lu.projetrh.service.TestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 public class TestServiceImpl implements TestService {
@@ -20,12 +17,14 @@ public class TestServiceImpl implements TestService {
     private TestRepository testRepository;
     private UtilisateurRepository utilisateurRepository;
     private QcmRepository qcmRepository;
+    private ReponseRepository reponseRepository;
 
     @Autowired
-    TestServiceImpl(TestRepository testRepository, UtilisateurRepository utilisateurRepository, QcmRepository qcmRepository){
+    TestServiceImpl(TestRepository testRepository, UtilisateurRepository utilisateurRepository, QcmRepository qcmRepository, ReponseRepository reponseRepository){
         this.testRepository = testRepository;
         this.utilisateurRepository = utilisateurRepository;
         this.qcmRepository = qcmRepository;
+        this.reponseRepository = reponseRepository;
     }
 
     @Override
@@ -44,39 +43,95 @@ public class TestServiceImpl implements TestService {
     }
 
     @Override
-    public Test createTest(Qcm qcm, UUID utilisateurId) {
+    public Test createTest(Test test, UUID utilisateurId) {
 
-        Optional<Qcm> qcmTest = qcmRepository.findById(qcm.getId());
+        Optional<Qcm> qcmTest = qcmRepository.findById(test.getQcm().getId());
         if(qcmTest.isEmpty()){
             return null; //return une erreur
         }
 
-        Test test = new Test();
-        //test.setQuestions(qcmTest.get().getQuestions()); //TODO : Recréer les questions et les supprimer lors du submit ? (même si mauvaise idée, trop de charge). Y réfléchir
-        test.setTitre(qcmTest.get().getTitre());
-
-        Optional<Utilisateur> testUser = utilisateurRepository.findById(utilisateurId);
-        if(testUser.isEmpty()){
-            return null; //return une erreur
-        } else if (test.getUtilisateur() == null){
-            test.setUtilisateur(null);
+        if(test.getTitre() == null){
+            test.setTitre(qcmTest.get().getTitre());
         }
-        test.setUtilisateur(testUser.get());
+
+        if(test.getUtilisateur() != null){
+            Optional<Utilisateur> testUser = utilisateurRepository.findById(utilisateurId);
+            if(testUser.isEmpty()){
+                return null; //return une erreur
+            } else if (test.getUtilisateur() == null){
+                test.setUtilisateur(null);
+            }
+            test.setUtilisateur(testUser.get());
+        }
 
         return testRepository.saveAndFlush(test);
-        //TODO : tester cette méthode et mettre en place le calcul du score. Implémenter dates ?
+        //TODO : Implémenter dates ?
     }
 
 
     @Override
     public Test updateTest(Test test) {
-        return null; //TODO
+
+        Optional<Test> updatedTest = testRepository.findById(test.getId());
+        if(updatedTest.isEmpty()){
+            return null; //return une erreur
+        }
+
+        if(test.getTitre() == null){
+            return null; //return une erreur
+        }
+
+        if(test.getUtilisateur() != null){
+            Optional<Utilisateur> testUser = utilisateurRepository.findById(test.getUtilisateur().getId());
+            if(testUser.isEmpty()){
+                return null; //return une erreur
+            } else if (test.getUtilisateur() == null){
+                test.setUtilisateur(null);
+            }
+            test.setUtilisateur(testUser.get());
+        }
+
+        return testRepository.saveAndFlush(test);
     }
 
 
     @Override
     public Test submitTest(Test test) {
-        return null;
+
+        Double scoreTemp = test.getUtilisateur().getGlobalScore();
+        Double testTemp = 0.0;
+
+        Optional<Test> currentTest = testRepository.findById(test.getId());
+        if(currentTest.isEmpty()){
+            return null; //return une erreur
+        }
+
+        Optional<Qcm> qcmTest = qcmRepository.findById(currentTest.get().getQcm().getId());
+        if(qcmTest.isEmpty()){
+            return null; //return une erreur
+        }
+
+        Optional<Utilisateur> utilisateurTest = utilisateurRepository.findById(currentTest.get().getUtilisateur().getId());
+        if(utilisateurTest.isEmpty()){
+            return null; //return une erreur
+        }
+
+        for(Reponse reponse : test.getReponses()){
+            Optional<Reponse> reponseTest = reponseRepository.findById(reponse.getId());
+            if(reponseTest.isEmpty()){
+                return null; //return une erreur
+            }
+            boolean isGoodAnswer = reponseTest.get().isCorrectAnswer();
+            if(isGoodAnswer){
+                testTemp += reponseTest.get().getPoints();
+                scoreTemp += reponseTest.get().getPoints();
+            }
+        }
+
+        test.setScore(testTemp);
+        utilisateurTest.get().setGlobalScore(scoreTemp);
+        return testRepository.saveAndFlush(test);
+
     }
 
 

@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 import java.util.UUID;
 
 @Service
@@ -22,12 +21,14 @@ public class QuestionServiceImpl implements QuestionService {
     private QuestionRepository questionRepository;
     private QcmRepository qcmRepository;
     private ReponseRepository reponseRepository;
+    private ReponseService reponseService;
 
     @Autowired
-    QuestionServiceImpl(QuestionRepository questionRepository, QcmRepository qcmRepository, ReponseRepository reponseRepository){
+    QuestionServiceImpl(QuestionRepository questionRepository, QcmRepository qcmRepository, ReponseRepository reponseRepository, ReponseService reponseService){
         this.questionRepository = questionRepository;
         this.qcmRepository = qcmRepository;
         this.reponseRepository = reponseRepository;
+        this.reponseService = reponseService;
     }
 
     @Override
@@ -62,16 +63,14 @@ public class QuestionServiceImpl implements QuestionService {
         }
 
         if(question.getReponses() != null){
-            if(question.getReponses().size() <= 1){
+            if(question.getReponses().size() < 2){
                 return null; //return qu'il faut au minimum 2 réponses. //TODO : tester
             }
             for(Reponse reponse : question.getReponses()){
-                Optional<Reponse> reponseQuestion = reponseRepository.findById(reponse.getId());
-                if(reponseQuestion.isEmpty()){
-                    return null; //return erreur
-                }
-                reponseQuestion.get().setQuestion(question);
+                reponseService.createReponse(reponse);
             }
+        } else {
+            return null; //return une erreur
         }
 
         return questionRepository.saveAndFlush(question);
@@ -98,16 +97,19 @@ public class QuestionServiceImpl implements QuestionService {
         }
 
         if(question.getReponses() != null){
-            if(question.getReponses().size() <= 1){
+            if(question.getReponses().size() < 2){
                 return null; //return qu'il faut au minimum 2 réponses. //TODO : tester/modifier, pas correct
             }
             for(Reponse reponse : question.getReponses()){
-                Optional<Reponse> reponseQuestion = reponseRepository.findById(reponse.getId());
-                if(reponseQuestion.isEmpty()){
-                    return null; //return erreur
+                Optional<Reponse> currentReponse = reponseRepository.findById(reponse.getId());
+                if(currentReponse.isEmpty()){
+                    reponseService.createReponse(reponse);
+                } else if(currentReponse.isPresent()){
+                    reponseService.updateReponse(reponse);
                 }
-                reponseQuestion.get().setQuestion(question);
             }
+        } else {
+            return null;  //return erreur
         }
 
         return questionRepository.saveAndFlush(question);

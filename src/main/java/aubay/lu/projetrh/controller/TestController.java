@@ -45,14 +45,20 @@ public class TestController {
 
     @JsonView(CustomJsonView.TestView.class)
     @PostMapping("admin/test/create/{candidatId}")
-    public Test createTest(@RequestBody Qcm qcm, @PathVariable UUID candidatId){
-        return testService.createTest(qcm, candidatId);
+    public Test createTest(@RequestBody Test test, @PathVariable UUID candidatId){
+        return testService.createTest(test, candidatId);
     }
 
     @JsonView(CustomJsonView.TestView.class)
     @PutMapping("admin/test/update")
     public Test updateTest(@RequestBody Test test){
         return testService.updateTest(test);
+    }
+
+    @JsonView(CustomJsonView.TestView.class)
+    @PutMapping("test/submit")
+    public Test submitTest(@RequestBody Test test){
+        return testService.submitTest(test);
     }
 
     @JsonView(CustomJsonView.TestView.class)

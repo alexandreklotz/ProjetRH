@@ -43,13 +43,7 @@ public class ReponseServiceImpl implements ReponseService {
     @Override
     public Reponse createReponse(Reponse reponse) {
 
-        Optional<Question> question = questionRepository.findById(reponse.getQuestion().getId());
-
-        if(question.isEmpty()){
-            return null; //return une erreur
-        }
-
-        if(reponse.getQuestion() == null){
+        /*if(reponse.getQuestion() == null){
             return null; //return une erreur
         } else if (reponse.getQuestion() != null){
             Optional<Question> repQuestion = questionRepository.findById(reponse.getQuestion().getId());
@@ -57,7 +51,7 @@ public class ReponseServiceImpl implements ReponseService {
                 return null; //return erreur
             }
             reponse.setQuestion(repQuestion.get());
-        }
+        }*/
 
         reponse.setSelectedAnswer(false);
 

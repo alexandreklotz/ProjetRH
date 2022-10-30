@@ -6,6 +6,7 @@ import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -49,6 +50,15 @@ public class Reponse {
     @ManyToOne
     @JoinColumn(name="question_id", nullable = false)
     private Question question;
+
+    @JsonView(CustomJsonView.ReponseView.class)
+    @ManyToMany
+    @JoinTable(
+            name = "reponse_test",
+            joinColumns = @JoinColumn(name = "reponse_id"),
+            inverseJoinColumns = @JoinColumn(name = "test_id")
+    )
+    private Set<Test> tests;
 
 
     // GETTERS AND SETTERS //
@@ -98,5 +108,13 @@ public class Reponse {
 
     public void setQuestion(Question question) {
         this.question = question;
+    }
+
+    public Set<Test> getTests() {
+        return tests;
+    }
+
+    public void setTests(Set<Test> tests) {
+        this.tests = tests;
     }
 }

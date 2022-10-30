@@ -1,4 +1,25 @@
-###27/10/2022
+### 30/10/2022
+
+__Modifications apportées au code : __
+- Création d'un OneToMany de `Qcm` vers `Test`. Un Qcm peut être à l'origine de plusieurs tests mais un test ne peut pointer que vers un seul qcm.
+- Suppresion de l'héritage de `Qcm` vers `Test`, plus nécessaire car le Qcm contient l'id d'un Qcm qu'on va utiliser pour récupérer les questions/réponses.
+- Création d'une variable de type String appelée __titre__ dans `Test`.
+- Création d'un __@ManyToMany__ de `Réponse` vers `Test`. Cette relation nous permettra de stocker les réponses renvoyées par l'utilisateur dans le test.
+- Implémentation de la méthode `updateTest` dans `TestServiceImpl`.
+- Création de la méthode `submitTest` dans `TestService` et `TestServiceImpl`
+- Ajout d'un __@PutMapping__ dans `TestController` pour que le candidat puisse soumettre son test.
+- Désactivation du __@PostMapping__ (createReponse) dans `ReponseController` pour créer une question => La création d'une réponse se fera automatiquement lors de la création/mise à jour de la question. Si il y'a moins de deux réponses, vous ne pourrez pas créer/update la question/les réponses.
+
+La majorité des modifications effectuées ont été effectuées dans le cadre de l'implémentation de la méthode __submitTest__. La création d'un Test était OK cependant
+la conception de la classe `Test` ne permettait pas de mettre en place un check des réponses sélectionnées.
+
+Je compte modifier le type des return de méthodes, je vais les modifier pour renvoyer des ReponseEntity ce qui me permettra de récupérer le contenu de ces retours
+dans le front et de renvoyer un statut HTTP. Je pense mettre en place un logging aussi.
+
+*La création des réponses ne fonctionne plus pour l'instant à cause de la condition sur le nombre de réponses. Des modifications doivent être apportées dans la logiques du service `ReponseService`*
+
+---
+### 27/10/2022
 
 *Commit/push avec 3 jours de retard*
 
