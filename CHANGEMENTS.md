@@ -1,6 +1,6 @@
 ### 30/10/2022
 
-__Modifications apportées au code : __
+__Modifications apportées au code :__
 - Création d'un OneToMany de `Qcm` vers `Test`. Un Qcm peut être à l'origine de plusieurs tests mais un test ne peut pointer que vers un seul qcm.
 - Suppresion de l'héritage de `Qcm` vers `Test`, plus nécessaire car le Qcm contient l'id d'un Qcm qu'on va utiliser pour récupérer les questions/réponses.
 - Création d'une variable de type String appelée __titre__ dans `Test`.
