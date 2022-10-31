@@ -49,6 +49,10 @@ public class QuestionServiceImpl implements QuestionService {
     @Override
     public Question createQuestion(Question question) {
 
+        if(question.getTexte() == null){
+            return null; //return une erreur
+        }
+
         if(question.getQcm() != null){
             Optional<Qcm> qcm = qcmRepository.findById(question.getQcm().getId());
             if(qcm.isEmpty()){
@@ -57,23 +61,20 @@ public class QuestionServiceImpl implements QuestionService {
             question.setQcm(qcm.get());
         }
 
-
-        if(question.getTexte() == null){
-            return null; //return une erreur
-        }
+        questionRepository.saveAndFlush(question);
 
         if(question.getReponses() != null){
             if(question.getReponses().size() < 2){
-                return null; //return qu'il faut au minimum 2 réponses. //TODO : tester
+                return null; //return qu'il faut au minimum 2 réponses. //TODO : return erreur
             }
             for(Reponse reponse : question.getReponses()){
-                reponseService.createReponse(reponse);
+                reponseService.createReponse(question.getId(), reponse);
             }
         } else {
             return null; //return une erreur
         }
 
-        return questionRepository.saveAndFlush(question);
+        return question;
     }
 
 
@@ -84,26 +85,18 @@ public class QuestionServiceImpl implements QuestionService {
             return null; //return une erreur
         }
 
-        if(question.getQcm() != null){
-            Optional<Qcm> qcm = qcmRepository.findById(question.getQcm().getId());
-            if(qcm.isEmpty()){
-                return null; //return une erreur
-            }
-            question.setQcm(qcm.get());
-        }
-
         if(question.getTexte() == null){
             question.setTexte(questionToUpdate.get().getTexte());
         }
 
         if(question.getReponses() != null){
             if(question.getReponses().size() < 2){
-                return null; //return qu'il faut au minimum 2 réponses. //TODO : tester/modifier, pas correct
+                return null; //return qu'il faut au minimum 2 réponses. //TODO : return erreur
             }
             for(Reponse reponse : question.getReponses()){
                 Optional<Reponse> currentReponse = reponseRepository.findById(reponse.getId());
                 if(currentReponse.isEmpty()){
-                    reponseService.createReponse(reponse);
+                    reponseService.createReponse(questionToUpdate.get().getId(), reponse);
                 } else if(currentReponse.isPresent()){
                     reponseService.updateReponse(reponse);
                 }
@@ -112,12 +105,32 @@ public class QuestionServiceImpl implements QuestionService {
             return null;  //return erreur
         }
 
+        if(question.getQcm() != null){
+            Optional<Qcm> qcm = qcmRepository.findById(question.getQcm().getId());
+            if(qcm.isEmpty()){
+                return null; //return une erreur
+            }
+            question.setQcm(qcm.get());
+        }
+
         return questionRepository.saveAndFlush(question);
     }
 
     @Override
     public String deleteQuestion(UUID questionId) {
+        Optional<Question> questionToDelete = questionRepository.findById(questionId);
+        if(questionToDelete.isEmpty()){
+            return null; //question déja supprimée ou autre
+        }
+        for(Reponse reponse : questionToDelete.get().getReponses()){
+            Optional<Reponse> repToDelete = reponseRepository.findById(reponse.getId());
+            if(repToDelete.isEmpty()){
+                return null; //reponse déja supprimée ou autre
+            }
+            reponseService.deleteReponse(repToDelete.get().getId());
+        }
+
         questionRepository.deleteById(questionId);
-        return "La question avec l'id " + questionId + " a été supprimée.";
+        return "La question avec l'id " + questionId + " a été supprimée ainsi que les réponses liées.";
     }
 }

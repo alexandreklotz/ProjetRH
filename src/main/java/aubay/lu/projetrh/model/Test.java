@@ -25,12 +25,12 @@ public class Test {
     @Column(columnDefinition = "BINARY(16)")
     private UUID id;
 
-    @JsonView(CustomJsonView.TestView.class)
+    @JsonView({CustomJsonView.TestView.class, CustomJsonView.UtilisateurView.class})
     @Column(nullable = false)
     private String titre;
 
     @JsonView(CustomJsonView.TestView.class)
-    @Column(nullable = false)
+    @Column
     private double score;
 
 

@@ -44,9 +44,9 @@ public class TestController {
     }
 
     @JsonView(CustomJsonView.TestView.class)
-    @PostMapping("admin/test/create/{candidatId}")
-    public Test createTest(@RequestBody Test test, @PathVariable UUID candidatId){
-        return testService.createTest(test, candidatId);
+    @PostMapping("admin/test/create")
+    public Test createTest(@RequestBody Test test){
+        return testService.createTest(test);
     }
 
     @JsonView(CustomJsonView.TestView.class)

@@ -21,7 +21,7 @@ public class Qcm {
             name = "UUID",
             strategy = "org.hibernate.id.UUIDGenerator"
     )
-    @JsonView(CustomJsonView.QcmView.class)
+    @JsonView({CustomJsonView.QcmView.class, CustomJsonView.TestView.class})
     @Column(columnDefinition = "BINARY(16)")
     private UUID id;
 

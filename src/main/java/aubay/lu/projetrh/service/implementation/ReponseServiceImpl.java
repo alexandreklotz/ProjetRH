@@ -40,21 +40,14 @@ public class ReponseServiceImpl implements ReponseService {
         return reponseRepository.findReponsesByQuestion(questionId);
     }
 
+
     @Override
-    public Reponse createReponse(Reponse reponse) {
-
-        /*if(reponse.getQuestion() == null){
-            return null; //return une erreur
-        } else if (reponse.getQuestion() != null){
-            Optional<Question> repQuestion = questionRepository.findById(reponse.getQuestion().getId());
-            if(repQuestion.isEmpty()){
-                return null; //return erreur
-            }
-            reponse.setQuestion(repQuestion.get());
-        }*/
-
-        reponse.setSelectedAnswer(false);
-
+    public Reponse createReponse(UUID questionId, Reponse reponse) {
+        Optional<Question> repQuestion = questionRepository.findById(questionId);
+        if(repQuestion.isEmpty()){
+            return null;
+        }
+        reponse.setQuestion(repQuestion.get());
         return reponseRepository.saveAndFlush(reponse);
     }
 
@@ -64,17 +57,13 @@ public class ReponseServiceImpl implements ReponseService {
         if(reponseToUpdate.isEmpty()){
             return null; //Return une erreur
         }
-        if(reponse.getQuestion() == null){
-            return null; //return une erreur
-        } else if (reponse.getQuestion() != null){
-            Optional<Question> question = questionRepository.findById(reponse.getQuestion().getId());
-            if(question.isEmpty()){
-                return null; //return erreur
-            }
-            reponse.setQuestion(question.get());
-        }
+
         if(reponse.getTexte().isEmpty()){
             return null; //return erreur
+        }
+
+        if(reponse.getQuestion() == null){
+            return null; //return une erreur
         }
 
         return reponseRepository.saveAndFlush(reponse);

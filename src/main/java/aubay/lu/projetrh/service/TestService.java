@@ -2,6 +2,7 @@ package aubay.lu.projetrh.service;
 
 import aubay.lu.projetrh.model.Qcm;
 import aubay.lu.projetrh.model.Test;
+import aubay.lu.projetrh.model.Utilisateur;
 
 import java.util.List;
 import java.util.Optional;
@@ -15,7 +16,7 @@ public interface TestService {
 
     public List<Test> getTestByCandidat(UUID userId);
 
-    public Test createTest(Test test, UUID utilisateurId);
+    public Test createTest(Test test);
 
     public Test updateTest(Test test);
 

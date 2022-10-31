@@ -14,7 +14,7 @@ public interface ReponseService {
 
     public List<Reponse> getReponsesByQuestion(UUID questionId);
 
-    public Reponse createReponse(Reponse reponse);
+    public Reponse createReponse(UUID questionId, Reponse reponse);
 
     public Reponse updateReponse(Reponse reponse);
 

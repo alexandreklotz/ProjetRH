@@ -43,7 +43,7 @@ public class TestServiceImpl implements TestService {
     }
 
     @Override
-    public Test createTest(Test test, UUID utilisateurId) {
+    public Test createTest(Test test) {
 
         Optional<Qcm> qcmTest = qcmRepository.findById(test.getQcm().getId());
         if(qcmTest.isEmpty()){
@@ -55,7 +55,7 @@ public class TestServiceImpl implements TestService {
         }
 
         if(test.getUtilisateur() != null){
-            Optional<Utilisateur> testUser = utilisateurRepository.findById(utilisateurId);
+            Optional<Utilisateur> testUser = utilisateurRepository.findById(test.getUtilisateur().getId());
             if(testUser.isEmpty()){
                 return null; //return une erreur
             } else if (test.getUtilisateur() == null){
@@ -98,8 +98,7 @@ public class TestServiceImpl implements TestService {
     @Override
     public Test submitTest(Test test) {
 
-        Double scoreTemp = test.getUtilisateur().getGlobalScore();
-        Double testTemp = 0.0;
+        Double testScore = 0.0;
 
         Optional<Test> currentTest = testRepository.findById(test.getId());
         if(currentTest.isEmpty()){
@@ -123,15 +122,21 @@ public class TestServiceImpl implements TestService {
             }
             boolean isGoodAnswer = reponseTest.get().isCorrectAnswer();
             if(isGoodAnswer){
-                testTemp += reponseTest.get().getPoints();
-                scoreTemp += reponseTest.get().getPoints();
+                testScore += reponseTest.get().getPoints();
             }
+            reponseRepository.saveAndFlush(reponse);
         }
 
-        test.setScore(testTemp);
-        utilisateurTest.get().setGlobalScore(scoreTemp);
-        return testRepository.saveAndFlush(test);
+        test.setScore(testScore);
+        test.setTitre(currentTest.get().getTitre());
+        testRepository.saveAndFlush(test);
 
+        int numberOfTests = utilisateurTest.get().getTests().size();
+        Double newUserGlobalScore = (testScore + utilisateurTest.get().getGlobalScore()) / numberOfTests;
+        utilisateurTest.get().setGlobalScore(newUserGlobalScore);
+        utilisateurRepository.saveAndFlush(utilisateurTest.get());
+
+        return test;
     }
 
 

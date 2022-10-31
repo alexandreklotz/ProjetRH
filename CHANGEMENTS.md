@@ -1,6 +1,24 @@
+### 31/10/2022
+
+__Modifications apportées au code :__
+- Suppression du booléan __selectedAnswer__ dans `Reponse`. Il ne sera pas utile/utilisé.
+- Modification de la logique du code de la méthode `createQuestion` dans `QuestionServiceImpl`. La réponse qui était créée lors de la création de la question n'était liée à aucune réponse car cette opération était faite avant la finalisation de la création de la question, ce qui faisait que la réponse n'était pas assignée. L'ordre d'exécution a été modifié en accord.
+- Implémentation du calcul du score global de l'utilisateur dans la méthode `submitTest` dans `TestServiceImpl`. Des modifications ont été effectuées dans la logique de cette méthode suite à divers problèmes rencontrés.
+
+Peu de modifications listées mais maintenant toutes les méthodes sont fonctionnelles. La majorité de mes modifications ont été réalisées sur les classes/services `Test, Question, Reponse et Utilisateur`.
+La prochaine étape est la modification des retours (modifier les return String/void par des ResponseEntity) puis l'implémentation de la sécurité et par conséquent les liens des requêtes Post seront modifiés si nécessaires pour correspondre à la configuration de sécurité.
+
+Après test, tout est fonctionnel, il n'y aura que des petites retouches à faire comme par exemple lors de la soumission d'un test par un candidat, s'assurer que l'UUID d'une réponse
+n'est pas renvoyé deux fois car actuellement le code ne vérifie que si la question renvoyée est juste. Peut-être qu'il serait possible de mettre en place un check
+ou l'appli récupère les questions du qcm et vérifie que chaque réponse renvoyée correspond à une question du qcm et qu'elle est liée à la bonne. La vérification
+actuelle est très basique mais fonctionne. Après tout, le front se chargera de tout ça dans le sens ou il affichera à l'écran les questions du qcm lié au test et
+ses réponses et renverra un JSON au back contenant les réponses sélectionnées par le candidat. Le candidat lui-même ne pourra pas taper directement sur l'API pour
+truquer ses tests (cas de figure à prendre en compte ?).
+
+---
 ### 30/10/2022
 
-__Modifications apportées au code : __
+__Modifications apportées au code :__
 - Création d'un OneToMany de `Qcm` vers `Test`. Un Qcm peut être à l'origine de plusieurs tests mais un test ne peut pointer que vers un seul qcm.
 - Suppresion de l'héritage de `Qcm` vers `Test`, plus nécessaire car le Qcm contient l'id d'un Qcm qu'on va utiliser pour récupérer les questions/réponses.
 - Création d'une variable de type String appelée __titre__ dans `Test`.

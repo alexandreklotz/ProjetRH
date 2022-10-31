@@ -21,7 +21,7 @@ public class Reponse {
             name = "UUID",
             strategy = "org.hibernate.id.UUIDGenerator"
     )
-    @JsonView(CustomJsonView.ReponseView.class)
+    @JsonView({CustomJsonView.ReponseView.class, CustomJsonView.QuestionView.class})
     @Column(columnDefinition = "BINARY(16)")
     private UUID id;
 
@@ -35,10 +35,6 @@ public class Reponse {
 
     @JsonView(CustomJsonView.ReponseView.class)
     @Column(nullable = false)
-    private boolean selectedAnswer; //TODO : ce booléen sera supprimé si pas utile. Pourrait me servir à implémenter la vérification des réponses choisies par le candidat
-
-    @JsonView(CustomJsonView.ReponseView.class)
-    @Column(nullable = false)
     private Double points;
 
     // CONSTRUCTOR //
@@ -48,7 +44,7 @@ public class Reponse {
     // RELATIONS //
     @JsonView(CustomJsonView.ReponseView.class)
     @ManyToOne
-    @JoinColumn(name="question_id", nullable = false)
+    @JoinColumn(name="question_id")
     private Question question;
 
     @JsonView(CustomJsonView.ReponseView.class)
@@ -84,14 +80,6 @@ public class Reponse {
 
     public void setCorrectAnswer(boolean correctAnswer) {
         this.correctAnswer = correctAnswer;
-    }
-
-    public boolean isSelectedAnswer() {
-        return selectedAnswer;
-    }
-
-    public void setSelectedAnswer(boolean selectedAnswer) {
-        this.selectedAnswer = selectedAnswer;
     }
 
     public Double getPoints() {
