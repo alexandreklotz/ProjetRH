@@ -1,3 +1,14 @@
+### 01/11/2022 - 2
+
+__La sécurité est maintenant fonctionnelle. Pour cela, j'ai du corriger une erreur dans `UtilisateurRepository.`__
+
+__Modifications apportées au code :__
+- Modification de la Query SQL `findUserWithRoles` dans `UtilisateurRepository` -> jusqu'à présent cette query était censée récupérer l'utilisateur et les roles en fonction du login spécifié sauf qu'au lieu de récupérer le login elle récupérait le mot de passe, ce qui ne collait pas...
+- Modifications effectuées dans `SecurityUserDetails` -> Les return n'avaient pas été paramétrés correctement. OK maintenant.
+
+*Pour les autres modifications à effectuer, lire le premier paragraphe du 01/11 ci-dessous.*
+
+---
 ### 01/11/2022
 
 __Modifications apportées au code :__
