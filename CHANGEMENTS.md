@@ -1,3 +1,18 @@
+### 01/11/2022
+
+__Modifications apportées au code :__
+- Implémentation de la sécurité.
+- Mise en place du chiffrage des mots de passe lors de la création/MAJ d'un utilisateur
+
+*Le code a été push cependant il y'a un problème avec `ApplicationWebSecurityConfig`. La config ne me retrouve pas la __DataSource__ (BDD SQL) et par
+conséquent m'empêche d'effectuer toute action sur un lien ayant une gestion des accès. Tout est cependant correct, il doit y avoir une petite subtilité
+que j'ai oublié.*
+
+*Une méthode pour récupérer les tests du candidat avec une vérification de l'identité de ce dernier va être mise en place, il ne pourra récupérer que ses tests
+et passer ceux qui lui sont assignés. Il faudra aussi voir si il faut gérer le cas de figure ou un utilisateur inexistant accède au lien du test pour le passer
+et s'inscrit par la même occasion ce qui l'assignera automatiquement à ce dernier.*
+
+---
 ### 31/10/2022
 
 __Modifications apportées au code :__
@@ -6,7 +21,8 @@ __Modifications apportées au code :__
 - Implémentation du calcul du score global de l'utilisateur dans la méthode `submitTest` dans `TestServiceImpl`. Des modifications ont été effectuées dans la logique de cette méthode suite à divers problèmes rencontrés.
 
 Peu de modifications listées mais maintenant toutes les méthodes sont fonctionnelles. La majorité de mes modifications ont été réalisées sur les classes/services `Test, Question, Reponse et Utilisateur`.
-La prochaine étape est la modification des retours (modifier les return String/void par des ResponseEntity) puis l'implémentation de la sécurité et par conséquent les liens des requêtes Post seront modifiés si nécessaires pour correspondre à la configuration de sécurité.
+La prochaine étape est la modification des retours (modifier les return String/void par des ResponseEntity) puis l'implémentation de la sécurité et par conséquent
+les liens des requêtes Post seront modifiés si nécessaires pour correspondre à la configuration de sécurité.
 
 Après test, tout est fonctionnel, il n'y aura que des petites retouches à faire comme par exemple lors de la soumission d'un test par un candidat, s'assurer que l'UUID d'une réponse
 n'est pas renvoyé deux fois car actuellement le code ne vérifie que si la question renvoyée est juste. Peut-être qu'il serait possible de mettre en place un check

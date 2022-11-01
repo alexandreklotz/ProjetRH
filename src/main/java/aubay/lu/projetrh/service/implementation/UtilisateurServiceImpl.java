@@ -6,6 +6,7 @@ import aubay.lu.projetrh.repository.RolesRepository;
 import aubay.lu.projetrh.repository.UtilisateurRepository;
 import aubay.lu.projetrh.service.UtilisateurService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,12 +19,14 @@ public class UtilisateurServiceImpl implements UtilisateurService {
 
     private UtilisateurRepository utilisateurRepository;
     private RolesRepository rolesRepository;
+    private PasswordEncoder passwordEncoder;
 
 
     @Autowired
-    UtilisateurServiceImpl(UtilisateurRepository utilisateurRepository, RolesRepository rolesRepository){
+    UtilisateurServiceImpl(UtilisateurRepository utilisateurRepository, RolesRepository rolesRepository, PasswordEncoder passwordEncoder){
         this.utilisateurRepository = utilisateurRepository;
         this.rolesRepository = rolesRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
 
@@ -45,6 +48,7 @@ public class UtilisateurServiceImpl implements UtilisateurService {
     @Override
     public Utilisateur createUtilisateur(Utilisateur utilisateur) {
         //TODO : Gérer les champs non remplis comme MDP ou email etc en renvoyant des erreurs
+        utilisateur.setUserPassword(passwordEncoder.encode(utilisateur.getUserPassword()));
         return utilisateurRepository.saveAndFlush(utilisateur);
     }
 
@@ -82,7 +86,9 @@ public class UtilisateurServiceImpl implements UtilisateurService {
             utilisateur.setMailAddress(userToUpdate.get().getMailAddress());
         }
 
-        if(utilisateur.getUserPassword() == null){
+        if(utilisateur.getUserPassword() != null){
+            utilisateur.setUserPassword(passwordEncoder.encode(utilisateur.getUserPassword()));
+        } else {
             utilisateur.setUserPassword(userToUpdate.get().getUserPassword());
         }
 

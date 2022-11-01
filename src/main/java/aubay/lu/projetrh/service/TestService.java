@@ -24,6 +24,4 @@ public interface TestService {
 
     public Test submitTest(Test test);
 
-    //TODO: Implémenter une méthode "submit" pour que le candidat puisse soumettre son test une fois fini
-
 }

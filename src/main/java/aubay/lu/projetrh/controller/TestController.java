@@ -1,8 +1,6 @@
 package aubay.lu.projetrh.controller;
 
-import aubay.lu.projetrh.model.Qcm;
 import aubay.lu.projetrh.model.Test;
-import aubay.lu.projetrh.service.QcmService;
 import aubay.lu.projetrh.service.TestService;
 import aubay.lu.projetrh.view.CustomJsonView;
 import com.fasterxml.jackson.annotation.JsonView;
