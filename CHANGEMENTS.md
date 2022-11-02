@@ -1,5 +1,10 @@
 ### 02/11/2022
 
+__Création du projet Angular dans main/resources.__
+
+---
+### 02/11/2022
+
 __Modifications apportées au code :__
 - Création d'un nouveau contrôleur `UserEndPointController`. Ce contrôleur contient les liens que les utilisateurs (candidats surtout) utiliseront pour récupérer et soumettre leurs tests. Un reset de mot de passe sera aussi mis en place.
 - Création de deux nouvelles méthodes dans `TestService` et `TestServiceImpl` : __RetrieveSingleCandidatTest__ et __RetrieveAllCandidatTest__. La première implémente un contrôle du rôle de l'utilisateur et contrôle si l'utilisateur qui veut accéder à ce test en est bien le candidat assigné. Si le test n'est pas assigné, il pourra y accéder. Un admin ainsi qu'un recruteur peuvent accéder à tous les tests.
