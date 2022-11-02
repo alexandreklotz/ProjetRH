@@ -3,6 +3,7 @@ package aubay.lu.projetrh.service;
 import aubay.lu.projetrh.model.Qcm;
 import aubay.lu.projetrh.model.Test;
 import aubay.lu.projetrh.model.Utilisateur;
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 import java.util.Optional;
@@ -23,5 +24,11 @@ public interface TestService {
     public String deleteTest(UUID testId);
 
     public Test submitTest(Test test);
+
+    public Test retrieveSingleCandidatTest(String userLogin, UUID testId);
+
+    public List<Test> retriveAllCandidatTest(String userLogin);
+
+    public Test utilisateurTestSelfAssign(String userLogin, UUID testId);
 
 }

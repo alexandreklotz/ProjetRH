@@ -1,3 +1,21 @@
+### 02/11/2022
+
+__Modifications apportées au code :__
+- Création d'un nouveau contrôleur `UserEndPointController`. Ce contrôleur contient les liens que les utilisateurs (candidats surtout) utiliseront pour récupérer et soumettre leurs tests. Un reset de mot de passe sera aussi mis en place.
+- Création de deux nouvelles méthodes dans `TestService` et `TestServiceImpl` : __RetrieveSingleCandidatTest__ et __RetrieveAllCandidatTest__. La première implémente un contrôle du rôle de l'utilisateur et contrôle si l'utilisateur qui veut accéder à ce test en est bien le candidat assigné. Si le test n'est pas assigné, il pourra y accéder. Un admin ainsi qu'un recruteur peuvent accéder à tous les tests.
+- Création d'une troisième nouvelle méthode dans `TestService` et `TestServiceImpl` : __utilisateurTestSelfAssign__. Si un utilisateur se voit envoyé le lien d'un test qui n'est pas assigné à un utilisateur, il pourra se l'assigner à lui-même (ou le front pourra le faire).
+- Création d'une méthode dans `UtilisateurService` et `UtilisateurServiceImpl` : __userProfileUpdate__. Cette méthode sera réservée aux utilisateurs pour qu'ils puissent mettre à jour certains éléments de leur profil.
+- Deux nouvelles méthodes qui renvoient des booléens ont été crées dans `UtilisateurService` et `UtilisateurServiceImpl` : __isUserExisting__ et __mailAddressInUse__. Elles nous permmettent d'implémenter des check de base pour s'assurer que les éléments renseignés sont contrôlés.
+- Création d'une query SQL dans `UtilisateurRepository` : __findIfUsedMailAddress__. Query utilisée par la méthode __mailAddressInUse__ citée ci-dessus.
+
+*Je n'ai pas encore modifié le type des retours car ResponseEntity ne répond pas complètement à mon besoin,
+si je paramètre la Response pour renvoyer un objet de type Test par exemple je ne peux pas renvoyer de texte
+dans le cas d'une erreur.*
+
+*Pour moi le back est à 90% fini, le reste n'est que du peaufinage et éventuellement des petits checks à rajouter
+ou autres fonctionnalités légères notamment pour les utilisateurs.*
+
+---
 ### 01/11/2022 - 2
 
 __La sécurité est maintenant fonctionnelle. Pour cela, j'ai du corriger une erreur dans `UtilisateurRepository.`__

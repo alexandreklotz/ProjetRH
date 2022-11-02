@@ -5,8 +5,10 @@ import aubay.lu.projetrh.service.TestService;
 import aubay.lu.projetrh.view.CustomJsonView;
 import com.fasterxml.jackson.annotation.JsonView;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -53,16 +55,11 @@ public class TestController {
         return testService.updateTest(test);
     }
 
-    @JsonView(CustomJsonView.TestView.class)
-    @PutMapping("test/submit")
-    public Test submitTest(@RequestBody Test test){
-        return testService.submitTest(test);
-    }
 
     @JsonView(CustomJsonView.TestView.class)
     @DeleteMapping("admin/test/delete/{testId}")
-    public String deleteTest(@PathVariable UUID testId){
-        return testService.deleteTest(testId);
+    public void deleteTest(@PathVariable UUID testId){
+        testService.deleteTest(testId);
     }
 
 }

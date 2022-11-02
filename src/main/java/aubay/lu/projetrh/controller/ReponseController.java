@@ -5,6 +5,7 @@ import aubay.lu.projetrh.service.ReponseService;
 import aubay.lu.projetrh.view.CustomJsonView;
 import com.fasterxml.jackson.annotation.JsonView;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -46,15 +47,15 @@ public class ReponseController {
         return reponseService.createReponse(reponse);
     }*/
 
-    @JsonView(CustomJsonView.ReponseView.class)
+    /*@JsonView(CustomJsonView.ReponseView.class)
     @PutMapping("admin/reponse/update")
     public Reponse updateReponse(@RequestBody Reponse reponse){
         return reponseService.updateReponse(reponse);
-    }
+    }*/
 
-    @JsonView(CustomJsonView.ReponseView.class)
+    /*@JsonView(CustomJsonView.ReponseView.class)
     @DeleteMapping("admin/reponse/delete/{reponseId}")
     public String deleteReponse(@PathVariable UUID reponseId){
         return reponseService.deleteReponse(reponseId);
-    }
+    }*/
 }

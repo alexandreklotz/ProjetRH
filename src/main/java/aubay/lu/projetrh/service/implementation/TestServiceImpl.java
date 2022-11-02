@@ -7,6 +7,7 @@ import aubay.lu.projetrh.repository.TestRepository;
 import aubay.lu.projetrh.repository.UtilisateurRepository;
 import aubay.lu.projetrh.service.TestService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -47,7 +48,7 @@ public class TestServiceImpl implements TestService {
 
         Optional<Qcm> qcmTest = qcmRepository.findById(test.getQcm().getId());
         if(qcmTest.isEmpty()){
-            return null; //return une erreur
+            return null;
         }
 
         if(test.getTitre() == null){
@@ -57,7 +58,7 @@ public class TestServiceImpl implements TestService {
         if(test.getUtilisateur() != null){
             Optional<Utilisateur> testUser = utilisateurRepository.findById(test.getUtilisateur().getId());
             if(testUser.isEmpty()){
-                return null; //return une erreur
+                return null;
             } else if (test.getUtilisateur() == null){
                 test.setUtilisateur(null);
             }
@@ -68,23 +69,22 @@ public class TestServiceImpl implements TestService {
         //TODO : Implémenter dates ?
     }
 
-
     @Override
     public Test updateTest(Test test) {
 
         Optional<Test> updatedTest = testRepository.findById(test.getId());
         if(updatedTest.isEmpty()){
-            return null; //return une erreur
+            return null;
         }
 
         if(test.getTitre() == null){
-            return null; //return une erreur
+            return null;
         }
 
         if(test.getUtilisateur() != null){
             Optional<Utilisateur> testUser = utilisateurRepository.findById(test.getUtilisateur().getId());
             if(testUser.isEmpty()){
-                return null; //return une erreur
+                return null;
             } else if (test.getUtilisateur() == null){
                 test.setUtilisateur(null);
             }
@@ -94,7 +94,6 @@ public class TestServiceImpl implements TestService {
         return testRepository.saveAndFlush(test);
     }
 
-
     @Override
     public Test submitTest(Test test) {
 
@@ -102,23 +101,23 @@ public class TestServiceImpl implements TestService {
 
         Optional<Test> currentTest = testRepository.findById(test.getId());
         if(currentTest.isEmpty()){
-            return null; //return une erreur
+            return null;
         }
 
         Optional<Qcm> qcmTest = qcmRepository.findById(currentTest.get().getQcm().getId());
         if(qcmTest.isEmpty()){
-            return null; //return une erreur
+            return null;
         }
 
         Optional<Utilisateur> utilisateurTest = utilisateurRepository.findById(currentTest.get().getUtilisateur().getId());
         if(utilisateurTest.isEmpty()){
-            return null; //return une erreur
+            return null;
         }
 
         for(Reponse reponse : test.getReponses()){
             Optional<Reponse> reponseTest = reponseRepository.findById(reponse.getId());
             if(reponseTest.isEmpty()){
-                return null; //return une erreur
+                return null;
             }
             boolean isGoodAnswer = reponseTest.get().isCorrectAnswer();
             if(isGoodAnswer){
@@ -139,10 +138,64 @@ public class TestServiceImpl implements TestService {
         return test;
     }
 
+    @Override
+    public Test retrieveSingleCandidatTest(String userLogin, UUID testId) {
+
+        Optional<Utilisateur> loggedUser = utilisateurRepository.findUserWithLogin(userLogin);
+        if(loggedUser.isEmpty()){
+            return null;
+        }
+
+        Optional<Test> retrievedTest = testRepository.findById(testId);
+        if(retrievedTest.isEmpty()){
+            return null;
+        }
+
+        Utilisateur testAssignedUser = retrievedTest.get().getUtilisateur();
+
+        if(!testAssignedUser.equals(loggedUser)){
+            return null;
+        }
+
+        return retrievedTest.get();
+
+    }
+
+    @Override
+    public List<Test> retriveAllCandidatTest(String userLogin) {
+
+        Optional<Utilisateur> loggedUser = utilisateurRepository.findUserWithLogin(userLogin);
+        if(loggedUser.isEmpty()){
+            return null;
+        }
+
+        return testRepository.findTestByCandidat(loggedUser.get().getId());
+    }
+
+    @Override
+    public Test utilisateurTestSelfAssign(String userLogin, UUID testId) {
+        //TODO : tester si ok
+        Optional<Utilisateur> loggedUser = utilisateurRepository.findUserWithLogin(userLogin);
+        if(loggedUser.isEmpty()){
+            return null;
+        }
+
+        Optional<Test> currentTest = testRepository.findById(testId);
+        if(currentTest.isEmpty()){
+            return null;
+        }
+
+        if(currentTest.get().getUtilisateur() != null){
+            return null;
+        }
+
+        currentTest.get().setUtilisateur(loggedUser.get());
+        return testRepository.saveAndFlush(currentTest.get());
+    }
 
     @Override
     public String deleteTest(UUID testId) {
         testRepository.deleteById(testId);
-        return "Le test " + testId + " a été supprimé.";
+        return "Le test avec l'id " + testId + " a été supprimé";
     }
 }

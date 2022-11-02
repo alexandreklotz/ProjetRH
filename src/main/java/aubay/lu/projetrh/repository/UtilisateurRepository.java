@@ -18,4 +18,7 @@ public interface UtilisateurRepository extends JpaRepository<Utilisateur, UUID> 
     @Query("FROM Utilisateur u JOIN FETCH u.role WHERE u.userLogin = :userlogin")
     Optional<Utilisateur> findUserWithRoles(@Param("userlogin")String userlogin);
 
+    @Query("FROM Utilisateur u WHERE u.mailAddress = :mailAddress")
+    Optional<Utilisateur> findIfUsedMailAddress(@Param("mailAddress")String mailAddress);
+
 }

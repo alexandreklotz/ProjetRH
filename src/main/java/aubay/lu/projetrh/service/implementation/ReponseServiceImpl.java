@@ -6,6 +6,7 @@ import aubay.lu.projetrh.repository.QuestionRepository;
 import aubay.lu.projetrh.repository.ReponseRepository;
 import aubay.lu.projetrh.service.ReponseService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -55,15 +56,15 @@ public class ReponseServiceImpl implements ReponseService {
     public Reponse updateReponse(Reponse reponse) {
         Optional<Reponse> reponseToUpdate = reponseRepository.findById(reponse.getId());
         if(reponseToUpdate.isEmpty()){
-            return null; //Return une erreur
+            return null;
         }
 
         if(reponse.getTexte().isEmpty()){
-            return null; //return erreur
+            return null;
         }
 
         if(reponse.getQuestion() == null){
-            return null; //return une erreur
+            return null;
         }
 
         return reponseRepository.saveAndFlush(reponse);
@@ -72,6 +73,6 @@ public class ReponseServiceImpl implements ReponseService {
     @Override
     public String deleteReponse(UUID reponseId) {
         reponseRepository.deleteById(reponseId);
-        return "La réponse id " + reponseId + " a été supprimée.";
+        return "La réponse avec l'id " + reponseId + " a été supprimée";
     }
 }

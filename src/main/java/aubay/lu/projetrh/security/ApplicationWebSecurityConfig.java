@@ -49,7 +49,7 @@ public class ApplicationWebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable().httpBasic().and()
                 .authorizeRequests()
                 .antMatchers("/admin/**").hasAnyAuthority("RECRUTEUR","ADMIN")
-                .antMatchers("/candidat/**").hasAnyAuthority("RECRUTEUR", "CANDIDAT")
+                .antMatchers("/user/**").hasAnyAuthority("ADMIN","RECRUTEUR", "CANDIDAT")
                 .antMatchers("/login").permitAll()
                 .anyRequest().authenticated()
                 .and()
