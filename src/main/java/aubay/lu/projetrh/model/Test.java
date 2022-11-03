@@ -33,6 +33,10 @@ public class Test {
     @Column
     private double score;
 
+    @JsonView(CustomJsonView.TestView.class)
+    @Column
+    private boolean alreadySubmitted;
+
 
     // CONSTRUCTOR //
     public Test(){}
@@ -77,6 +81,14 @@ public class Test {
 
     public void setScore(double score) {
         this.score = score;
+    }
+
+    public boolean isAlreadySubmitted() {
+        return alreadySubmitted;
+    }
+
+    public void setAlreadySubmitted(boolean alreadySubmitted) {
+        this.alreadySubmitted = alreadySubmitted;
     }
 
     public Utilisateur getUtilisateur() {

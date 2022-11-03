@@ -1,3 +1,12 @@
+### 03/11/2022
+
+__Modifications apportées au code :__
+- Correction d'une erreur dans `UtilisateurServiceImpl` dans les méthodes de MAJ d'un utilisateur.
+- Ajout d'un booléen __alreadySubmitted__ dans `Test`. Le booléen est utilisé dans la méthode __submitTest__ pour s'assurer que le test en question a déja été submit, si oui alors on retourne une erreur
+
+*Très petit push aujourd'hui, d'autres modifs vont être faites ce weekend et la semaine prochaine.*
+
+---
 ### 02/11/2022
 
 __Création du projet Angular dans main/resources.__

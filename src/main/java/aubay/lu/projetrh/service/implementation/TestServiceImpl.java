@@ -96,12 +96,16 @@ public class TestServiceImpl implements TestService {
 
     @Override
     public Test submitTest(Test test) {
-
+        //TODO : mettre en place un submit unique, un test ne peut être submit qu'une fois.
         Double testScore = 0.0;
 
         Optional<Test> currentTest = testRepository.findById(test.getId());
         if(currentTest.isEmpty()){
             return null;
+        }
+
+        if(currentTest.get().isAlreadySubmitted() == true){
+            return null; //le test a déja été submit
         }
 
         Optional<Qcm> qcmTest = qcmRepository.findById(currentTest.get().getQcm().getId());
@@ -123,11 +127,14 @@ public class TestServiceImpl implements TestService {
             if(isGoodAnswer){
                 testScore += reponseTest.get().getPoints();
             }
-            reponseRepository.saveAndFlush(reponse);
+            Set<Test> repTest = reponseTest.get().getTests();
+            repTest.add(test);
+            reponseRepository.saveAndFlush(reponseTest.get());
         }
 
         test.setScore(testScore);
         test.setTitre(currentTest.get().getTitre());
+        test.setAlreadySubmitted(true);
         testRepository.saveAndFlush(test);
 
         int numberOfTests = utilisateurTest.get().getTests().size();

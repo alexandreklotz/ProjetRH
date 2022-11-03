@@ -99,7 +99,7 @@ public class UtilisateurServiceImpl implements UtilisateurService {
         }
 
         boolean mailInUse = mailAddressInUse(utilisateur.getMailAddress());
-        if(mailInUse && utilisateur.getMailAddress().equals(userToUpdate.get().getMailAddress())){
+        if(mailInUse && !utilisateur.getMailAddress().equals(userToUpdate.get().getMailAddress())){
             return null; //email déja utilisé
         } else if(utilisateur.getMailAddress() == null) {
             utilisateur.setMailAddress(userToUpdate.get().getMailAddress());
@@ -172,7 +172,7 @@ public class UtilisateurServiceImpl implements UtilisateurService {
         }
 
         boolean mailInUse = mailAddressInUse(utilisateur.getMailAddress());
-        if(mailInUse && utilisateur.getMailAddress().equals(userToUpdate.get().getMailAddress())){
+        if(mailInUse && !utilisateur.getMailAddress().equals(userToUpdate.get().getMailAddress())){
             return null; //email déja utilisé
         } else if(utilisateur.getMailAddress() == null){
             utilisateur.setMailAddress(userToUpdate.get().getMailAddress());
