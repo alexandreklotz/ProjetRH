@@ -1,3 +1,16 @@
+### 08/11/2022
+
+*Je n'ai pas commit depuis le 3 car j'ai recherché quelques trucs sur le net concernant sonarqube, le chiffrage
+des infos de la BDD et j'ai aussi pris un petit break :) Concernant SonarQube, je pense ou l'installer sur ma
+vm debian ou alors directement sur mon laptop mais une version community existe donc je pourrais m'en servir*
+
+__Modifications apportées au code :__
+- Création d'une méthode __userSelfRetrieve__ dans `UtilisateurService` qui a été implémentée dans `UtilisateurServiceImpl`. Cette méthode va permettre au front de récupérer l'utilisateur connecté et on pourra afficher ses informations comme ses tickets, nom, etc...
+- Création d'un __@GetMapping__ dans `UserEndPointController` qui pointe vers la méthode citée ci-dessus
+
+*Je me penche actuelle sur la création de components angular basiques pour commencer en parallèle des autres choses que je compte/dois faire.*
+
+---
 ### 03/11/2022
 
 __Modifications apportées au code :__

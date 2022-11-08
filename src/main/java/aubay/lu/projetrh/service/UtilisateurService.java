@@ -27,4 +27,6 @@ public interface UtilisateurService {
 
     public Utilisateur userProfileUpdate(Utilisateur utilisateur, String userlogin);
 
+    public Utilisateur userSelfRetrieve(String userlogin);
+
 }

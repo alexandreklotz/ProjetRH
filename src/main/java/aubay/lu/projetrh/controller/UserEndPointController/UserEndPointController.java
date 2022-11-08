@@ -1,6 +1,7 @@
 package aubay.lu.projetrh.controller.UserEndPointController;
 
 import aubay.lu.projetrh.model.Test;
+import aubay.lu.projetrh.model.Utilisateur;
 import aubay.lu.projetrh.service.TestService;
 import aubay.lu.projetrh.service.UtilisateurService;
 import aubay.lu.projetrh.view.CustomJsonView;
@@ -27,6 +28,14 @@ public class UserEndPointController {
     UserEndPointController(TestService testService, UtilisateurService utilisateurService){
         this.testService = testService;
         this.utilisateurService = utilisateurService;
+    }
+
+    @JsonView(CustomJsonView.UtilisateurView.class)
+    @GetMapping("user/retrieve")
+    public Utilisateur userSelfRetrieve(HttpServletRequest request){
+        Principal principal = request.getUserPrincipal();
+        String userlogin = principal.getName();
+        return utilisateurService.userSelfRetrieve(userlogin);
     }
 
     @JsonView(CustomJsonView.TestView.class)
