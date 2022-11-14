@@ -1,3 +1,18 @@
+### 14/11/2022
+
+*Création des models pour chaque entité. Vérifier les attributs de chaque objet surtout les attributs faisant références à une autre entité pour assurer les relations
+entre eux.*
+
+__Sinon, concernant SonarQube, je l'ai téléchargé et je peux le lancer sur ma VM Debian. Il se lance, je peux m'y connecter cependant il faut que j'arrive à paramétrer
+la connexion à la BDD de mon laptop. Cela est simple cependant il faut que je voie comment je peux modifier le fichier de config et si je dois installer des driver/
+dépendances sur ma VM (il faut que je dégage windows de mon laptop et que je me mette sous linux, ça ne m'apportera que des bénéfices :)__
+
+---
+### 13/11/2022
+
+*Je commence à "bidouiller" angular, j'ai créé un component : homepage. Il servira à afficher une page d'accueil.*
+
+---
 ### 08/11/2022
 
 *Je n'ai pas commit depuis le 3 car j'ai recherché quelques trucs sur le net concernant sonarqube, le chiffrage
