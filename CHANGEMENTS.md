@@ -1,4 +1,21 @@
+### 15/11/2022
+
+*BACKEND*
+
+__Modifications apportées au code :__
+- Ajout des dépendances pour ajouter Slf4j au projet pour le logging
+- Implémentation du logging dans les classes `ServiceImpl`. *__A TESTER__*
+- Concernant le logging, il y'a une erreur de Bean. Je suis actuellement en train de la troubleshoot.
+- Petite modification de code dans `QuestionServiceImpl`.
+
+*J'ai un souci de bean pour le Logging. Je vais installer la dernière version d'IDEA comme il refuse de se mettre
+à jour sur mon laptop. J'ai aussi bidouillé un peu le front mais pas suffisant. Je me perds un peu dans angular et je
+pense que ça va me prendre un peu de temps.*
+
+---
 ### 14/11/2022
+
+*FRONTEND*
 
 *Création des models pour chaque entité. Vérifier les attributs de chaque objet surtout les attributs faisant références à une autre entité pour assurer les relations
 entre eux.*
@@ -9,6 +26,8 @@ dépendances sur ma VM (il faut que je dégage windows de mon laptop et que je m
 
 ---
 ### 13/11/2022
+
+*FRONTEND*
 
 *Je commence à "bidouiller" angular, j'ai créé un component : homepage. Il servira à afficher une page d'accueil.*
 

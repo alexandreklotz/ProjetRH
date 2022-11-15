@@ -5,7 +5,9 @@ import aubay.lu.projetrh.model.Utilisateur;
 import aubay.lu.projetrh.repository.RolesRepository;
 import aubay.lu.projetrh.repository.UtilisateurRepository;
 import aubay.lu.projetrh.service.UtilisateurService;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -22,13 +24,15 @@ public class UtilisateurServiceImpl implements UtilisateurService {
     private UtilisateurRepository utilisateurRepository;
     private RolesRepository rolesRepository;
     private PasswordEncoder passwordEncoder;
+    private Logger log;
 
 
     @Autowired
-    UtilisateurServiceImpl(UtilisateurRepository utilisateurRepository, RolesRepository rolesRepository, PasswordEncoder passwordEncoder){
+    UtilisateurServiceImpl(UtilisateurRepository utilisateurRepository, RolesRepository rolesRepository, PasswordEncoder passwordEncoder, Logger log){
         this.utilisateurRepository = utilisateurRepository;
         this.rolesRepository = rolesRepository;
         this.passwordEncoder = passwordEncoder;
+        this.log = log;
     }
 
 
@@ -73,15 +77,18 @@ public class UtilisateurServiceImpl implements UtilisateurService {
 
         boolean isExistingUser = isUserExisting(utilisateur.getUserLogin());
         if(isExistingUser){
+            log.error("Erreur lors de la création de {}. Ce login est déja assigné à un utilisateur existant.", utilisateur.getUserLogin());
             return null; //pseudo déja pris
         }
 
         boolean mailInUse = mailAddressInUse(utilisateur.getMailAddress());
         if(mailInUse){
+            log.error("Erreur lors de la création de l'utilisateur {}. L'adresse mail {} est déja utilisée.", utilisateur.getUserLogin(), utilisateur.getMailAddress());
             return null; //email déja utilisé
         }
 
         utilisateur.setUserPassword(passwordEncoder.encode(utilisateur.getUserPassword()));
+        log.info("L'utilisateur {} a été créé.", utilisateur.getUserLogin());
         return utilisateurRepository.saveAndFlush(utilisateur);
     }
 
@@ -89,11 +96,13 @@ public class UtilisateurServiceImpl implements UtilisateurService {
     public Utilisateur updateUtilisateur(Utilisateur utilisateur) {
         Optional<Utilisateur> userToUpdate = utilisateurRepository.findById(utilisateur.getId());
         if(userToUpdate.isEmpty()){
+            log.error("L'utilisateur avec le login {} n'existe pas. Impossible de le modifier.", utilisateur.getUserLogin());
             return null;
         }
 
         boolean isAlreadyExisting = isUserExisting(utilisateur.getUserLogin());
         if(isAlreadyExisting && !utilisateur.getUserLogin().equals(userToUpdate.get().getUserLogin())){
+            log.error("Impossible d'assigner le login {} à l'utilisateur {}, il est déja utilisé.", utilisateur.getUserLogin(), userToUpdate.get().getUserLogin());
             return null; //cela veut dire que le login renseigné par l'utilisateur lors de la maj de son profil est déja pris
         } else if(utilisateur.getUserLogin() == null){
             utilisateur.setUserLogin(userToUpdate.get().getUserLogin());
@@ -101,14 +110,12 @@ public class UtilisateurServiceImpl implements UtilisateurService {
 
         boolean mailInUse = mailAddressInUse(utilisateur.getMailAddress());
         if(mailInUse && !utilisateur.getMailAddress().equals(userToUpdate.get().getMailAddress())){
+            log.error("Erreur lors de la création de l'utilisateur {}. L'adresse mail {} est déja utilisée.", utilisateur.getUserLogin(), utilisateur.getMailAddress());
             return null; //email déja utilisé
         } else if(utilisateur.getMailAddress() == null) {
             utilisateur.setMailAddress(userToUpdate.get().getMailAddress());
         }
 
-        if(utilisateur.getUserLogin() == null){
-            utilisateur.setUserLogin(userToUpdate.get().getUserLogin());
-        }
 
         if(utilisateur.getFirstName() == null){
             utilisateur.setFirstName(userToUpdate.get().getFirstName());
@@ -123,25 +130,30 @@ public class UtilisateurServiceImpl implements UtilisateurService {
         } else {
             Optional<Roles> role = rolesRepository.findById(utilisateur.getRole().getId());
             if(role.isEmpty()){
+                log.error("Impossible d'assigner le rôle avec l'ID {} à l'utilisateur {}. Ce rôle n'existe pas.", utilisateur.getRole().getId(), utilisateur.getUserLogin());
                 return null;
             }
             utilisateur.setRole(role.get());
             rolesRepository.saveAndFlush(role.get());
+            log.info("Le rôle {} a été assigné à l'utilisateur {}.", role.get().getDenomination(), utilisateur.getUserLogin());
         }
 
 
         if(utilisateur.getUserPassword() != null){
+            log.info("Le mot de passe de l'utilisateur {} a été modifié.", utilisateur.getUserLogin());
             utilisateur.setUserPassword(passwordEncoder.encode(utilisateur.getUserPassword()));
         } else {
             utilisateur.setUserPassword(userToUpdate.get().getUserPassword());
         }
 
+        log.info("L'utilisateur {} a été mis à jour.", utilisateur.getUserLogin());
         return utilisateurRepository.saveAndFlush(utilisateur);
     }
 
     @Override
     public String deleteUtilisateur(UUID userid) {
         utilisateurRepository.deleteById(userid);
+        log.info("L'utilisateur avec l'id {} a été supprimé.", userid);
         return "L'utilisateur avec l'id " + userid + " a été supprimé.";
     }
 
@@ -150,23 +162,27 @@ public class UtilisateurServiceImpl implements UtilisateurService {
 
         Optional<Utilisateur> userToUpdate = utilisateurRepository.findUserWithLogin(userlogin);
         if(userToUpdate.isEmpty()){
+            log.error("L'utilisateur {} a tenté de modifier son profil alors qu'il semble ne pas exister.", userlogin);
             return null; //return erreur
         }
 
         boolean isAlreadyExisting = isUserExisting(utilisateur.getUserLogin());
         if(isAlreadyExisting && !utilisateur.getUserLogin().equals(userToUpdate.get().getUserLogin())){
+            log.error("Impossible d'assigner le login {} à l'utilisateur {}, il est déja utilisé.", utilisateur.getUserLogin(), userToUpdate.get().getUserLogin());
             return null; //cela veut dire que le login renseigné par l'utilisateur lors de la maj de son profil est déja pris
         } else if(utilisateur.getUserLogin() == null){
             utilisateur.setUserLogin(userToUpdate.get().getUserLogin());
         }
 
         if(utilisateur.getRole() != null){
+            log.warn("L'utilisateur {} a tenté de modifier son rôle. Vérifier s'il s'agit d'une manipulation intentionnelle ou non.", utilisateur.getUserLogin());
             return null; //le candidat ne peut évidemment pas modifier son propre rôle
         } else {
             utilisateur.setRole(userToUpdate.get().getRole());
         }
 
         if(utilisateur.getUserPassword() != null){
+            log.info("L'utilisateur {} a changé son mot de passe.", utilisateur.getUserLogin());
             utilisateur.setUserPassword(passwordEncoder.encode(utilisateur.getUserPassword()));
         } else if(utilisateur.getUserPassword() == null){
             utilisateur.setUserPassword(userToUpdate.get().getUserPassword());
@@ -174,6 +190,7 @@ public class UtilisateurServiceImpl implements UtilisateurService {
 
         boolean mailInUse = mailAddressInUse(utilisateur.getMailAddress());
         if(mailInUse && !utilisateur.getMailAddress().equals(userToUpdate.get().getMailAddress())){
+            log.error("Erreur lors de la création de l'utilisateur {}. L'adresse mail {} est déja utilisée.", utilisateur.getUserLogin(), utilisateur.getMailAddress());
             return null; //email déja utilisé
         } else if(utilisateur.getMailAddress() == null){
             utilisateur.setMailAddress(userToUpdate.get().getMailAddress());
@@ -187,6 +204,7 @@ public class UtilisateurServiceImpl implements UtilisateurService {
             utilisateur.setLastName(userToUpdate.get().getLastName());
         }
 
+        log.info("L'utilisateur {} a modifié son profil.", utilisateur.getUserLogin());
         return utilisateurRepository.saveAndFlush(utilisateur);
 
     }
@@ -195,6 +213,7 @@ public class UtilisateurServiceImpl implements UtilisateurService {
     public Utilisateur userSelfRetrieve(String userlogin) {
         Optional<Utilisateur> retrievedUser = utilisateurRepository.findUserWithLogin(userlogin);
         if(retrievedUser.isEmpty()){
+            log.error("Impossible pour l'utilisateur {} de récupérer son profil.", userlogin);
             return null; //return erreur
         }
         return retrievedUser.get();
