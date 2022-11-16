@@ -6,6 +6,7 @@ import aubay.lu.projetrh.repository.QcmRepository;
 import aubay.lu.projetrh.repository.QuestionRepository;
 import aubay.lu.projetrh.service.QcmService;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,13 +19,12 @@ public class QcmServiceImpl implements QcmService {
 
     private QcmRepository qcmRepository;
     private QuestionRepository questionRepository;
-    private Logger log;
+    private static Logger log = LoggerFactory.getLogger(QcmServiceImpl.class);
 
     @Autowired
-    QcmServiceImpl(QcmRepository qcmRepository, QuestionRepository questionRepository, Logger log){
+    QcmServiceImpl(QcmRepository qcmRepository, QuestionRepository questionRepository){
         this.qcmRepository = qcmRepository;
         this.questionRepository = questionRepository;
-        this.log = log;
     }
 
     @Override
@@ -44,7 +44,7 @@ public class QcmServiceImpl implements QcmService {
 
     @Override
     public Qcm createQcm(Qcm qcm) {
-        log.info("Début de la création du qcm {}", qcm.getId());
+        log.info("Début de la création du qcm {}", qcm.getTitre());
         if(qcm.getQuestions() != null){
             log.info("Des questions sont renseignées dans le formulaire, création des questions inexistantes.");
             for(Question question : qcm.getQuestions()){
@@ -53,16 +53,16 @@ public class QcmServiceImpl implements QcmService {
                     log.error("La question {} n'existe pas.", question.getId());
                     return null; //return erreur
                 }
-                log.info("Question {} assignée au qcm {}", question.getId(), qcm.getId());
+                log.info("Question {} assignée au qcm {}", question.getId(), qcm.getTitre());
                 qcmQuestion.get().setQcm(qcm);
                 //Cette manière de vérifier si les questions assignées au qcm existent peut être lente.
             }
         } else if(qcm.getQuestions() == null){
-            log.info("Aucune question renseignée dans le formulaire du qcm {}.", qcm.getId());
+            log.info("Aucune question renseignée dans le formulaire du qcm {}.", qcm.getTitre());
             qcm.setQuestions(null);
         }
 
-        log.info("Le qcm {} a été créé avec succès.", qcm.getId());
+        log.info("Le qcm {} a été créé avec succès.", qcm.getTitre());
         return qcmRepository.saveAndFlush(qcm);
     }
 

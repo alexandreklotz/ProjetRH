@@ -6,6 +6,7 @@ import aubay.lu.projetrh.repository.QuestionRepository;
 import aubay.lu.projetrh.repository.ReponseRepository;
 import aubay.lu.projetrh.service.ReponseService;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -19,13 +20,13 @@ public class ReponseServiceImpl implements ReponseService {
 
     private ReponseRepository reponseRepository;
     private QuestionRepository questionRepository;
-    private Logger log;
+    //private Logger log;
+    private static Logger log = LoggerFactory.getLogger(ReponseServiceImpl.class);
 
     @Autowired
-    ReponseServiceImpl(ReponseRepository reponseRepository, QuestionRepository questionRepository, Logger log){
+    ReponseServiceImpl(ReponseRepository reponseRepository, QuestionRepository questionRepository){
         this.reponseRepository = reponseRepository;
         this.questionRepository = questionRepository;
-        this.log = log;
     }
 
 

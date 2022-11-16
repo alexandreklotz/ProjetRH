@@ -9,6 +9,7 @@ import aubay.lu.projetrh.repository.ReponseRepository;
 import aubay.lu.projetrh.service.QuestionService;
 import aubay.lu.projetrh.service.ReponseService;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,15 +24,14 @@ public class QuestionServiceImpl implements QuestionService {
     private QcmRepository qcmRepository;
     private ReponseRepository reponseRepository;
     private ReponseService reponseService;
-    private Logger log;
+    private static Logger log = LoggerFactory.getLogger(QuestionServiceImpl.class);
 
     @Autowired
-    QuestionServiceImpl(QuestionRepository questionRepository, QcmRepository qcmRepository, ReponseRepository reponseRepository, ReponseService reponseService, Logger log){
+    QuestionServiceImpl(QuestionRepository questionRepository, QcmRepository qcmRepository, ReponseRepository reponseRepository, ReponseService reponseService){
         this.questionRepository = questionRepository;
         this.qcmRepository = qcmRepository;
         this.reponseRepository = reponseRepository;
         this.reponseService = reponseService;
-        this.log = log;
     }
 
     @Override

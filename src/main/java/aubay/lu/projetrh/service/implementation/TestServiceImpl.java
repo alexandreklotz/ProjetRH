@@ -7,6 +7,7 @@ import aubay.lu.projetrh.repository.TestRepository;
 import aubay.lu.projetrh.repository.UtilisateurRepository;
 import aubay.lu.projetrh.service.TestService;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -20,15 +21,14 @@ public class TestServiceImpl implements TestService {
     private UtilisateurRepository utilisateurRepository;
     private QcmRepository qcmRepository;
     private ReponseRepository reponseRepository;
-    private Logger log;
+    private static Logger log = LoggerFactory.getLogger(TestServiceImpl.class);
 
     @Autowired
-    TestServiceImpl(TestRepository testRepository, UtilisateurRepository utilisateurRepository, QcmRepository qcmRepository, ReponseRepository reponseRepository, Logger log){
+    TestServiceImpl(TestRepository testRepository, UtilisateurRepository utilisateurRepository, QcmRepository qcmRepository, ReponseRepository reponseRepository){
         this.testRepository = testRepository;
         this.utilisateurRepository = utilisateurRepository;
         this.qcmRepository = qcmRepository;
         this.reponseRepository = reponseRepository;
-        this.log = log;
     }
 
     @Override
@@ -69,6 +69,8 @@ public class TestServiceImpl implements TestService {
             }
             test.setUtilisateur(testUser.get());
         }
+
+        test.setAlreadySubmitted(false);
 
         log.info("Le test {} a été créé.", test.getTitre());
         return testRepository.saveAndFlush(test);

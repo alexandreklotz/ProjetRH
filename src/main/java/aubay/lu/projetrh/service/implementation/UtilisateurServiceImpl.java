@@ -6,6 +6,7 @@ import aubay.lu.projetrh.repository.RolesRepository;
 import aubay.lu.projetrh.repository.UtilisateurRepository;
 import aubay.lu.projetrh.service.UtilisateurService;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,15 +25,14 @@ public class UtilisateurServiceImpl implements UtilisateurService {
     private UtilisateurRepository utilisateurRepository;
     private RolesRepository rolesRepository;
     private PasswordEncoder passwordEncoder;
-    private Logger log;
+    private static Logger log = LoggerFactory.getLogger(UtilisateurServiceImpl.class);
 
 
     @Autowired
-    UtilisateurServiceImpl(UtilisateurRepository utilisateurRepository, RolesRepository rolesRepository, PasswordEncoder passwordEncoder, Logger log){
+    UtilisateurServiceImpl(UtilisateurRepository utilisateurRepository, RolesRepository rolesRepository, PasswordEncoder passwordEncoder){
         this.utilisateurRepository = utilisateurRepository;
         this.rolesRepository = rolesRepository;
         this.passwordEncoder = passwordEncoder;
-        this.log = log;
     }
 
 

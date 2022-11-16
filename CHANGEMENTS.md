@@ -1,3 +1,23 @@
+### 16/11/2022
+
+*BACKEND*
+
+*Le logging fonctionne, on peut lire dans l'IDE mes messages de log personnalisés. Maintenant il ne me reste plus qu'à voir comment
+l'exporter vers un fichier texte.*
+
+*Toutes les fonctionnalités ont été retestées et tout fonctionne. J'aimerais cependant modifier la manière dont les réponses
+choisies par l'utilisateur sont analysées pour déterminer si elles sont correctes ou pas. Il faudrait pouvoir récupérer les questions
+de chaque qcm puis les réponses de chaque question, comparer les ID de la réponse renvoyée et des réponses de la question,
+et répéter l'opération pour chaque question. Il faudra effectuer des modifications de logique dans certaines parties du code.*
+
+*FRONTEND*
+
+- Création des services pour chaque entité.
+- Création des entités dans le package models
+
+*J'ai du mal à me remettre dans le peu d'angular que j'ai vu, je sais ce que je dois faire à peu près mais je ne sais pas comment.*
+
+---
 ### 15/11/2022
 
 *BACKEND*
