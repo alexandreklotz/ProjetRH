@@ -1,3 +1,29 @@
+### 20/11/2022
+
+*FRONTEND*
+
+__Modifications apportées au code:__
+- Création de plusieurs components :
+  - `Single-XXX.component` : servira à afficher un seul objet d'une classe sur une page à part, par exemple pour Utilisateur ce component servira à afficher sur la page utilisateur/{userid} ce seul utilisateur avec des éléments bien définis
+  - `XXX-component` : servira à afficher un seul objet d'une classe dans une liste, par exemple un utlisateur dans une liste d'utilisateurs avec des éléments définis
+  - `XXX-list.component` : servira à afficher une liste d'objets d'une classe.
+- Création de `app-routing.module`. Les routes ont été créées mais devront sûrement être modifiées.
+- Les requêtes __GET__ ont été créées dans chaque service de chaque entité pour récupérer les objets de chacun. Cela me permettra de mettre en place mes components et les vues de base dans un premier temps. Les requêtes put/post/delete viendront par la suite.
+- Création d'observables pour récupérer les listes via les requêtes __GET__ dans chaque component `xxx-list`.
+
+---
+### 17/11/2022
+
+*FRONTEND*
+
+__Modifications apportées au code :__
+- Création d'un nouveau component : `qcmlist`. Il servira à récupérer tout les qcm à partir du service et à les afficher dans le component
+
+*J'ai fait quelques bricoles comme compléter les models et en allant ajouter des imports dans `QcmComponent`.
+Je vais créer les components pour chaque model et m'assurer que tout est ok dans un premier temps, puis je mettrais
+le routing en place à travers mes services pour récupérer les éléments du backend.*
+
+---
 ### 16/11/2022
 
 *BACKEND*

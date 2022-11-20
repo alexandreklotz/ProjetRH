@@ -141,6 +141,7 @@ public class TestServiceImpl implements TestService {
                 log.error("La réponse avec l'id {} n'existe pas.", reponse.getId());
                 return null;
             }
+            //TODO : implémenter check question/réponse, pas de double
             boolean isGoodAnswer = reponseTest.get().isCorrectAnswer();
             if(isGoodAnswer){
                 testScore += reponseTest.get().getPoints();

@@ -36,7 +36,7 @@ public class QuestionController {
 
     @JsonView(CustomJsonView.QuestionView.class)
     @GetMapping("admin/question/qcm/{qcmId}")
-    public List<Question> getQuestionByQcm(@PathVariable UUID qcmId){
+    public List<Question> getQuestionByQcmId(@PathVariable UUID qcmId){
         return questionService.getQuestionByQcmId(qcmId);
     }
 
