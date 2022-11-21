@@ -204,7 +204,8 @@ public class TestServiceImpl implements TestService {
         }
 
         log.info("Tests de l'utilisateur {} récupérés avec succès.", userLogin);
-        return testRepository.findTestByCandidat(loggedUser.get().getId());
+        return (List<Test>) loggedUser.get().getTests(); //TODO : tester
+        //return testRepository.findTestByCandidat(loggedUser.get().getId());
     }
 
     @Override

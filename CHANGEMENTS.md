@@ -1,3 +1,25 @@
+### 21/11/2022
+
+*BACKEND*
+
+__Modifications apportées au code :__
+- Modification du retour de la méthode `retrieveAllCandidatTest` dans `TestServiceImpl`. Plutôt que d'utiliser une Query SQL on récupère tout simplement les tests de l'utilisateurs par le getter.
+
+*Je réfléchis à un correctif pour la soumission des tests par le candidat pour le check des questions/réponses.
+Je pense que je vais devoir modifier le modèle `Test` en créant un __@OneToMany__ de `Test` vers `Question`
+et peut-être effectuer les vérifications à travers cette relation.*
+
+*FRONTEND*
+
+__Modifications apportées au code :__
+- Création de `homepage.model.ts` => Ce component nous servira à récupérer les attributs de base de l'utilisateur et les afficher sur une page d'accueil
+- Ajout de code HTML dans les fichiers `xxx.component.html / xxx-list.component.html` pour afficher les éléments souhaités des objets de chaque classe. Je vais en faire de même dans les composants `single-xxx.component.ts` qui eux serviront à afficher un seul élément sur la page.
+- Création de `homepage.service.ts`. Ce service pour l'instant ne contient que les URL pour récupérer des éléments (comme tous les autres services pour le moment)
+
+*Les URL POST/PUT/DELETE seront créés une fois que les GET seront fonctionnels et que les components seront 100% OK.
+Les GET vont me permettre dans un premier temps de gérer le visuel.*
+
+---
 ### 20/11/2022
 
 *FRONTEND*

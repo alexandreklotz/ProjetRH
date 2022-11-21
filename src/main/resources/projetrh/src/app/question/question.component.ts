@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {QuestionService} from "../services/question.service";
 import {Router} from "@angular/router";
+import {Question} from "../models/question.model";
 
 @Component({
   selector: 'app-question',
@@ -8,6 +9,8 @@ import {Router} from "@angular/router";
   styleUrls: ['./question.component.scss']
 })
 export class QuestionComponent implements OnInit {
+
+  @Input() question!: Question;
 
   constructor(private questionService: QuestionService,
               private router: Router) { }
