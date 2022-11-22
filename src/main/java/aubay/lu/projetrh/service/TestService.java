@@ -1,12 +1,10 @@
 package aubay.lu.projetrh.service;
 
-import aubay.lu.projetrh.model.Qcm;
 import aubay.lu.projetrh.model.Test;
-import aubay.lu.projetrh.model.Utilisateur;
-import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.UUID;
 
 public interface TestService {
@@ -27,7 +25,7 @@ public interface TestService {
 
     public Test retrieveSingleCandidatTest(String userLogin, UUID testId);
 
-    public List<Test> retriveAllCandidatTest(String userLogin);
+    public List<Test> retrieveAllCandidatTest(String userLogin);
 
     public Test utilisateurTestSelfAssign(String userLogin, UUID testId);
 

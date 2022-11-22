@@ -1,15 +1,27 @@
+### 22/11/2022
+
+__*BACKEND*__
+
+__Modifications apportées au code :__
+- Création d'un __@ManyToMany__ entre `Test` et `Question`.
+- Modification de la Query SQL `findTestByCandidat` dans `TestRepository` : la query ne pointait pas vers la colonne ID de la table Utilisateur.
+
+*J'ai commencé à taper du code à la volée pour modifier la méthode `submitTest` dans `TestServiceImpl` pour implémenter tout les checks
+nécessaires pour éviter des réponses envoyées en double ou des réponses ne correspondant pas à la question.*
+
+---
 ### 21/11/2022
 
-*BACKEND*
+__*BACKEND*__
 
 __Modifications apportées au code :__
 - Modification du retour de la méthode `retrieveAllCandidatTest` dans `TestServiceImpl`. Plutôt que d'utiliser une Query SQL on récupère tout simplement les tests de l'utilisateurs par le getter.
 
 *Je réfléchis à un correctif pour la soumission des tests par le candidat pour le check des questions/réponses.
-Je pense que je vais devoir modifier le modèle `Test` en créant un __@OneToMany__ de `Test` vers `Question`
+Je pense que je vais devoir modifier le modèle `Test` en créant un __@ManyToMany__ de `Test` vers `Question`
 et peut-être effectuer les vérifications à travers cette relation.*
 
-*FRONTEND*
+__*FRONTEND*__
 
 __Modifications apportées au code :__
 - Création de `homepage.model.ts` => Ce component nous servira à récupérer les attributs de base de l'utilisateur et les afficher sur une page d'accueil
@@ -22,7 +34,7 @@ Les GET vont me permettre dans un premier temps de gérer le visuel.*
 ---
 ### 20/11/2022
 
-*FRONTEND*
+__*FRONTEND*__
 
 __Modifications apportées au code:__
 - Création de plusieurs components :
@@ -36,7 +48,7 @@ __Modifications apportées au code:__
 ---
 ### 17/11/2022
 
-*FRONTEND*
+__*FRONTEND*__
 
 __Modifications apportées au code :__
 - Création d'un nouveau component : `qcmlist`. Il servira à récupérer tout les qcm à partir du service et à les afficher dans le component
@@ -48,7 +60,7 @@ le routing en place à travers mes services pour récupérer les éléments du b
 ---
 ### 16/11/2022
 
-*BACKEND*
+__*BACKEND*__
 
 *Le logging fonctionne, on peut lire dans l'IDE mes messages de log personnalisés. Maintenant il ne me reste plus qu'à voir comment
 l'exporter vers un fichier texte.*
@@ -58,7 +70,7 @@ choisies par l'utilisateur sont analysées pour déterminer si elles sont correc
 de chaque qcm puis les réponses de chaque question, comparer les ID de la réponse renvoyée et des réponses de la question,
 et répéter l'opération pour chaque question. Il faudra effectuer des modifications de logique dans certaines parties du code.*
 
-*FRONTEND*
+__*FRONTEND*__
 
 - Création des services pour chaque entité.
 - Création des entités dans le package models
@@ -68,7 +80,7 @@ et répéter l'opération pour chaque question. Il faudra effectuer des modifica
 ---
 ### 15/11/2022
 
-*BACKEND*
+__*BACKEND*__
 
 __Modifications apportées au code :__
 - Ajout des dépendances pour ajouter Slf4j au projet pour le logging
@@ -83,7 +95,7 @@ pense que ça va me prendre un peu de temps.*
 ---
 ### 14/11/2022
 
-*FRONTEND*
+__*FRONTEND*__
 
 *Création des models pour chaque entité. Vérifier les attributs de chaque objet surtout les attributs faisant références à une autre entité pour assurer les relations
 entre eux.*
@@ -95,7 +107,7 @@ dépendances sur ma VM (il faut que je dégage windows de mon laptop et que je m
 ---
 ### 13/11/2022
 
-*FRONTEND*
+__*FRONTEND*__
 
 *Je commence à "bidouiller" angular, j'ai créé un component : homepage. Il servira à afficher une page d'accueil.*
 

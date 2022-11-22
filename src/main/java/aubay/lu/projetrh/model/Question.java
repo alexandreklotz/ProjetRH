@@ -49,6 +49,16 @@ public class Question {
     private Set<Reponse> reponses;
 
 
+    @JsonView(CustomJsonView.QuestionView.class)
+    @ManyToMany
+    @JoinTable(
+            name = "question_test",
+            joinColumns = @JoinColumn(name = "question_id"),
+            inverseJoinColumns = @JoinColumn(name = "test_id")
+    )
+    private Set<Test> tests;
+
+
     public UUID getId() {
         return id;
     }
@@ -87,5 +97,13 @@ public class Question {
 
     public void setReponses(Set<Reponse> reponses) {
         this.reponses = reponses;
+    }
+
+    public Set<Test> getTests() {
+        return tests;
+    }
+
+    public void setTests(Set<Test> tests) {
+        this.tests = tests;
     }
 }

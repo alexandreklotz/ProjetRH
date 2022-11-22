@@ -55,6 +55,8 @@ public class TestServiceImpl implements TestService {
             return null;
         }
 
+        test.setQuestions(qcmTest.get().getQuestions());
+
         if(test.getTitre() == null){
             test.setTitre(qcmTest.get().getTitre());
         }
@@ -195,7 +197,7 @@ public class TestServiceImpl implements TestService {
     }
 
     @Override
-    public List<Test> retriveAllCandidatTest(String userLogin) {
+    public List<Test> retrieveAllCandidatTest(String userLogin) {
 
         Optional<Utilisateur> loggedUser = utilisateurRepository.findUserWithLogin(userLogin);
         if(loggedUser.isEmpty()){
@@ -204,8 +206,7 @@ public class TestServiceImpl implements TestService {
         }
 
         log.info("Tests de l'utilisateur {} récupérés avec succès.", userLogin);
-        return (List<Test>) loggedUser.get().getTests(); //TODO : tester
-        //return testRepository.findTestByCandidat(loggedUser.get().getId());
+        return testRepository.findTestByCandidat(loggedUser.get().getId());
     }
 
     @Override

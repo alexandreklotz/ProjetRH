@@ -12,6 +12,6 @@ import java.util.UUID;
 @Repository
 public interface TestRepository extends JpaRepository<Test, UUID> {
 
-    @Query("FROM Test t WHERE t.utilisateur = :userid")
+    @Query("FROM Test t WHERE t.utilisateur.id = :userid")
     List<Test> findTestByCandidat(@Param("userid")UUID userid);
 }

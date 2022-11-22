@@ -5,12 +5,9 @@ import aubay.lu.projetrh.model.Utilisateur;
 import aubay.lu.projetrh.service.TestService;
 import aubay.lu.projetrh.service.UtilisateurService;
 import aubay.lu.projetrh.view.CustomJsonView;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.request.RequestContextHolder;
 
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
@@ -57,7 +54,7 @@ public class UserEndPointController {
     public List<Test> retrieveAllCandidatTest(HttpServletRequest request){
         Principal principal = request.getUserPrincipal();
         String userLogin = principal.getName();
-        return testService.retriveAllCandidatTest(userLogin);
+        return testService.retrieveAllCandidatTest(userLogin);
     }
 
     @JsonView(CustomJsonView.TestView.class)
