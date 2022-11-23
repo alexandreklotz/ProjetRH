@@ -21,6 +21,7 @@ import { RolesListComponent } from './roles-list/roles-list.component';
 import { SingleRolesComponent } from './single-roles/single-roles.component';
 import { SingleQuestionComponent } from './single-question/single-question.component';
 import { SingleReponseComponent } from './single-reponse/single-reponse.component';
+import { LoginComponent } from './login/login.component';
 
 
 @NgModule({
@@ -44,7 +45,8 @@ import { SingleReponseComponent } from './single-reponse/single-reponse.componen
     RolesListComponent,
     SingleRolesComponent,
     SingleQuestionComponent,
-    SingleReponseComponent
+    SingleReponseComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

@@ -1,1 +1,1 @@
-<p>question-list works!</p>
+<app-question *ngFor="let questionElement of questionList$ | async" [question]="questionElement"></app-question>

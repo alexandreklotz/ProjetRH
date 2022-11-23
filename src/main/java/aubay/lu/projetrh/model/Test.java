@@ -57,10 +57,6 @@ public class Test {
     @ManyToMany(mappedBy = "tests")
     private Set<Reponse> reponses;
 
-    @JsonView(CustomJsonView.TestView.class)
-    @ManyToMany(mappedBy = "tests")
-    private Set<Question> questions;
-
 
     // GETTERS AND SETTERS //
     public UUID getId() {
@@ -119,11 +115,4 @@ public class Test {
         this.reponses = reponses;
     }
 
-    public Set<Question> getQuestions() {
-        return questions;
-    }
-
-    public void setQuestions(Set<Question> questions) {
-        this.questions = questions;
-    }
 }

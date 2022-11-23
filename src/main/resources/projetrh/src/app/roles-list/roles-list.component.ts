@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import {Observable} from "rxjs";
+import {Roles} from "../models/roles.model";
+import {RolesService} from "../services/roles.service";
 
 @Component({
   selector: 'app-roles-list',
@@ -7,7 +10,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RolesListComponent implements OnInit {
 
-  constructor() { }
+  rolesList$!: Observable<Roles>
+
+  constructor(private rolesService: RolesService) { }
 
   ngOnInit(): void {
   }

@@ -1,3 +1,26 @@
+### 23/11/2022
+
+__*BACKEND*__
+
+__Modifications apportées au code :__
+- Suppresion du __@ManyToMany__ entre `Test` et `Question`. Cette relation sera inutile.
+- Création d'un service `MapFilterService`. Il me sert à effectuer un __.stream()__ sur les maps dans la méthode `submitTest` dans `TestServiceImpl` pour comparer le nombre de réponses des questions de chaque côté (Test/Qcm)
+- La méthode `submitTest` dans `TestServiceImpl` a été __complètement modifiée__ :
+  - Elle créé une Map pour les questions/réponses du qcm : une map contient une clé et des valeurs. Chaque map aura pour clé la réponse avec pour valeurs la question qui leur est liée. Pour Qcm, on vérifie que la question existe et si oui on récupère ses questions.
+  - Elle créé une Map pour les questions/réponses du test (identique à ci-dessus) sauf que pour le test on vérifie que les réponses existent en plus des questions (on récupère les questions à travers les réponses pour test). On vérifie ensuite que la question existe dans la Map du Qcm, puis on récupère ses réponses. On vérifie, via un for each que chaque réponse est liée à la question spécifiée initialement.
+  - Ensuite, elle vérifie que la liste des réponses renvoyée dans le test contient la réponse de cette instance du for each et qu'elle n'est pas présente dans la map du test. Si c'est le cas, elle ajoute la réponse en tant que clé et la question utilisée initialement pour récupérer tous les éléments en tant que value.
+  - Finalement, on fait un for each sur chaque question présente dans la map du qcm, on récupère le nombre de réponses liées afin d'implémenter des checks de base :
+    - Le nombre de réponses ne peut pas être nul
+    - Le nombre de réponses renvoyées ne peut pas être supérieur au nombre de réponses liées à la question dans le qcm
+  - On fait ensuite appel à la fonction `keys` de `mapFilterService` pour récupérer les questions renvoyées par l'utilisateur pour la question correspondante à celle du for each. On enregistre chaque réponse de la question dans un Set et on itère sur ce dernier. On vérifie si les réponses sont justes ou fausses et on calcule le score.
+
+
+__*FRONTEND*__
+ 
+*Afin de pouvoir tester mes component de base, il faut que j'implémente une page de login en plus d'une fonction de login.
+Je dois aussi implémenter dans ce cas une fonction de logout du côté du back.*
+
+---
 ### 22/11/2022
 
 __*BACKEND*__

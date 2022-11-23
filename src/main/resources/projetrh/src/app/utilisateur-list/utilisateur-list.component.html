@@ -1,1 +1,1 @@
-<p>utiisateur-list works!</p>
+<app-utilisateur *ngFor="let utilisateurElement of utilisateurList$ | async " [utilisateur]="utilisateurElement"></app-utilisateur>
