@@ -73,7 +73,6 @@ public class UtilisateurServiceImpl implements UtilisateurService {
 
     @Override
     public Utilisateur createUtilisateur(Utilisateur utilisateur) {
-        //TODO : Gérer les champs non remplis comme MDP ou email etc en renvoyant des erreurs
 
         boolean isExistingUser = isUserExisting(utilisateur.getUserLogin());
         if(isExistingUser){

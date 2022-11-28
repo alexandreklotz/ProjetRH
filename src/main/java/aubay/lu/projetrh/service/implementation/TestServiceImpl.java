@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 
 import java.security.Key;
 import java.util.*;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Service
@@ -117,7 +119,7 @@ public class TestServiceImpl implements TestService {
     @Override
     public Test submitTest(Test test) {
 
-        log.info("Soumission d'un test par l'utilisateur {}.", test.getUtilisateur().getFirstName() + " " + test.getUtilisateur().getLastName());
+        log.info("Soumission d'un test par l'utilisateur {}.", test.getUtilisateur().getId());
 
         Optional<Test> currentTest = testRepository.findById(test.getId());
         if (currentTest.isEmpty()) {
@@ -136,7 +138,7 @@ public class TestServiceImpl implements TestService {
             return null;
         }
 
-        Optional<Utilisateur> utilisateurTest = utilisateurRepository.findById(currentTest.get().getUtilisateur().getId());
+        Optional<Utilisateur> utilisateurTest = utilisateurRepository.findById(test.getUtilisateur().getId());
         if (utilisateurTest.isEmpty()) {
             log.error("L'utilisateur {} qui a soumis le test {} n'existe pas.", currentTest.get().getUtilisateur().getId(), test.getId());
             return null;
@@ -151,15 +153,26 @@ public class TestServiceImpl implements TestService {
             Optional<Question> qcmQuestion = questionRepository.findById(question.getId());
             if (qcmQuestion.isEmpty()) {
                 log.error("La question {} n'existe pas.", question.getId());
+                return null;
             }
             log.info("Récupération des réponses de la question {} et vérification des réponses.", question.getId());
             for (Reponse reponse : qcmQuestion.get().getReponses()) {
                 Optional<Reponse> questionReponse = reponseRepository.findById(reponse.getId());
                 if (questionReponse.isEmpty()) {
                     log.error("La réponse {} n'existe pas.", reponse.getId());
+                    return null;
                 }
-                log.info("Ajout de la réponse et de la question dans la map.");
-                qcmQuestionsReponsesMap.put(reponse, question);
+                log.info("Vérification que la question n'est pas déja présente en tant que valeur dans la map plus de fois qu'elle n'a de questions");
+                if(qcmQuestionsReponsesMap.containsValue(qcmQuestion.get())){
+                    Stream<Reponse> numberOfMaximumValuesMap = mapFilterService.keys(qcmQuestionsReponsesMap, qcmQuestion.get());
+                    Set<Reponse> setOfKeysLinkedToQuestion = numberOfMaximumValuesMap.collect(Collectors.toSet());
+                    if(setOfKeysLinkedToQuestion.size() > qcmQuestion.get().getReponses().size()){
+                        log.error("La question {} est déja présente dans la map.", qcmQuestion.get().getId());
+                        return null;
+                    }
+                }
+                log.info("Ajout de la réponse {} dans la map en tant que clé de la question {}", questionReponse.get().getId(), qcmQuestion.get().getId());
+                qcmQuestionsReponsesMap.put(questionReponse.get(), qcmQuestion.get());
             }
         }
 
@@ -171,18 +184,22 @@ public class TestServiceImpl implements TestService {
             Optional<Reponse> testReponse = reponseRepository.findById(reponse.getId());
             if (testReponse.isEmpty()) {
                 log.error("La réponse {} renvoyée dans le test {} n'existe pas.", reponse.getId(), test.getId());
+                return null;
             }
             Optional<Question> testRepQuestion = questionRepository.findById(testReponse.get().getQuestion().getId());
             if (testRepQuestion.isEmpty()) {
                 log.error("La question {} liée à la réponse {} n'existe pas.", testReponse.get().getQuestion().getId(), testReponse.get().getId());
+                return null;
             }
             log.info("Vérification que la question {} est dans la map des questions/réponses du qcm", testRepQuestion.get().getId());
-            if (qcmQuestionsReponsesMap.containsValue(testRepQuestion)) {
+            if (qcmQuestionsReponsesMap.containsValue(testRepQuestion.get())) {
                 for (Reponse testRepQuestionReponse : testRepQuestion.get().getReponses()) {
-                    if (!testReponse.get().getQuestion().equals(testRepQuestion)) {
+                    if (!testReponse.get().getQuestion().getId().equals(testRepQuestion.get().getId())) {
                         log.error("La question liée à la réponse {} ne correspond pas à la question liée côté qcm", testReponse.get().getId());
+                        return null;
                     }
-                    if (test.getReponses().contains(testRepQuestionReponse) && !testQuestionsReponsesMap.containsKey(testRepQuestionReponse)) {
+                    Set<Reponse> streamReponse = testReponse.stream().filter(r -> r.getId().equals(testRepQuestionReponse.getId())).collect(Collectors.toSet());
+                    if(!streamReponse.isEmpty() && !testQuestionsReponsesMap.containsKey(testRepQuestionReponse)){
                         log.info("Ajout de la réponse {} avec comme question liée {}.", testReponse.get().getId(), testRepQuestion.get().getId());
                         testQuestionsReponsesMap.put(testReponse.get(), testRepQuestion.get());
                     }
@@ -191,36 +208,46 @@ public class TestServiceImpl implements TestService {
         }
 
         Double testScore = 0.0;
+        Set<Reponse> tempTestReponses = new HashSet<>();
 
         log.info("Vérifications de base pour chaque réponse.");
         for (Question qcmQuestionValue : qcmQuestionsReponsesMap.values()) {
-            int numberOfReponses = qcmQuestionValue.getReponses().size();
 
             log.info("Stream des réponses du test pour comparer le nombre de réponses liées afin de vérifier les retours de l'utilisateur.");
-            Stream<Key> streamTestQuestReponses = mapFilterService.keys(testQuestionsReponsesMap, qcmQuestionValue);
-            Set<Reponse> tempTestReponses = (Set<Reponse>) streamTestQuestReponses.findAny().get();
+            Stream<Reponse> streamTestQuestReponses = mapFilterService.keys(testQuestionsReponsesMap, qcmQuestionValue);
+            tempTestReponses = streamTestQuestReponses.collect(Collectors.toSet());
+            System.out.println("temptestreponses" + tempTestReponses);
 
-            if (tempTestReponses.size() == 0) {
-                log.error("Il n'y a aucune réponse liée à la question {}.", qcmQuestionValue.getId());
-            }
-            if (tempTestReponses.size() > numberOfReponses) {
+
+            if (tempTestReponses.size() > qcmQuestionValue.getReponses().size()) {
                 log.error("La question côté test contient plus de réponses que la question côté qcm. Question ID : {}", qcmQuestionValue.getId());
+                return null;
             }
+
+            //TODO : le code sort du for each après chaque itération. Réagencer le code, le for each peut être en dehors du for each des questions.
 
             log.info("Vérification si les réponses du test sont justes et calcul du score.");
             for (Reponse linkedReponse : tempTestReponses) {
-                if (linkedReponse.isCorrectAnswer()) {
-                    testScore += linkedReponse.getPoints();
-                } else if (!linkedReponse.isCorrectAnswer()) {
-                    testScore -= linkedReponse.getPoints();
+
+                Optional<Reponse> finalReponse = reponseRepository.findById(linkedReponse.getId());
+                if(finalReponse.isEmpty()){
+                    log.error("La réponse {} n'existe pas/plus.", linkedReponse.getId());
                 }
-                log.info("Sauvegarde de la réponse liée au test.");
-                reponseRepository.saveAndFlush(linkedReponse);
+
+
+                if (finalReponse.get().isCorrectAnswer()) {
+                    testScore += finalReponse.get().getPoints();
+                } else if (!finalReponse.get().isCorrectAnswer()) {
+                    testScore -= finalReponse.get().getPoints();
+                }
+
+                log.info("Sauvegarde de la réponse liée au test et sauvegarde du test.");
+                reponseRepository.saveAndFlush(finalReponse.get());
                 tempTestReponses.remove(linkedReponse); //Nous permet d'éviter les doubles une nouvelle fois, petit extra de sécu
             }
-            tempTestReponses.clear();
         }
 
+        test.setReponses(tempTestReponses);
 
         log.info("Enregistrement du score du test");
         test.setScore(testScore);

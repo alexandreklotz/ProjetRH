@@ -1,3 +1,27 @@
+### 28/11/2022
+
+*La méthode `submitTest` a été en grande partie corrigée mais une nouvelle erreur subsiste, les réponses sont comptées en double.
+Le code sera commit quand même mais cette méthode devra être totalement corrigée. Les problèmes mentionnés ci-dessous sont dus
+à la manière dont j'ai géré la dernière boucle for each.*
+
+__Modifications apportées au code :__
+- Modification de la méthode `submitTest` -> Les réponses n'étaient pas comptabilisées car le code ne rentrait pas dans un "If". Le code a été corrigé.
+- La méthode `submitTest` n'enregistre pas les réponses renvoyées avec le test.
+
+---
+### 24/11/2022
+
+__Modifications apportées au code :__
+- Correction de la méthode `keys` dans `MapFilterService` -> Elle ne fonctionnait pas comme nécessaire dans le cadre de la méthode `submitTest` dans `TestServiceImpl`.
+- Export des logs dans un fichier externe
+- Ajout de JsonViews dans `Reponse` et `Test` pour afficher les id des tests liés dans chaque réponse et les id de chaque réponse liée dans chaque test
+
+*J'ai un léger souci avec la méthode `submitTest`. Il y'a un if qui ne s'éxecute pas qui par conséquent fait que la map des questions/réponses
+du test est vide. Par conséquent aucune réponse ne se retrouve liée au test. Le statement est sûrement incorrect.*
+
+*Le code ne sera pas commit ce soir vu que la méthode `submitTest n'est pas fonctionnelle.*
+
+---
 ### 23/11/2022
 
 __*BACKEND*__

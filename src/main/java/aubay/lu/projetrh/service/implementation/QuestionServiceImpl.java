@@ -71,7 +71,7 @@ public class QuestionServiceImpl implements QuestionService {
         if(question.getReponses() != null){
             if(question.getReponses().size() < 2){
                 log.error("Impossible de créer la question. Le nombre de réponses doit être de 2 au MINIMUM.");
-                return null; //return qu'il faut au minimum 2 réponses. //TODO : return erreur
+                return null;
             } else {
                 log.info("Sauvegarde de la question dans la base de données.");
                 questionRepository.saveAndFlush(question);
@@ -82,7 +82,7 @@ public class QuestionServiceImpl implements QuestionService {
             }
         } else {
             log.error("Une question doit OBLIGATOIREMENT avoir au minimum 2 réponses. Création impossible.");
-            return null; //return une erreur
+            return null;
         }
 
         return question;
@@ -106,7 +106,7 @@ public class QuestionServiceImpl implements QuestionService {
             log.info("Vérification du nombre de réponses de chaque question (2 minimum).");
             if(question.getReponses().size() < 2){
                 log.error("Impossible de créer la question. Le nombre de réponses doit être de 2 au MINIMUM.");
-                return null; //return qu'il faut au minimum 2 réponses. //TODO : return erreur
+                return null;
             }
             for(Reponse reponse : question.getReponses()){
                 Optional<Reponse> currentReponse = reponseRepository.findById(reponse.getId());
