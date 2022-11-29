@@ -1,3 +1,18 @@
+### 29/11/2022
+
+__*BACKEND*__
+
+__Modifications apportées au code :__
+- La méthode `submitTest` fonctionne parfaitement.
+- Création d'un nouveau controller dans un nouveau package `login` pour mettre en place la page de login Angular : `LoginController`
+
+__*FRONTEND*__
+
+__Modifications apportées au code :__
+- Création d'un component pour la page de login : `login.component.ts`
+- Création d'un service pour l'authentification : `auth.service.ts`
+
+---
 ### 28/11/2022
 
 *La méthode `submitTest` a été en grande partie corrigée mais une nouvelle erreur subsiste, les réponses sont comptées en double.

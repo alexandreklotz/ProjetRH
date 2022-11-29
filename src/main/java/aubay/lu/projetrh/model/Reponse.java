@@ -25,7 +25,7 @@ public class Reponse {
     @Column(columnDefinition = "BINARY(16)")
     private UUID id;
 
-    @JsonView({CustomJsonView.ReponseView.class, CustomJsonView.QuestionView.class})
+    @JsonView({CustomJsonView.ReponseView.class, CustomJsonView.QuestionView.class, CustomJsonView.TestView.class})
     @Column(nullable = false)
     private String texte;
 
@@ -42,7 +42,7 @@ public class Reponse {
 
 
     // RELATIONS //
-    @JsonView(CustomJsonView.ReponseView.class)
+    @JsonView({CustomJsonView.ReponseView.class, CustomJsonView.TestView.class})
     @ManyToOne
     @JoinColumn(name="question_id")
     private Question question;

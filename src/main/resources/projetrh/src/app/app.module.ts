@@ -22,6 +22,7 @@ import { SingleRolesComponent } from './single-roles/single-roles.component';
 import { SingleQuestionComponent } from './single-question/single-question.component';
 import { SingleReponseComponent } from './single-reponse/single-reponse.component';
 import { LoginComponent } from './login/login.component';
+import {FormsModule} from "@angular/forms";
 
 
 @NgModule({
@@ -48,10 +49,11 @@ import { LoginComponent } from './login/login.component';
     SingleReponseComponent,
     LoginComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        FormsModule
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })

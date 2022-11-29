@@ -51,6 +51,7 @@ public class ApplicationWebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/admin/**").hasAnyAuthority("RECRUTEUR","ADMIN")
                 .antMatchers("/user/**").hasAnyAuthority("ADMIN","RECRUTEUR", "CANDIDAT")
                 .antMatchers("/login").permitAll()
+                .antMatchers("/resetpassword").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin().loginProcessingUrl("/login")
