@@ -19,12 +19,15 @@ import { RolesListComponent } from './roles-list/roles-list.component';
 import { SingleRolesComponent } from './single-roles/single-roles.component';
 import { SingleQuestionComponent } from './single-question/single-question.component';
 import { SingleReponseComponent } from './single-reponse/single-reponse.component';
+import {LoginComponent} from "./login/login.component";
 
 
 const routes: Routes = [
   //TODO : Voir si il faut spécifier par exemple question/ avant reponses ou reponse/:id comme on récupère les réponses
   // d'une question. Ou qcm/id/questions. Il faudra sûrement modifier le routing.
-  {path: '', component:HomepageComponent},
+  {path: 'login', component:LoginComponent},
+  {path: '', component:LoginComponent},
+  {path: 'dashboard', component: HomepageComponent},
   {path: 'qcm', component:QcmListComponent},
   {path: 'qcm/:id', component:SingleQcmComponent},
   {path: 'tests', component:TestListComponent},
@@ -34,7 +37,7 @@ const routes: Routes = [
   {path: 'reponses', component: ReponseListComponent},
   {path: 'reponse/:id', component: SingleReponseComponent},
   {path: 'utilisateurs', component:UtilisateurListComponent},
-  {path:'utilisateur/:id', component:SingleUtilisateurComponent}
+  {path: 'utilisateur/:id', component:SingleUtilisateurComponent}
   //TODO : Créer des routes pour les rôles ? voir comment gérer utilisateur/:id/role/:id ?
 ];
 

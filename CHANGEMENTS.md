@@ -1,3 +1,37 @@
+### 30/11/2022
+
+__*BACKEND*__
+
+*Les modifications apportées notamment le Bean `AuthenticationBean` me servent à tester. Au fur et à mesure que j'avancerai et que
+je deviendrais familier avec la liaison Angular/Spring Security j'adapterai le code en fonction.*
+
+__Modifications apportées au code :__
+- Création d'un package `Bean` qui va contenir un bean pour l'authentification : `AuthenticationBean`
+- Modification de `LoginController` : création d'un __@GetMapping__ `/logintest`.
+- Légères modifications dans `ApplicationWebSecurityConfig`.
+
+
+__*FRONTEND__*
+
+*Comme indiqué ci-dessus, les modifications apportées me servent à tester le login.*
+
+__Modifications apportées au code :__
+- Création d'un component `login` : il contient le HTML de la page de login (stade primitif actuellement) et la logique dans le fichier .ts
+- Création d'un component `logout` : il est pour l'instant vide mais il servira comme son nom l'indique à gérer les logout
+- Création d'un service `HttpInterceptorService` : Il sert à intercepter la requête HTTP pour le login et génère un header d'authorization __Basic__
+- Les méthodes suivantes ont été créées dans `AuthService` :
+  - `handleLogin` : elle utilise la méthode `login` de `authservice` pour nous permettre de nous authentifier
+  - `createBasicToken` qui va créer un token pour l'authentification Basic à partir du username/password
+  - `registerSuccessfulLogin` qui va stocker un "item" pour la session
+  - `logout` qui pour l'instant n'est pas implémentée
+  - `isUserLoggingIn` qui nous sert à savoir si l'utilisateur est en train de se connecter
+  - `getLoggedInUserName` qui nous sert à récupérer le login de l'utilisateur loggé
+- Modification de `app.component.html` : changement de la balise, on utilise maintenant la balise <router-outlet>.
+
+*Je suis bien évidemment un tuto pour implémenter tout ça, mon interprétation du code n'est peut-être pas la plus précise.*
+*Il y'a des console.log à certains endroits du code qui me permettent de savoir ou le code "rentre" ou pas.*
+
+---
 ### 29/11/2022
 
 __*BACKEND*__

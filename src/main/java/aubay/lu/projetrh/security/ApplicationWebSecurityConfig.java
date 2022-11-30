@@ -56,7 +56,7 @@ public class ApplicationWebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .formLogin().loginProcessingUrl("/login")
                 .and()
-                .logout().invalidateHttpSession(true)
+                .logout().logoutUrl("/logout").invalidateHttpSession(true)
                 .clearAuthentication(false).permitAll();
     }
 }

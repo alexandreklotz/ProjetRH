@@ -23,6 +23,9 @@ import { SingleQuestionComponent } from './single-question/single-question.compo
 import { SingleReponseComponent } from './single-reponse/single-reponse.component';
 import { LoginComponent } from './login/login.component';
 import {FormsModule} from "@angular/forms";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
+import {HttpInterceptorService} from "./services/HttpInterceptor.service";
+import { LogoutComponent } from './logout/logout.component';
 
 
 @NgModule({
@@ -47,14 +50,22 @@ import {FormsModule} from "@angular/forms";
     SingleRolesComponent,
     SingleQuestionComponent,
     SingleReponseComponent,
-    LoginComponent
+    LoginComponent,
+    LogoutComponent
   ],
     imports: [
         BrowserModule,
         AppRoutingModule,
-        FormsModule
+        FormsModule,
+        HttpClientModule
     ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpInterceptorService,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
