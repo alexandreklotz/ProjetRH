@@ -1,3 +1,29 @@
+### 12/12/2022
+
+__*FRONTEND*__
+
+*J'ai beaucoup défait pour refaire, d'où la nature de mes modifications.*
+
+__LE LOGIN FONCTIONNE APRES MODIFICATION DE LA CONFIG DE SECURITE. Il ne me reste qu'à récupérer un Id de session lors du login
+pour que les pages soient 100% fonctionnelles__
+
+__Modifications apportées au code :__
+- Suppression du component `login`.
+- Suppression de `authservice` et de `httpinterceptorservice`.
+- Création d'un nouveau component `login`.
+
+__*BACKEND*__
+
+__Modifications apportées au code :__
+- Modification de la configuration de sécurité `ApplicationWebSecurityConfig`
+- Création d'un filtre pour les requêtes `SessionFilter`
+
+---
+### 06/12/2022
+
+*Progrès très lent car malade. En train de me bagarrer avec le soucis de la page de login angular qui serait causé par la sécurité capricieuse et vague de spring security.*
+
+---
 ### 30/11/2022
 
 __*BACKEND*__
@@ -18,7 +44,7 @@ __*FRONTEND__*
 __Modifications apportées au code :__
 - Création d'un component `login` : il contient le HTML de la page de login (stade primitif actuellement) et la logique dans le fichier .ts
 - Création d'un component `logout` : il est pour l'instant vide mais il servira comme son nom l'indique à gérer les logout
-- Création d'un service `HttpInterceptorService` : Il sert à intercepter la requête HTTP pour le login et génère un header d'authorization __Basic__
+- Création d'un service `HttpinterceptorService` : Il sert à intercepter la requête HTTP pour le login et génère un header d'authorization __Basic__
 - Les méthodes suivantes ont été créées dans `AuthService` :
   - `handleLogin` : elle utilise la méthode `login` de `authservice` pour nous permettre de nous authentifier
   - `createBasicToken` qui va créer un token pour l'authentification Basic à partir du username/password

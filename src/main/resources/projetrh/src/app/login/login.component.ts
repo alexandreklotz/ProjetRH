@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute, Router} from "@angular/router";
-import {AuthService} from "../services/auth.service";
+import {Router} from "@angular/router";
+import {HttpClient} from "@angular/common/http";
 
 @Component({
   selector: 'app-login',
@@ -9,35 +9,33 @@ import {AuthService} from "../services/auth.service";
 })
 export class LoginComponent implements OnInit {
 
-  username!: string;
-  password!: string;
-  errorMessage = 'Login/Mot de passe incorrect.';
-  successMessage!: string;
-  invalidLogin = false;
-  loginSuccess = false;
+  model: any = {};
+  sessionId: any = "";
 
   constructor(
-    private route: ActivatedRoute,
     private router: Router,
-    private authService: AuthService
+    private http: HttpClient
   ) { }
 
   ngOnInit(): void {
   }
 
-  handleLogin() {
-    this.authService.login(this.username, this.password).subscribe((result) => {
-      this.invalidLogin = false;
-      this.loginSuccess = true;
-      this.successMessage = "Login OK";
-      this.router.navigate(['http://localhost:8080/logintest']);
-      console.log("Login OK");
-      }, () => {
-      this.invalidLogin = true;
-      this.loginSuccess = false;
-      console.log("Login NOK");
+  login(){
+    let url = "http://localhost:8080/login";
+    this.http.post<any>(url, {
+      userLogin: this.model.userLogin,
+      userPassword: this.model.userPassword
+    }).subscribe(res => {
+      if (res) {
+        this.sessionId = res.sessionId;
+
+        sessionStorage.setItem('token',
+          this.sessionId);
+        this.router.navigate(['dashboard']);
+      } else {
+        alert("Echec du login.")
       }
-    )
+    });
   }
 
 }

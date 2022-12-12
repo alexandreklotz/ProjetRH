@@ -21,11 +21,10 @@ import { RolesListComponent } from './roles-list/roles-list.component';
 import { SingleRolesComponent } from './single-roles/single-roles.component';
 import { SingleQuestionComponent } from './single-question/single-question.component';
 import { SingleReponseComponent } from './single-reponse/single-reponse.component';
-import { LoginComponent } from './login/login.component';
 import {FormsModule} from "@angular/forms";
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
-import {HttpInterceptorService} from "./services/HttpInterceptor.service";
 import { LogoutComponent } from './logout/logout.component';
+import { LoginComponent } from './login/login.component';
 
 
 @NgModule({
@@ -50,8 +49,8 @@ import { LogoutComponent } from './logout/logout.component';
     SingleRolesComponent,
     SingleQuestionComponent,
     SingleReponseComponent,
-    LoginComponent,
-    LogoutComponent
+    LogoutComponent,
+    LoginComponent
   ],
     imports: [
         BrowserModule,
@@ -60,11 +59,6 @@ import { LogoutComponent } from './logout/logout.component';
         HttpClientModule
     ],
   providers: [
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: HttpInterceptorService,
-      multi: true
-    }
   ],
   bootstrap: [AppComponent]
 })
