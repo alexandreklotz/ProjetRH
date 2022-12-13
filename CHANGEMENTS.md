@@ -1,3 +1,18 @@
+### 13/12/2022
+
+__*BACKEND*__
+
+*Mise en place des token. La config de sécurité a à nouveau été modifiée. Les token sont bien générés*
+
+__Modifications apportées au code :__
+- Création de `JwtUtil` et `JwtRequestFilter` => Mise en place des token
+- La configuration de sécurité `ApplicationWebSecurityConfig` a été modifiée en fonction.
+- Des erreurs ont été corrigées dans `SecurityUserDetailsService`
+- Création d'un `@PostMapping` dans `LoginController` => `/authentification`. Nous permet de nous authentifier et de nous voir attribués un token.
+
+*Il ne me reste plus qu'à mettre en place le stockage du token dans le front et voir comment récupérer les éléments liés à l'utilisateur connecté.*
+
+---
 ### 12/12/2022
 
 __*FRONTEND*__

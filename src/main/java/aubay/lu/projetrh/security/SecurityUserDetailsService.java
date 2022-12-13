@@ -19,7 +19,7 @@ public class SecurityUserDetailsService implements UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public SecurityUserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Utilisateur utilisateur = utilisateurRepository
                 .findUserWithRoles(username)
                 .orElseThrow(() -> new UsernameNotFoundException("SECURITY ERROR : L'utilisateur " + username + " qui tente de se connecter n'existe pas."));
