@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import {AppRoutingModule} from "./app-routing.module";
 import { AppComponent } from './app.component';
 import { QcmComponent } from './qcm/qcm.component';
-import { HomepageComponent } from './homepage/homepage.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 import { QcmListComponent } from './qcm-list/qcm-list.component';
 import { UtilisateurComponent } from './utilisateur/utilisateur.component';
 import { TestComponent } from './test/test.component';
@@ -31,7 +31,7 @@ import { LoginComponent } from './login/login.component';
   declarations: [
     AppComponent,
     QcmComponent,
-    HomepageComponent,
+    DashboardComponent,
     QcmListComponent,
     UtilisateurComponent,
     TestComponent,

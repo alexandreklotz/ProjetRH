@@ -6,6 +6,7 @@ import aubay.lu.projetrh.repository.UtilisateurRepository;
 import aubay.lu.projetrh.security.JwtUtil;
 import aubay.lu.projetrh.security.SecurityUserDetails;
 import aubay.lu.projetrh.security.SecurityUserDetailsService;
+import com.fasterxml.jackson.databind.util.JSONPObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -14,7 +15,11 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
+import java.util.Map;
+
 @RestController
+@RequestMapping(produces = "application/json")
 @CrossOrigin(origins = "http://localhost:4200") //Décommenter par la suite
 public class LoginController {
 
@@ -36,7 +41,7 @@ public class LoginController {
     }
 
     @PostMapping("/authentification")
-    public ResponseEntity<String> authentification(@RequestBody Utilisateur utilisateur) throws Exception {
+    public Map<String, Object> authentification(@RequestBody Utilisateur utilisateur) throws Exception {
         try {
             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
@@ -44,12 +49,12 @@ public class LoginController {
                     )
             );
         } catch (AuthenticationException e) {
-            return ResponseEntity.badRequest().body("Mauvais pseudo / mot de passe");
+            throw new RuntimeException("Mauvais login ou mot de passe");
         }
 
         SecurityUserDetails securityUserDetails = this.securityUserDetailsService.loadUserByUsername(utilisateur.getUserLogin());
 
-        return ResponseEntity.ok(jwtUtil.generateToken(securityUserDetails));
+        return Collections.singletonMap("jwt_token", jwtUtil.generateToken(securityUserDetails));
     }
 
 

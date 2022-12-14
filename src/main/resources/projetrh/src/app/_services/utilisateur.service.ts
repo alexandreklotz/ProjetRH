@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {map, Observable, switchMap} from "rxjs";
-import {Utilisateur} from "../models/utilisateur.model";
+import {Utilisateur} from "../_models/utilisateur.model";
 
 
 @Injectable({

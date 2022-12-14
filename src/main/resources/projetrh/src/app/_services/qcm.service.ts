@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {Qcm} from "../models/qcm.model";
+import {Qcm} from "../_models/qcm.model";
 import {HttpClient} from "@angular/common/http";
 import {map, Observable, switchMap} from "rxjs";
 

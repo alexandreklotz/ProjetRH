@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
-import {QcmService} from "../services/qcm.service";
+import {QcmService} from "../_services/qcm.service";
 
 @Component({
   selector: 'app-single-qcm',

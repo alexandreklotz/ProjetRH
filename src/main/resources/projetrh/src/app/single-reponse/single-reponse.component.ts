@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
-import {ReponseService} from "../services/reponse.service";
+import {ReponseService} from "../_services/reponse.service";
 
 @Component({
   selector: 'app-single-reponse',

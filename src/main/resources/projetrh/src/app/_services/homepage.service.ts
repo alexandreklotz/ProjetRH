@@ -1,9 +1,9 @@
 import {Injectable} from "@angular/core";
-import {Homepage} from "../models/homepage.model";
+import {Homepage} from "../_models/homepage.model";
 import {HttpClient} from "@angular/common/http";
 import {map, Observable, switchMap} from "rxjs";
-import {Utilisateur} from "../models/utilisateur.model";
-import {Test} from "../models/test.model";
+import {Utilisateur} from "../_models/utilisateur.model";
+import {Test} from "../_models/test.model";
 
 @Injectable({
   providedIn:'root'

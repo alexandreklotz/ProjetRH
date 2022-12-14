@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {ReponseService} from "../services/reponse.service";
+import {ReponseService} from "../_services/reponse.service";
 import {Router} from "@angular/router";
-import {Reponse} from "../models/reponse.model";
+import {Reponse} from "../_models/reponse.model";
 
 @Component({
   selector: 'app-reponse',

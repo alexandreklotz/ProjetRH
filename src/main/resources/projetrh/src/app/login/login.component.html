@@ -1,13 +1,27 @@
-<form name ="form" (ngSubmit)="login()" #f="ngForm">
-  <div>
-    <label for="userLogin">Login</label>
-    <input type="text" name="userLogin" [(ngModel)]="model.userLogin" #username="ngModel" required>
-  </div>
-  <div>
-    <label for="userPassword">Mot de passe</label>
-    <input type="text" name="userPassword" [(ngModel)]="model.userPassword" #password="ngModel" required>
-  </div>
-  <div>
-    <button>Login</button>
-  </div>
-</form>
+<div class="form_container">
+  <br>
+  <form
+    name="form"
+    #f="ngForm"
+    (ngSubmit)="f.form.valid && onSubmit()"
+  >
+    <div class="group">
+      <label for="login">Login</label>
+      <input type="text" name="login" id="login" [(ngModel)]="form.userLogin" #login="ngModel" required>
+      <div class="form_error" *ngIf="login.errors && f.submitted">
+        Vous devez spécifier votre login !
+      </div>
+    </div>
+    <div class="group">
+      <label for="password">Mot de passe</label>
+      <input type="password" name="password" id="password" [(ngModel)]="form.userPassword" #password="ngModel" required >
+
+      <div class="form_error" *ngIf="password.errors && f.submitted">
+        <div *ngIf="password.errors['required']">Ce champ ne peut pas être vide</div>
+      </div>
+    </div>
+    <div class="group">
+      <button>Login</button>
+    </div>
+  </form>
+</div>

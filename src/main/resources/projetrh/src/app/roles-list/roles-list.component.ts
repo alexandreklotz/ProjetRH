@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Observable} from "rxjs";
-import {Roles} from "../models/roles.model";
-import {RolesService} from "../services/roles.service";
+import {Roles} from "../_models/roles.model";
+import {RolesService} from "../_services/roles.service";
 
 @Component({
   selector: 'app-roles-list',

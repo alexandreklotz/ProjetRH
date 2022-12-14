@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {ReponseService} from "../services/reponse.service";
+import {ReponseService} from "../_services/reponse.service";
 import {Observable} from "rxjs";
-import {Reponse} from "../models/reponse.model";
+import {Reponse} from "../_models/reponse.model";
 
 @Component({
   selector: 'app-reponse-list',

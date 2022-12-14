@@ -1,3 +1,24 @@
+### 14/12/2022
+
+__*BACKEND*__
+
+__Modifications apportées au code :__
+- Modification de `LoginController` : modification du retour de `/authentification` => on retourne maintenant une map pour pouvoir renvoyer le token dans un formulaire JSON. La propriété __@RequestMapping(produces = "application/json")__ a été ajoutée dans ce contrôleur dans ce but.
+
+__*FRONTEND*__
+__Modifications apportées au code :__
+- Création de deux services : `auth` et `token`. `auth` nous permet de nous authentifier sur le back en récupérant le token et en allant le stocker dans `token` qui lui est injecté avec `auth.guard.ts` pour filtrer les requêtes
+- Création de `_helpers` et de `auth.guard.ts` => nous permet de filtrer les demandes d'accès aux différentes URL du front en vérifiant le token et si l'utilisateur est identifié. `app-routing.module.ts` a été modifié pour que ce mécanisme puisse fonctionner.
+- Les répertoires contenant des services/interfaces ou autres mécanismes essentiels au fonctionnement du front été renommés comme suivant : `_nomdudossier`. Cela nous permet de différencier les directory pour des éléments visuels et les directory des mécanismes logiciels
+- Mise en place du logout.
+
+*Il faut que je gère les rôles, c'est-à-dire que par exemple le auth.guard.ts ne permet qu'aux utilisateurs authentifiés d'accéder aux pages autres que la page de login
+cependant il ne filtre pas l'accès aux pages réservées au recruteur/admin. Cela viendra par la suite.*
+
+*Je vais devoir restructurer toute l'application et séparer le côté admin, le côté recruteur et le coté candidat.
+Cela implique peut-être de créer des services propres à chaque type d'utilisateur pour bien fermer/dédier certaines fonctions*
+
+---
 ### 13/12/2022
 
 __*BACKEND*__

@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
-import { Qcm } from "../models/qcm.model";
-import { QcmService } from "../services/qcm.service";
+import { Qcm } from "../_models/qcm.model";
+import { QcmService } from "../_services/qcm.service";
 import {Observable} from "rxjs";
 
 @Component({

@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {map, Observable, switchMap} from "rxjs";
-import {Test} from "../models/test.model";
+import {Test} from "../_models/test.model";
 
 
 @Injectable({

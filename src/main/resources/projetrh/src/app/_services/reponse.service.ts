@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {map, Observable, switchMap} from "rxjs";
-import {Reponse} from "../models/reponse.model";
+import {Reponse} from "../_models/reponse.model";
 
 @Injectable({
   providedIn: 'root'
