@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {Homepage} from "../_models/homepage.model";
+import {Dashboard} from "../_models/dashboard.model";
 import {HttpClient} from "@angular/common/http";
 import {map, Observable, switchMap} from "rxjs";
 import {Utilisateur} from "../_models/utilisateur.model";
@@ -9,7 +9,7 @@ import {Test} from "../_models/test.model";
   providedIn:'root'
 })
 
-export class HomepageService{
+export class DashboardService {
 
   constructor(private http: HttpClient){}
 

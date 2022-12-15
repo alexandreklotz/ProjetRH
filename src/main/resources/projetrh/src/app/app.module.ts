@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import {AppRoutingModule} from "./app-routing.module";
 import { AppComponent } from './app.component';
 import { QcmComponent } from './qcm/qcm.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
+import { DashboardComponent } from './candidat/dashboard/dashboard.component';
 import { QcmListComponent } from './qcm-list/qcm-list.component';
 import { UtilisateurComponent } from './utilisateur/utilisateur.component';
 import { TestComponent } from './test/test.component';
@@ -25,6 +25,7 @@ import {FormsModule} from "@angular/forms";
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import { LogoutComponent } from './logout/logout.component';
 import { LoginComponent } from './login/login.component';
+import {TokenInterceptorProvider} from "./_helpers/token.interceptor";
 
 
 @NgModule({
@@ -59,6 +60,7 @@ import { LoginComponent } from './login/login.component';
         HttpClientModule
     ],
   providers: [
+    TokenInterceptorProvider
   ],
   bootstrap: [AppComponent]
 })

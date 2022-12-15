@@ -1,6 +1,6 @@
 import {Test} from "./test.model";
 
-export class Homepage { //TODO : voir comment on peut récupérer le fullname de l'utilisateur
+export class Dashboard { //TODO : voir comment on peut récupérer le fullname de l'utilisateur
   welcomeMsg!: string;
   fullUserName!: string;
   userGlobalScore!: number;

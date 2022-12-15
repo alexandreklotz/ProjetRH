@@ -1,6 +1,6 @@
 import {NgModule} from "@angular/core";
 import {RouterModule, Routes} from "@angular/router";
-import {DashboardComponent} from "./dashboard/dashboard.component";
+import {DashboardComponent} from "./candidat/dashboard/dashboard.component";
 import {QcmListComponent} from "./qcm-list/qcm-list.component";
 import {QcmComponent} from "./qcm/qcm.component";
 import { UtilisateurComponent } from './utilisateur/utilisateur.component';

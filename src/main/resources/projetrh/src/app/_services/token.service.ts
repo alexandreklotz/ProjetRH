@@ -21,7 +21,11 @@ export class TokenService {
 
   clearToken(): void {
     localStorage.removeItem('jwt_token')
-    this.router.navigate([''])
+    this.router.navigate(['login'])
+  }
+
+  getToken(): string | null {
+    return localStorage.getItem('jwt_token')
   }
 
 }

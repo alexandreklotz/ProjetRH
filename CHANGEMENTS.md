@@ -1,3 +1,19 @@
+### 15/12/2022
+
+__*BACKEND*__
+
+__Modifications apportées au code :__
+- Ajout d'un __antMatcher__ dans `ApplicationWebSecurityConfig` => `/recruteur`. Des mappings vont être modifiés, au lieu de commencer par `/admin` ils commenceront par `/recruteur`. Cela me permettra de gérer les rôles plus facilement.
+- Création d'un __GetMapping__ dans `LoginController` => `/recruteur/test`. Il sera utilisé afin de vérifier la gestion des rôles du front. Seul un recruteur ou un admin peuvent accéder à cet url, pas un utilisateur normal.
+
+
+__*FRONTEND*__
+
+__Modifications apportées au code :__
+- Création de `token.interceptor.ts` => Cet élément intercepte les requêtes sortantes du front allant vers le back, la clone et intègre dans ce clone le token de l'utilisateur. Si le token est expiré, il le supprime.
+- Refactor de `homepage` en `dashboard`.
+
+---
 ### 14/12/2022
 
 __*BACKEND*__
@@ -6,6 +22,7 @@ __Modifications apportées au code :__
 - Modification de `LoginController` : modification du retour de `/authentification` => on retourne maintenant une map pour pouvoir renvoyer le token dans un formulaire JSON. La propriété __@RequestMapping(produces = "application/json")__ a été ajoutée dans ce contrôleur dans ce but.
 
 __*FRONTEND*__
+
 __Modifications apportées au code :__
 - Création de deux services : `auth` et `token`. `auth` nous permet de nous authentifier sur le back en récupérant le token et en allant le stocker dans `token` qui lui est injecté avec `auth.guard.ts` pour filtrer les requêtes
 - Création de `_helpers` et de `auth.guard.ts` => nous permet de filtrer les demandes d'accès aux différentes URL du front en vérifiant le token et si l'utilisateur est identifié. `app-routing.module.ts` a été modifié pour que ce mécanisme puisse fonctionner.

@@ -57,5 +57,10 @@ public class LoginController {
         return Collections.singletonMap("jwt_token", jwtUtil.generateToken(securityUserDetails));
     }
 
+    @GetMapping("/recruteur/test")
+    public String testRecruteur(){
+        return "L'URL /recruteur fonctionne.";
+    }
+
 
 }

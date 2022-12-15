@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Homepage} from "../_models/homepage.model";
+import {Dashboard} from "../../_models/dashboard.model";
 
 @Component({
   selector: 'app-dashboard',
@@ -8,7 +8,7 @@ import {Homepage} from "../_models/homepage.model";
 })
 export class DashboardComponent implements OnInit {
 
-  @Input() homePage!: Homepage;
+  @Input() homePage!: Dashboard;
 
   constructor() { }
 
