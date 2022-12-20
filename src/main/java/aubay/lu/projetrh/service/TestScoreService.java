@@ -6,7 +6,7 @@ import java.util.UUID;
 
 public interface TestScoreService {
 
-    public void setUtilisateurGlobalScore(Utilisateur testUtilisateur, Double testScore);
+    public void setUtilisateurGlobalScore(Utilisateur testUtilisateur);
 
     public void updateUtilisateurGlobalScoreAfterDelete(UUID testId, UUID candidatId);
 

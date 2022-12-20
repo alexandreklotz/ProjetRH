@@ -2,6 +2,9 @@
 
 __*BACKEND*__
 
+__Pour le 2e push de ce jour, modification rapide de la méthode `setUtilisateurGlobalScore`, le paramètre `testScore` n'était pas
+nécessaire et la méthode ainsi que `submitTest` ont été modifiés en fonction.__
+
 *La manière dont je calculais le globalScore des utilisateurs n'était pas correcte. Un service a été créé à cet effet et la
 logique de calcul a été corrigée.*
 

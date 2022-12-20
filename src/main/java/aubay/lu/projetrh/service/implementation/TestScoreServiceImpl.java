@@ -26,7 +26,7 @@ public class TestScoreServiceImpl implements TestScoreService {
     }
 
     @Override
-    public void setUtilisateurGlobalScore(Utilisateur testUtilisateur, Double testScore) {
+    public void setUtilisateurGlobalScore(Utilisateur testUtilisateur) {
         Optional<Utilisateur> candidat = utilisateurRepository.findById(testUtilisateur.getId());
         if(candidat.isPresent()){
             Double newGlobalScore = 0.0;

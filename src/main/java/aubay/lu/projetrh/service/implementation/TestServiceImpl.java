@@ -268,7 +268,7 @@ public class TestServiceImpl implements TestService {
         Double newUserGlobalScore = (testScore + utilisateurTest.get().getGlobalScore()) / numberOfTests;
         utilisateurTest.get().setGlobalScore(newUserGlobalScore);
         utilisateurRepository.saveAndFlush(utilisateurTest.get());*/
-        testScoreService.setUtilisateurGlobalScore(utilisateurTest.get(), testScore);
+        testScoreService.setUtilisateurGlobalScore(utilisateurTest.get());
 
         log.info("Le test {} a été soumis avec succès.", test.getId());
         return test;
