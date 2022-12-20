@@ -1,7 +1,6 @@
 package aubay.lu.projetrh.service;
 
 import aubay.lu.projetrh.model.Utilisateur;
-import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 import java.util.Optional;
@@ -19,14 +18,22 @@ public interface UtilisateurService {
 
     public Optional<Utilisateur> getUtilisateurByLogin(String userlogin);
 
+    public List<Utilisateur> getAllCandidats();
+
     public Utilisateur createUtilisateur(Utilisateur utilisateur);
 
+    public Utilisateur createCandidat(Utilisateur utilisateur);
+
     public Utilisateur updateUtilisateur(Utilisateur utilisateur);
+
+    public Utilisateur updateCandidat(Utilisateur utilisateur);
 
     public String deleteUtilisateur(UUID userid);
 
     public Utilisateur userProfileUpdate(Utilisateur utilisateur, String userlogin);
 
     public Utilisateur userSelfRetrieve(String userlogin);
+
+    public void deleteCandidat(UUID candidatId);
 
 }

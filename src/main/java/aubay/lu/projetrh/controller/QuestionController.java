@@ -23,37 +23,37 @@ public class QuestionController {
     }
 
     @JsonView(CustomJsonView.QuestionView.class)
-    @GetMapping("admin/question/all")
+    @GetMapping("moderateur/question/all")
     public List<Question> getAllQuestion(){
         return questionService.getAllQuestions();
     }
 
     @JsonView(CustomJsonView.QuestionView.class)
-    @GetMapping("admin/question/id/{questionId}")
+    @GetMapping("moderateur/question/id/{questionId}")
     public Optional<Question> getQuestionById(@PathVariable UUID questionId){
         return questionService.getQuestionById(questionId);
     }
 
     @JsonView(CustomJsonView.QuestionView.class)
-    @GetMapping("admin/question/qcm/{qcmId}")
+    @GetMapping("moderateur/question/qcm/{qcmId}")
     public List<Question> getQuestionByQcmId(@PathVariable UUID qcmId){
         return questionService.getQuestionByQcmId(qcmId);
     }
 
     @JsonView(CustomJsonView.QuestionView.class)
-    @PostMapping("admin/question/create")
+    @PostMapping("moderateur/question/create")
     public Question createQuestion(@RequestBody Question question){
         return questionService.createQuestion(question);
     }
 
     @JsonView(CustomJsonView.QuestionView.class)
-    @PutMapping("admin/question/update")
+    @PutMapping("moderateur/question/update")
     public Question updateQuestion(@RequestBody Question question){
         return questionService.updateQuestion(question);
     }
 
     @JsonView(CustomJsonView.QuestionView.class)
-    @DeleteMapping("admin/question/delete/{questionId}")
+    @DeleteMapping("moderateur/question/delete/{questionId}")
     public String deleteQuestion (@PathVariable UUID questionId){
         return questionService.deleteQuestion(questionId);
     }

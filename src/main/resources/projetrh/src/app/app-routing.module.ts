@@ -28,18 +28,19 @@ const routes: Routes = [
   // d'une question. Ou qcm/id/questions. Il faudra sûrement modifier le routing.
   {path: 'login', component:LoginComponent},
   {path: '', component:LoginComponent},
-  {path: 'dashboard', component: DashboardComponent, canActivate:[AuthGuard]},
-  {path: 'qcm', component:QcmListComponent, canActivate:[AuthGuard]},
-  {path: 'qcm/:id', component:SingleQcmComponent, canActivate:[AuthGuard]},
-  {path: 'tests', component:TestListComponent, canActivate:[AuthGuard]},
-  {path: 'test/:id', component:SingleTestComponent, canActivate:[AuthGuard]},
-  {path: 'questions', component: QuestionListComponent, canActivate:[AuthGuard]},
-  {path: 'question/:id', component:SingleQuestionComponent, canActivate:[AuthGuard]},
-  {path: 'reponses', component: ReponseListComponent, canActivate:[AuthGuard]},
-  {path: 'reponse/:id', component: SingleReponseComponent, canActivate:[AuthGuard]},
-  {path: 'utilisateurs', component:UtilisateurListComponent, canActivate:[AuthGuard]},
-  {path: 'utilisateur/:id', component:SingleUtilisateurComponent, canActivate:[AuthGuard]}
+  {path: 'dashboard', component: DashboardComponent, canActivate:[AuthGuard], data : { allowedRoles : "CANDIDAT"}},
+  {path: 'qcm', component:QcmListComponent, canActivate:[AuthGuard], data : { allowedRoles: ["RECRUTEUR", "ADMIN"]}},
+  {path: 'qcm/:id', component:SingleQcmComponent, canActivate:[AuthGuard], data : { allowedRoles: ["RECRUTEUR", "ADMIN"]}},
+  {path: 'tests', component:TestListComponent, canActivate:[AuthGuard], data : { allowedRoles: ["RECRUTEUR", "ADMIN"]}},
+  {path: 'test/:id', component:SingleTestComponent, canActivate:[AuthGuard], data : { allowedRoles: ["RECRUTEUR", "ADMIN", "CANDIDAT"]}},
+  {path: 'questions', component: QuestionListComponent, canActivate:[AuthGuard], data : { allowedRoles: ["RECRUTEUR", "ADMIN"]}},
+  {path: 'question/:id', component:SingleQuestionComponent, canActivate:[AuthGuard], data : { allowedRoles: ["RECRUTEUR", "ADMIN"]}},
+  {path: 'reponses', component: ReponseListComponent, canActivate:[AuthGuard], data : { allowedRoles: ["RECRUTEUR", "ADMIN"]}},
+  {path: 'reponse/:id', component: SingleReponseComponent, canActivate:[AuthGuard], data : { allowedRoles: ["RECRUTEUR", "ADMIN"]}},
+  {path: 'utilisateurs', component:UtilisateurListComponent, canActivate:[AuthGuard], data : { allowedRoles: "ADMIN"}},
+  {path: 'utilisateur/:id', component:SingleUtilisateurComponent, canActivate:[AuthGuard], data : { allowedRoles: ["RECRUTEUR", "ADMIN"]}}
   //TODO : Créer des routes pour les rôles ? voir comment gérer utilisateur/:id/role/:id ?
+  //TODO : voir comment taper le lien de l'API pour self retrieve l'user ?
 ];
 
 @NgModule({

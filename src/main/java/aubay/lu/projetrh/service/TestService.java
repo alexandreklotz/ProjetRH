@@ -19,7 +19,7 @@ public interface TestService {
 
     public Test updateTest(Test test);
 
-    public String deleteTest(UUID testId);
+    public void deleteTest(UUID testId);
 
     public Test submitTest(Test test);
 

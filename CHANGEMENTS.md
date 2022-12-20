@@ -1,3 +1,54 @@
+### 20/12/2022
+
+__*BACKEND*__
+
+*La manière dont je calculais le globalScore des utilisateurs n'était pas correcte. Un service a été créé à cet effet et la
+logique de calcul a été corrigée.*
+
+__Modifications apportées au code :__
+- Modification du antMatcher `/recruteur` dans `ApplicationWebSecurityConfig` => modifié en tant que `/moderateur`
+- Suppression du __@GetMapping__ de test `recruteur/test` dans `LoginController`
+- La majorité des __@RequestMapping__ sauf le lien `admin/utilisateur/create, ` pour modifier tous les utilisateurs ont été modifiés et sont accessibles par les recruteurs. Ces liens commencent désormais par `moderateur/` au lieu de `admin/`
+- Création de __@RequestMapping__ pour créer/modifier et supprimer __UNIQUEMENT__ des candidats. Ces liens seront accessibles aux admins et recruteurs mais ont été principalement créés pour les recruteurs
+- Création d'un service `TestScoreService` qui est implémenté dans `TestScoreServiceImpl`. Ce service sert à mettre à jour le score de l'utilisateur qui soumet un test et il sert aussi à mettre à jour le score de l'utilisateur lors de la suppression d'un test qu'il a déja passé et dont la note est comptée dans sa moyenne. Les méthodes sont :
+  - `setUtilisateurGlobalScore` : Il récupère l'utilisateur qui a passé le test et le score du test, remet sa moyenne à 0, fait le total de tous les tests passés le nouveau inclus et divise ce total par le nombre de tests passés. Il set ce total à l'utilisateur dans sa variable `globalScore`.
+  - `updateUtilisateurGlobalScoreAfterDelete` : Il récupère l'id du test supprimé et l'id de l'utilisateur lié à ce test. Il récupère ces deux objets, récupère la liste des tests de l'utilisateur et supprime le test à supprimer de cette liste. Il additionne ensuite le score des tests restants et les divise par le nombre de tests. Il set le total à l'utilisateur dans sa variable `globalScore`.
+- Création d'une __@Query__ dans `RolesRepository` => `findRoleByName`. Cette query nous permet de récupérer un rôle en indiquant sa dénomination. Cette query est utilisée par `UtilisateurServiceImpl` dans la méthode `createCandidat` pour s'assurer que l'utilisateur créé par le recruteur aura le rôle candidat __par défaut__.
+
+
+__*FRONTEND*__
+
+__Modifications apportées au code :__
+- Modification de la logique dans `auth.guard.ts` => Le guard arrive maintenant à itérer sur un array de rôles et à rediriger l'utilisateur. Le filtrage des rôles est maintenant fonctionnel
+
+*Je vais attaquer la réorganisation du front. Je vais séparer l'appli en trois dossiers, admin, candidat et recruteur.
+Je vais peut-être créer un service propre aux candidats avec seulement les liens vers les endpoints qu'ils peuvent utiliser,
+et en créer pour les recruteurs et admins histoire de bien séparer (voir si utile/cohérent dans le cas des services).
+Pour les pages, séparer l'appli me permettrait d'organiser correctement mon projet à moins qu'il soit possible d'utiliser
+des paramètres de angular dans le HTML pour cacher des champs si une condition n'est pas remplie. Il y'a des choses sur
+lesquelles je dois encore me documenter. En tout cas mon ostacle de l'authentification est de l'histoire ancienne, en
+prenant du recul c'était en fait tout simple...*
+
+---
+### 16-17-18-19/12/2022
+
+__*FRONTEND*__
+
+*Le filtrage de l'accès aux pages en fonction des rôles fonctionne cependant je rencontre un problème, lorsque je spécifie plusieurs
+rôles dans la route sous forme de tableau, par exemple : date : { allowedRoles : ["CANDIDAT", "RECRUTEUR"]}, le `auth.guard` 
+n'arrive pas à comparer le rôle de l'utilisateur avec chacun des rôles du tableau. J'ai pensé à faire un forEach mais inutile
+sur typescript, j'ai aussi essayé d'itérer sur chacun des éléments avec une boucle for mais sans succès. Par contre, le filtrage
+marche parfaitement si il n'y a qu'un rôle qui peut accéder à la route car il n'est pas sous forme de tableau.
+Il y'a deux solutions pour palier à ce problème : Créer un guard par rôle, lourd et peu pratique mais fonctionnel et
+je pourrais être plus strict au niveau des rôles ou trouver une solution pour le tableau de rôles dans la route 
+en trouvant un moyen pour comparer chaque string de l'array.*
+
+*En gros, j'ai beaucoup fait pour défaire. Très frustrant car du coup j'avance peu alors que c'est quelque chose de très simple.*
+
+__Modifications apportées au code :__
+- Création de plusieurs méthodes dans `token.service.ts` => `getUserRoleFromToken` qui récupère le rôle de l'utilisateur dans le token et le renvoie, et `redirectUserBasedOnRole` qui redirige les utilisateurs en fonction de leur rôle (lire le commentaire en italique avant la liste)
+
+---
 ### 15/12/2022
 
 __*BACKEND*__

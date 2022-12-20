@@ -13,15 +13,15 @@ export class TestService {
   constructor(private http: HttpClient){}
 
   getAllTest(): Observable<Test[]>{
-    return this.http.get<Test[]>('http://localhost:8080/admin/test/all')
+    return this.http.get<Test[]>('http://localhost:8080/moderateur/test/all')
   }
 
   getTestById(testId: string): Observable<Test>{
-    return this.http.get<Test>(`http://localhost:8080/admin/test/${testId}`)
+    return this.http.get<Test>(`http://localhost:8080/moderateur/test/${testId}`)
   }
 
   getTestByCandidat(userId: string): Observable<Test[]>{
-    return this.http.get<Test[]>(`http://localhost:8080/admin/test/candidat/${userId}`)
+    return this.http.get<Test[]>(`http://localhost:8080/moderateur/test/candidat/${userId}`)
   }
 
 }

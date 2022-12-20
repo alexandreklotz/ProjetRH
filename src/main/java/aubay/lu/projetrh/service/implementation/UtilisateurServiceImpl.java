@@ -8,12 +8,9 @@ import aubay.lu.projetrh.service.UtilisateurService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -72,6 +69,16 @@ public class UtilisateurServiceImpl implements UtilisateurService {
     }
 
     @Override
+    public List<Utilisateur> getAllCandidats() {
+        Optional<Roles> roleCandidat = rolesRepository.findRoleByName("CANDIDAT");
+        if(roleCandidat.isEmpty()){
+            return null;
+        }
+        List<Utilisateur> allCandidats = (List<Utilisateur>) roleCandidat.get().getUtilisateurs();
+        return allCandidats;
+    }
+
+    @Override
     public Utilisateur createUtilisateur(Utilisateur utilisateur) {
 
         boolean isExistingUser = isUserExisting(utilisateur.getUserLogin());
@@ -88,6 +95,38 @@ public class UtilisateurServiceImpl implements UtilisateurService {
 
         utilisateur.setUserPassword(passwordEncoder.encode(utilisateur.getUserPassword()));
         log.info("L'utilisateur {} a été créé.", utilisateur.getUserLogin());
+        return utilisateurRepository.saveAndFlush(utilisateur);
+    }
+
+    @Override
+    public Utilisateur createCandidat(Utilisateur utilisateur) {
+        boolean isExistingUser = isUserExisting(utilisateur.getUserLogin());
+        if(isExistingUser){
+            log.error("Erreur lors de la création de {}. Ce login est déja assigné à un utilisateur existant.", utilisateur.getUserLogin());
+            return null; //pseudo déja pris
+        }
+
+        boolean mailInUse = mailAddressInUse(utilisateur.getMailAddress());
+        if(mailInUse){
+            log.error("Erreur lors de la création de l'utilisateur {}. L'adresse mail {} est déja utilisée.", utilisateur.getUserLogin(), utilisateur.getMailAddress());
+            return null; //email déja utilisé
+        }
+
+        Optional<Roles> candidatRole = rolesRepository.findRoleByName("CANDIDAT");
+        if(candidatRole.isEmpty()){
+            log.info("ERROR : Le rôle candidat n'existe pas. Impossible de le récupérer. Création du candidat {} annulée.", utilisateur.getUserLogin());
+            return null;
+        }
+
+        if(utilisateur.getRole() != null){
+            utilisateur.setRole(candidatRole.get());
+        } else if (utilisateur.getRole() == null){
+            utilisateur.setRole(candidatRole.get());
+        }
+
+
+        utilisateur.setUserPassword(passwordEncoder.encode(utilisateur.getUserPassword()));
+        log.info("Le candidat {} a été créé.", utilisateur.getUserLogin());
         return utilisateurRepository.saveAndFlush(utilisateur);
     }
 
@@ -146,6 +185,53 @@ public class UtilisateurServiceImpl implements UtilisateurService {
         }
 
         log.info("L'utilisateur {} a été mis à jour.", utilisateur.getUserLogin());
+        return utilisateurRepository.saveAndFlush(utilisateur);
+    }
+
+    @Override
+    public Utilisateur updateCandidat(Utilisateur utilisateur) {
+        Optional<Utilisateur> candidatToUpdate = utilisateurRepository.findById(utilisateur.getId());
+        if(candidatToUpdate.isEmpty()){
+            return null;
+        }
+
+        if(candidatToUpdate.get().getRole().getId() != 3L){
+            return null; //L'ID du rôle ne correspond pas à l'id du rôle candidat
+        }
+
+        boolean isAlreadyExisting = isUserExisting(utilisateur.getUserLogin());
+        if(isAlreadyExisting && !utilisateur.getUserLogin().equals(candidatToUpdate.get().getUserLogin())){
+            log.error("Impossible d'assigner le login {} à l'utilisateur {}, il est déja utilisé.", utilisateur.getUserLogin(), candidatToUpdate.get().getUserLogin());
+            return null; //cela veut dire que le login renseigné par l'utilisateur lors de la maj de son profil est déja pris
+        } else if(utilisateur.getUserLogin() == null){
+            utilisateur.setUserLogin(candidatToUpdate.get().getUserLogin());
+        }
+
+        boolean mailInUse = mailAddressInUse(utilisateur.getMailAddress());
+        if(mailInUse && !utilisateur.getMailAddress().equals(candidatToUpdate.get().getMailAddress())){
+            log.error("Erreur lors de la création de l'utilisateur {}. L'adresse mail {} est déja utilisée.", utilisateur.getUserLogin(), utilisateur.getMailAddress());
+            return null; //email déja utilisé
+        } else if(utilisateur.getMailAddress() == null) {
+            utilisateur.setMailAddress(candidatToUpdate.get().getMailAddress());
+        }
+
+
+        if(utilisateur.getFirstName() == null){
+            utilisateur.setFirstName(candidatToUpdate.get().getFirstName());
+        }
+
+        if(utilisateur.getLastName() == null){
+            utilisateur.setLastName(candidatToUpdate.get().getLastName());
+        }
+
+        if(utilisateur.getUserPassword() != null){
+            log.info("Le mot de passe de l'utilisateur {} a été modifié.", utilisateur.getUserLogin());
+            utilisateur.setUserPassword(passwordEncoder.encode(utilisateur.getUserPassword()));
+        } else {
+            utilisateur.setUserPassword(candidatToUpdate.get().getUserPassword());
+        }
+
+        log.info("Le candidat {} a été mis à jour.", utilisateur.getUserLogin());
         return utilisateurRepository.saveAndFlush(utilisateur);
     }
 
@@ -216,5 +302,13 @@ public class UtilisateurServiceImpl implements UtilisateurService {
             return null; //return erreur
         }
         return retrievedUser.get();
+    }
+
+    @Override
+    public void deleteCandidat(UUID candidatId) {
+        Optional<Utilisateur> candidatToDelete = utilisateurRepository.findById(candidatId);
+        if(candidatToDelete.isPresent()){
+            utilisateurRepository.deleteById(candidatId);
+        }
     }
 }

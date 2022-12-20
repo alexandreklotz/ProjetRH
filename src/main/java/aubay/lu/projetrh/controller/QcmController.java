@@ -24,37 +24,37 @@ public class QcmController {
 
 
     @JsonView(CustomJsonView.QcmView.class)
-    @GetMapping("admin/qcm/all")
+    @GetMapping("moderateur/qcm/all")
     public List<Qcm> getAllQcm(){
         return qcmService.getAllQcm();
     }
 
     @JsonView(CustomJsonView.QcmView.class)
-    @GetMapping("admin/qcm/id/{qcmId}")
+    @GetMapping("moderateur/qcm/id/{qcmId}")
     public Optional<Qcm> getQcmById(@PathVariable UUID qcmId){
         return qcmService.getQcmById(qcmId);
     }
 
     @JsonView(CustomJsonView.QcmView.class)
-    @GetMapping("admin/qcm/title/{title}")
+    @GetMapping("moderateur/qcm/title/{title}")
     public List<Qcm> getQcmByTitle(@PathVariable String title){
         return qcmService.getQcmByTitle(title);
     }
 
     @JsonView(CustomJsonView.QcmView.class)
-    @PostMapping("admin/qcm/create")
+    @PostMapping("moderateur/qcm/create")
     public Qcm createQcm(@RequestBody Qcm qcm){
         return qcmService.createQcm(qcm);
     }
 
     @JsonView(CustomJsonView.QcmView.class)
-    @PutMapping("admin/qcm/update")
+    @PutMapping("moderateur/qcm/update")
     public Qcm updateQcm(@RequestBody Qcm qcm){
         return qcmService.updateQcm(qcm);
     }
 
     @JsonView(CustomJsonView.QcmView.class)
-    @DeleteMapping("admin/qcm/delete/{qcmId}")
+    @DeleteMapping("moderateur/qcm/delete/{qcmId}")
     public String deleteQcm(@PathVariable UUID qcmId){
         return qcmService.deleteQcm(qcmId);
     }

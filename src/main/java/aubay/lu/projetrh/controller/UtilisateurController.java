@@ -43,9 +43,21 @@ public class UtilisateurController {
     }
 
     @JsonView(CustomJsonView.UtilisateurView.class)
+    @GetMapping("moderateur/utilisateur/candidats")
+    public List<Utilisateur> getAllCandidats(){
+        return utilisateurService.getAllCandidats();
+    }
+
+    @JsonView(CustomJsonView.UtilisateurView.class)
     @PostMapping("admin/utilisateur/create")
     public Utilisateur createUtilisateur(@RequestBody Utilisateur utilisateur){
         return utilisateurService.createUtilisateur(utilisateur);
+    }
+
+    @JsonView(CustomJsonView.UtilisateurView.class)
+    @PostMapping("moderateur/utilisateur/candidat/create")
+    public Utilisateur createCandidat(@RequestBody Utilisateur utilisateur){
+        return utilisateurService.createCandidat(utilisateur);
     }
 
     @JsonView(CustomJsonView.UtilisateurView.class)
@@ -54,9 +66,20 @@ public class UtilisateurController {
         return utilisateurService.updateUtilisateur(utilisateur);
     }
 
+    @JsonView(CustomJsonView.UtilisateurView.class)
+    @PutMapping("moderateur/utilisateur/candidat/update")
+    public Utilisateur updateCandidat(@RequestBody Utilisateur utilisateur){
+        return utilisateurService.updateCandidat(utilisateur);
+    }
+
     @DeleteMapping("admin/utilisateur/delete/{userid}")
     public String deleteUtilisateur(@PathVariable UUID userid){
         return utilisateurService.deleteUtilisateur(userid);
+    }
+
+    @DeleteMapping("moderateur/utilisateur/candidat/delete/{candidatid}")
+    public void deleteCandidat(@PathVariable UUID candidatid) {
+        utilisateurService.deleteCandidat(candidatid);
     }
 
 }

@@ -12,6 +12,14 @@ export class UtilisateurService{
 
   constructor(private http: HttpClient){}
 
+  createUserAfterRetrieve(utilisateur: Utilisateur){
+    //voir si cette méthode est nécessaire
+  }
+
+  userSelfRetrieve(): Observable<Utilisateur> {
+    return this.http.get<Utilisateur>('http://localhost:8080/user/retrieve')
+  }
+
   getAllUtilisateur(): Observable<Utilisateur[]>{
     return this.http.get<Utilisateur[]>('http://localhost:8080/admin/utilisateur/all')
   }

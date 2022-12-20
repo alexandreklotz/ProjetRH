@@ -3,6 +3,7 @@ package aubay.lu.projetrh.service.implementation;
 import aubay.lu.projetrh.model.*;
 import aubay.lu.projetrh.repository.*;
 import aubay.lu.projetrh.service.MapFilterService;
+import aubay.lu.projetrh.service.TestScoreService;
 import aubay.lu.projetrh.service.TestService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,6 +21,8 @@ import java.util.stream.Stream;
 public class TestServiceImpl implements TestService {
 
     private TestRepository testRepository;
+
+    private TestScoreService testScoreService;
     private UtilisateurRepository utilisateurRepository;
     private QcmRepository qcmRepository;
     private ReponseRepository reponseRepository;
@@ -29,12 +32,14 @@ public class TestServiceImpl implements TestService {
 
     @Autowired
     TestServiceImpl(TestRepository testRepository,
+                    TestScoreService testScoreService,
                     UtilisateurRepository utilisateurRepository,
                     QcmRepository qcmRepository,
                     ReponseRepository reponseRepository,
                     QuestionRepository questionRepository,
                     MapFilterService mapFilterService) {
         this.testRepository = testRepository;
+        this.testScoreService = testScoreService;
         this.utilisateurRepository = utilisateurRepository;
         this.qcmRepository = qcmRepository;
         this.reponseRepository = reponseRepository;
@@ -211,7 +216,6 @@ public class TestServiceImpl implements TestService {
         }
 
         Double testScore = 0.0;
-        //Set<Reponse> tempTestReponses = new HashSet<>();
         Set<Reponse> finalReponseListe = new HashSet<>();
 
         log.info("Vérifications de base pour chaque réponse.");
@@ -260,10 +264,11 @@ public class TestServiceImpl implements TestService {
         testRepository.saveAndFlush(currentTest.get());
 
         log.info("Enregistrement du nouveau score de l'utilisateur.");
-        int numberOfTests = utilisateurTest.get().getTests().size();
+        /*int numberOfTests = utilisateurTest.get().getTests().size();
         Double newUserGlobalScore = (testScore + utilisateurTest.get().getGlobalScore()) / numberOfTests;
         utilisateurTest.get().setGlobalScore(newUserGlobalScore);
-        utilisateurRepository.saveAndFlush(utilisateurTest.get());
+        utilisateurRepository.saveAndFlush(utilisateurTest.get());*/
+        testScoreService.setUtilisateurGlobalScore(utilisateurTest.get(), testScore);
 
         log.info("Le test {} a été soumis avec succès.", test.getId());
         return test;
@@ -336,10 +341,16 @@ public class TestServiceImpl implements TestService {
     }
 
     @Override
-    public String deleteTest (UUID testId){
+    public void deleteTest (UUID testId){
+        Optional<Test> deletedTest = testRepository.findById(testId);
+        if(deletedTest.isPresent()){
+            Optional<Utilisateur> testUtilisateur = utilisateurRepository.findById(deletedTest.get().getUtilisateur().getId());
+            if(testUtilisateur.isPresent()){
+                testScoreService.updateUtilisateurGlobalScoreAfterDelete(testId, testUtilisateur.get().getId());
+            }
+        }
         testRepository.deleteById(testId);
         log.info("Le test avec l'id {} a été supprimé.", testId);
-        return "Le test avec l'id " + testId + " a été supprimé";
     }
 
 }
