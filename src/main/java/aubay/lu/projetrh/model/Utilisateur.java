@@ -49,6 +49,10 @@ public class Utilisateur {
     @Column
     private double globalScore;
 
+    @JsonView(CustomJsonView.UtilisateurView.class)
+    @Column
+    private String userDescription;
+
 
     // CONSTRUCTOR //
     public Utilisateur(){}
@@ -120,6 +124,14 @@ public class Utilisateur {
 
     public void setGlobalScore(double globalScore) {
         this.globalScore = globalScore;
+    }
+
+    public String getUserDescription() {
+        return userDescription;
+    }
+
+    public void setUserDescription(String userDescription) {
+        this.userDescription = userDescription;
     }
 
     public Set<Test> getTests() {

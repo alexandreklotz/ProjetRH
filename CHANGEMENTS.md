@@ -1,3 +1,28 @@
+### 21/12/2022
+
+__*FRONTEND*__
+
+__Modifications apportées au code :__
+- Création d'un service dédié aux candidats : `UserEndPointService` => Il va effectuer les requêtes POST/GET sur les endpoints propres aux candidats
+- Création d'un dossier `_restricted` dans `_services`. Ce dossier contient les services réservés aux recruteurs/admin
+- Suppression de `dashboard.model.ts` => inutile
+- Création du component `sidebar` et suppression du component `logout`. Le button pour logout sera intégré dans la sidebar
+- Création du dossier `_components` qui contiendra tous les components de l'app
+
+*Grosse réorganisation du code en cours. J'ai supprimé beaucoup de component pour me concentrer sur un ou deux component maximum
+à la fois. J'ai créé deux "dummy" components qui seront bien entendu de vrais components à terme qui sont test/test-list et
+utilisateur/utilisateur-list. Je me focus d'abord sur la dashboard, voir comment je peux faire la disposition de cette dernière
+et une fois que j'ai une vue correcte avec une sidebar comme je le souhaite j'attaque les components en profondeur.*
+
+
+__*BACKEND*__
+
+__Modifications apportées au code :__
+- Création d'une nouvelle variable de type __String__ dans `Utilisateur` => `userDescription`
+
+*TODO : Il va falloir corriger la variable `globalScore` de `Utilisateur` pour n'afficher que 2 chiffres après la virgule.*
+
+---
 ### 20/12/2022
 
 __*BACKEND*__

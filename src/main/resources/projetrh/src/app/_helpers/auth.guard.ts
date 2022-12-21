@@ -25,10 +25,8 @@ export class AuthGuard implements CanActivate {
     }
 
     const userRole = this.tokenService.getRoleFromToken(userToken)
-    console.log("userRole : ", userRole)
     const allowedRoles = route.data['allowedRoles']
-    console.log("allowedRoles : ", allowedRoles)
-    console.log("Is allowedRoles an array ? ", Array.isArray(allowedRoles))
+
 
     if (Array.isArray(allowedRoles)) {
       let hasMatch = false;

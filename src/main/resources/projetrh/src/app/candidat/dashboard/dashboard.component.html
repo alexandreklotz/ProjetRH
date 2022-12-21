@@ -1,5 +1,5 @@
-<app-logout></app-logout>
-<h2>Profil de :</h2>
-<h3>Votre score : {{homePage.userGlobalScore}}</h3>
+<app-sidebar></app-sidebar>
+<h2>Profil de : {{loggedUtilisateur.userLogin}}</h2>
+<h3>Votre score : {{loggedUtilisateur.globalScore}}</h3>
 <h3>Tests passés :</h3>
-<p *ngFor="let test of homePage.userTests">{{test.titre}}, Score : {{test.score}}</p>
+<p *ngFor="let test of loggedUtilisateur.tests">{{test.titre}}, Score : {{test.score}}</p>

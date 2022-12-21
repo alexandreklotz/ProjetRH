@@ -1,5 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Dashboard} from "../../_models/dashboard.model";
+import {UserEndPointService} from "../../_services/userendpoint.service";
+import {Utilisateur} from "../../_models/utilisateur.model";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-dashboard',
@@ -8,11 +10,12 @@ import {Dashboard} from "../../_models/dashboard.model";
 })
 export class DashboardComponent implements OnInit {
 
-  @Input() homePage!: Dashboard;
+  loggedUtilisateur!: Utilisateur
 
-  constructor() { }
+  constructor(private userEndPointService: UserEndPointService) { }
 
   ngOnInit(): void {
+    this.loggedUtilisateur = this.userEndPointService.userSelfRetrieve()
   }
 
 }

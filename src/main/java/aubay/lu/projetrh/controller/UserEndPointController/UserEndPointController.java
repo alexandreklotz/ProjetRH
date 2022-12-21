@@ -42,7 +42,7 @@ public class UserEndPointController {
     }
 
     @JsonView(CustomJsonView.TestView.class)
-    @GetMapping("user/test/{testId}")
+    @GetMapping("user/test/id/{testId}")
     public Test retrieveSingleCandidatTest(@PathVariable UUID testId, HttpServletRequest request){
         Principal principal = request.getUserPrincipal();
         String userLogin = principal.getName();
