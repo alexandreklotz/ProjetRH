@@ -1,3 +1,24 @@
+### 27/12/2022
+
+__*BACKEND*__
+
+__Modifications apportées au code :__
+- Suppression de la méthode `updateUtilisateurGlobalScoreAfterDelete` dans `TestScoreService / TestScoreServiceImpl`-> Elle est inutile et seule la méthode `setUtilisateurGlobalScore` est nécessaire/utilisée.
+- Le calcul des points d'un test se faisait en faisant l'addition des points de chaque réponse correcte ou en enlevant les points d'une réponse incorrecte. La propriété `Points` a été basculée dans `Question` et la méthode `submitTest` dans `TestServiceImpl` a été modifiée en fonction.
+- Modification de la méthode `submitTest` dans `TestServiceImpl` => Les points étant maintenant propres à la question et non à la réponse, on divise les points de la question par le nombre de réponses qu'elle possède. Si elle a par exemple 4 réponses et qu'elle vaut 4 points, chaque réponse vaudra un point. Si la réponse est correcte, on ajoute un point, si elle est incorrecte ou enlève un point.
+- Modification du code de la méthode `deleteTest` => On itère dans chaque réponse liée au test qu'on veut supprimer, on récupère la liste de tests de cette réponse et on supprime le test a supprimer de cette dernière. J'ai du adopter cette approche car sinon ça posait problème dans la BDD.
+
+
+__*FRONTEND*__
+
+__Modifications apportées au code :__
+- Modification de la requête HTTP dans `UserEndPointService` -> Quand un candidat voulait accéder à sa dashboard, les données n'étaient renvoyées qu'une fois sur deux. Le code a été modifié pour procéder à une exécution séquentielle de la requête en précisant `await` avant cette dernière. La méthode `userSelfRetrieve` dans ce même service est maintenant une méthode `async`. Toutes les requêtes HTTP seront async.
+- Ajout de bootstrap dans le projet
+
+*J'attaque la mise en forme du dashboard candidat histoire d'avoir une vue.*
+
+
+---
 ### 21/12/2022
 
 __*FRONTEND*__

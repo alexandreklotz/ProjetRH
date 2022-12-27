@@ -235,15 +235,17 @@ public class TestServiceImpl implements TestService {
             log.info("Vérification si les réponses du test sont justes et calcul du score.");
             for (Reponse linkedReponse : tempTestReponses) {
 
+                Double pointsParReponse = qcmQuestionValue.getPoints() / qcmQuestionValue.getReponses().size();
+
                 Optional<Reponse> finalReponse = reponseRepository.findById(linkedReponse.getId());
                 if(finalReponse.isEmpty()){
                     log.error("La réponse {} n'existe pas/plus.", linkedReponse.getId());
                 }
 
                 if (finalReponse.get().isCorrectAnswer()) {
-                    testScore += finalReponse.get().getPoints();
+                    testScore += pointsParReponse;
                 } else if (!finalReponse.get().isCorrectAnswer()) {
-                    testScore -= finalReponse.get().getPoints();
+                    testScore -= pointsParReponse;
                 }
 
                 log.info("Sauvegarde de la réponse liée au test et sauvegarde du test.");
@@ -264,10 +266,6 @@ public class TestServiceImpl implements TestService {
         testRepository.saveAndFlush(currentTest.get());
 
         log.info("Enregistrement du nouveau score de l'utilisateur.");
-        /*int numberOfTests = utilisateurTest.get().getTests().size();
-        Double newUserGlobalScore = (testScore + utilisateurTest.get().getGlobalScore()) / numberOfTests;
-        utilisateurTest.get().setGlobalScore(newUserGlobalScore);
-        utilisateurRepository.saveAndFlush(utilisateurTest.get());*/
         testScoreService.setUtilisateurGlobalScore(utilisateurTest.get());
 
         log.info("Le test {} a été soumis avec succès.", test.getId());
@@ -341,16 +339,36 @@ public class TestServiceImpl implements TestService {
     }
 
     @Override
-    public void deleteTest (UUID testId){
+    public void deleteTest(UUID testId){
+
         Optional<Test> deletedTest = testRepository.findById(testId);
-        if(deletedTest.isPresent()){
-            Optional<Utilisateur> testUtilisateur = utilisateurRepository.findById(deletedTest.get().getUtilisateur().getId());
-            if(testUtilisateur.isPresent()){
-                testScoreService.updateUtilisateurGlobalScoreAfterDelete(testId, testUtilisateur.get().getId());
-            }
+        if(deletedTest.isEmpty()){
+            log.error("Le test {} a déja été supprimé ou n'existe pas.", testId);
         }
+
+        Optional<Utilisateur> candidat = utilisateurRepository.findById(deletedTest.get().getUtilisateur().getId());
+        if (candidat.isPresent()){
+            log.info("Le candidat {} et le test {} existent, suppression du test et mise à jour du score du candidat.", testId, candidat.get().getId());
+            for(Reponse reponse : deletedTest.get().getReponses()){
+                log.info("Suppression du test de la liste de tests de chaque réponse liée à ce dernier.");
+                Optional<Reponse> currentReponse = reponseRepository.findById(reponse.getId());
+                if(currentReponse.isEmpty()){
+                    log.info("La réponse {} n'existe pas/plus !", reponse.getId());
+                }
+                Set<Test> reponseTests = reponse.getTests();
+                reponseTests.remove(deletedTest.get());
+                currentReponse.get().setTests(reponseTests);
+                reponseRepository.saveAndFlush(reponse);
+                log.info("Test supprimé de la liste de tests de la réponse {} avec succès.", currentReponse.get().getId());
+            }
+            log.info("Suppression du test {}.", testId);
+            testRepository.deleteById(testId);
+            testScoreService.setUtilisateurGlobalScore(candidat.get());
+            log.info("Le test {} a été supprimé.", testId);
+        }
+
+        log.info("Le candidat {} n'existe plus", deletedTest.get().getUtilisateur().getId());
         testRepository.deleteById(testId);
-        log.info("Le test avec l'id {} a été supprimé.", testId);
     }
 
 }

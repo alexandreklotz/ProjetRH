@@ -14,8 +14,8 @@ export class DashboardComponent implements OnInit {
 
   constructor(private userEndPointService: UserEndPointService) { }
 
-  ngOnInit(): void {
-    this.loggedUtilisateur = this.userEndPointService.userSelfRetrieve()
+  async ngOnInit(): Promise<void> {
+    this.loggedUtilisateur = await this.userEndPointService.userSelfRetrieve()
   }
 
 }

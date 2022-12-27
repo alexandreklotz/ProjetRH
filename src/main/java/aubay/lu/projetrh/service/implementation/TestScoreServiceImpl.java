@@ -29,7 +29,6 @@ public class TestScoreServiceImpl implements TestScoreService {
     public void setUtilisateurGlobalScore(Utilisateur testUtilisateur) {
         Optional<Utilisateur> candidat = utilisateurRepository.findById(testUtilisateur.getId());
         if(candidat.isPresent()){
-            Double newGlobalScore = 0.0;
             Double tempGlobalScore = 0.0;
             Set<Test> candidatTests = candidat.get().getTests();
             candidat.get().setGlobalScore(0.0);
@@ -38,29 +37,10 @@ public class TestScoreServiceImpl implements TestScoreService {
                     tempGlobalScore += test.getScore();
                 }
             }
-            newGlobalScore = tempGlobalScore / candidatTests.size();
+            Double newGlobalScore = tempGlobalScore / candidatTests.size();
             candidat.get().setGlobalScore(newGlobalScore);
             utilisateurRepository.saveAndFlush(candidat.get());
         }
     }
 
-    @Override
-    public void updateUtilisateurGlobalScoreAfterDelete(UUID testId, UUID candidatId) {
-        Optional<Utilisateur> candidat = utilisateurRepository.findById(candidatId);
-        Optional<Test> deletedTest = testRepository.findById(testId);
-        if(candidat.isPresent() && deletedTest.isPresent()){
-            Set<Test> candidatTests = candidat.get().getTests();
-            candidatTests.remove(deletedTest.get());
-            Double newGlobalScore = 0.0;
-            Double tempGlobalScore = 0.0;
-            for(Test test : candidatTests){
-                if(test.isAlreadySubmitted()){
-                    tempGlobalScore += test.getScore();
-                }
-            }
-            newGlobalScore = tempGlobalScore / candidatTests.size();
-            candidat.get().setGlobalScore(newGlobalScore);
-            utilisateurRepository.saveAndFlush(candidat.get());
-        }
-    }
 }

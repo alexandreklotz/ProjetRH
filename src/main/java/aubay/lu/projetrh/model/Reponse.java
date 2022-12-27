@@ -33,9 +33,6 @@ public class Reponse {
     @Column(nullable = false)
     private boolean correctAnswer;
 
-    @JsonView(CustomJsonView.ReponseView.class)
-    @Column(nullable = false)
-    private Double points;
 
     // CONSTRUCTOR //
     public Reponse(){}
@@ -80,14 +77,6 @@ public class Reponse {
 
     public void setCorrectAnswer(boolean correctAnswer) {
         this.correctAnswer = correctAnswer;
-    }
-
-    public Double getPoints() {
-        return points;
-    }
-
-    public void setPoints(Double points) {
-        this.points = points;
     }
 
     public Question getQuestion() {

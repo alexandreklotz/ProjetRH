@@ -8,6 +8,7 @@ export class Utilisateur {
   lastName!: string;
   userLogin!: string;
   userPassword!: string;
+  userDescription!: string;
   mailAddress!: string;
   globalScore!: number;
 
@@ -19,6 +20,7 @@ export class Utilisateur {
               lastName: string,
               userLogin: string,
               userPassword: string,
+              userDescription: string,
               mailAddress: string,
               globalScore: number,
               tests: Array<Test>,
@@ -29,6 +31,7 @@ export class Utilisateur {
     this.lastName = lastName;
     this.userLogin = userLogin;
     this.userPassword = userPassword;
+    this.userDescription = userDescription;
     this.mailAddress = mailAddress;
     this.globalScore = globalScore;
     this.tests = tests;

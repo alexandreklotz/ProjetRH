@@ -68,12 +68,12 @@ public class ReponseServiceImpl implements ReponseService {
         }
 
         if(reponse.getTexte().isEmpty()){
-            log.error("Le texte de la réponse ({}) ne peut pas être vide !", reponse.getId());
+            log.error("Le texte de la réponse {} ne peut pas être vide !", reponse.getId());
             return null;
         }
 
         if(reponse.getQuestion() == null){
-            log.error("La réponse ({}) doit être assignée à une question !", reponse.getId());
+            log.error("La réponse {} doit être assignée à une question !", reponse.getId());
             return null;
         }
 

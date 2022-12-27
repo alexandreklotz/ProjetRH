@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {Observable} from "rxjs";
+import {lastValueFrom, Observable} from "rxjs";
 import {Utilisateur} from "../_models/utilisateur.model";
 import {HttpClient} from "@angular/common/http";
 import {Test} from "../_models/test.model";
@@ -15,11 +15,10 @@ export class UserEndPointService {
   retrievedTest!: Test
   assignedTests!: Test[]
 
-  userSelfRetrieve(): Utilisateur {
-    this.http.get<Utilisateur>('http://localhost:8080/user/retrieve').subscribe(utilisateur =>
-      this.utilisateur = utilisateur
-  )
-    this.utilisateur.tests = this.userRetrieveAssignedTests()
+  async userSelfRetrieve(): Promise<Utilisateur> {
+
+    let response = await lastValueFrom(this.http.get<Utilisateur>('http://localhost:8080/user/retrieve'))
+    this.utilisateur = response
     return this.utilisateur
   }
 

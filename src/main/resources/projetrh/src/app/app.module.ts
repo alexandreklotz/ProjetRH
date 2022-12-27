@@ -7,7 +7,7 @@ import {FormsModule} from "@angular/forms";
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import { LoginComponent } from './login/login.component';
 import {TokenInterceptorProvider} from "./_helpers/token.interceptor";
-import { SidebarComponent } from './sidebar/sidebar.component';
+import { SidebarComponent } from './_uielements/sidebar/sidebar.component';
 import { TestComponent } from './_components/test/test.component';
 import { TestListComponent } from './_components/test-list/test-list.component';
 import { UtilisateurComponent } from './_components/utilisateur/utilisateur.component';

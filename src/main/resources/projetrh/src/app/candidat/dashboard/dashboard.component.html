@@ -1,5 +1,5 @@
 <app-sidebar></app-sidebar>
-<h2>Profil de : {{loggedUtilisateur.userLogin}}</h2>
-<h3>Votre score : {{loggedUtilisateur.globalScore}}</h3>
-<h3>Tests passés :</h3>
+<h2>Bonjour, {{loggedUtilisateur.firstName + " " + loggedUtilisateur.lastName}} !</h2>
+<h3>Score global : {{loggedUtilisateur.globalScore}}</h3>
+<h3>Vos tests :</h3>
 <p *ngFor="let test of loggedUtilisateur.tests">{{test.titre}}, Score : {{test.score}}</p>

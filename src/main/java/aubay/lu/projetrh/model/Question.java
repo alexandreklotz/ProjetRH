@@ -33,6 +33,10 @@ public class Question {
     @Column(nullable = false)
     private int tempsReponse;
 
+    @JsonView(CustomJsonView.QuestionView.class)
+    @Column(nullable = false)
+    private Double points;
+
 
     // CONSTRUCTOR //
     public Question(){}
@@ -72,6 +76,14 @@ public class Question {
 
     public void setTempsReponse(int tempsReponse) {
         this.tempsReponse = tempsReponse;
+    }
+
+    public Double getPoints() {
+        return points;
+    }
+
+    public void setPoints(Double points) {
+        this.points = points;
     }
 
     public Qcm getQcm() {
