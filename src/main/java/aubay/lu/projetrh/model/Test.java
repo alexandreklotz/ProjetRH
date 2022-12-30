@@ -37,6 +37,7 @@ public class Test {
     @Column
     private boolean alreadySubmitted;
 
+    //TODO : Implémenter date de création et date de passage. Peut-être même le recruteur qui a créé le test
 
     // CONSTRUCTOR //
     public Test(){}

@@ -308,7 +308,9 @@ public class UtilisateurServiceImpl implements UtilisateurService {
     public void deleteCandidat(UUID candidatId) {
         Optional<Utilisateur> candidatToDelete = utilisateurRepository.findById(candidatId);
         if(candidatToDelete.isPresent()){
-            utilisateurRepository.deleteById(candidatId);
+            if(candidatToDelete.get().getRole().getId() == 3){
+                utilisateurRepository.deleteById(candidatId);
+            }
         }
     }
 }

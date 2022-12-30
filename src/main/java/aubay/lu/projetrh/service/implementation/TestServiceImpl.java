@@ -232,9 +232,11 @@ public class TestServiceImpl implements TestService {
                 return null;
             }
 
+
             log.info("Vérification si les réponses du test sont justes et calcul du score.");
             for (Reponse linkedReponse : tempTestReponses) {
 
+                //TODO : Modifier cette ligne ci-dessous, tout le calcul est faussé. Diviser le nombre de points par le nombre de réponses justes.
                 Double pointsParReponse = qcmQuestionValue.getPoints() / qcmQuestionValue.getReponses().size();
 
                 Optional<Reponse> finalReponse = reponseRepository.findById(linkedReponse.getId());
@@ -263,7 +265,7 @@ public class TestServiceImpl implements TestService {
         test.setTitre(currentTest.get().getTitre());
         test.setAlreadySubmitted(true);
         log.info("Le test {} ne pourra désormais plus être soumis", test.getId());
-        testRepository.saveAndFlush(currentTest.get());
+        testRepository.saveAndFlush(test);
 
         log.info("Enregistrement du nouveau score de l'utilisateur.");
         testScoreService.setUtilisateurGlobalScore(utilisateurTest.get());

@@ -1,0 +1,35 @@
+.body {
+  text-align: center;
+}
+
+.container {
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+
+  width: fit-content;
+  height: fit-content;
+  background-color: #F9F9F9;
+  border-radius: 25px;
+  padding: 20px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+}
+
+label {
+  padding: 5px;
+  width: auto;
+}
+
+input {
+  padding: 5px;
+  width: auto;
+}
+
+#loginButton {
+  display: block;
+  margin: auto;
+  margin-top: 15px;
+}

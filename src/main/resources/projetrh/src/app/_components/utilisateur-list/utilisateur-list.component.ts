@@ -10,12 +10,15 @@ import {UtilisateurService} from "../../_services/_restricted/utilisateur.servic
 })
 export class UtilisateurListComponent implements OnInit {
 
-  utilisateurList$!: Observable<Utilisateur[]>
+  title = "Liste des utilisateurs"
+  headers = ["Login", "Role", "Description", "Adresse mail", "Score"];
+
+  utilisateurList$!: Utilisateur[]
 
   constructor(private utilisateurService: UtilisateurService) { }
 
-  ngOnInit(): void {
-    this.utilisateurList$ = this.utilisateurService.getAllUtilisateur()
+  async ngOnInit(): Promise<void> {
+    this.utilisateurList$ = await this.utilisateurService.getAllUtilisateur()
   }
 
 }

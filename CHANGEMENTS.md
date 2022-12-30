@@ -1,3 +1,59 @@
+### 30/12/2022
+
+__*FRONTEND*__
+
+__Modifications apportées au code :__
+- Ajout d'une méthode `headerDisplay` dans `header` => récupère le rôle de l'utilisateur et affiche des éléments dans le header en fonction de ce dernier
+- Suppression du component `candidat-tests-liste` et suppression du lien vers cette vue dans le header, on affichera tout sur une seule page pour le candidat
+- Création d'un panel administrateur avec des *card*, component : `admin-panel` dans le dossier `admin`
+- Modification de `TestService` => La méthode `getAllTest` est maintenant une méthode async
+- Suppression de `utilisateur.component.ts` et `test.component.ts` => Maintenant inutiles
+- Ajout d'images dans `/assets/images` => Pour l'instant uniquement les images du panel admin sont dans ce dossier
+- `test-list.component` affiche un tableau contenant tous les tests avec quelques informations les concernant
+
+*Beaucoup de HTML/CSS. La searchbar dans le header doit être rendue fonctionnelle et centrée, de même que les cards dans le panel admin (il faudra aussi le faire
+dans le panel recruteur vu que la page sera identique).*
+
+*Les pages affichant des tableaux comme pour tous les utilisateurs ou tous les tests seront modifiés pour ouvrir une page affichant l'élément sur lequel on
+a cliqué.*
+
+---
+### 29/12/2022
+
+__*FRONTEND*__
+
+__Modifications apportées au code :__
+- Refactor de `sidebar` => maintenant nommé `header`
+- Modification du CSS/HTML de `header` => Ajout de liens et modification du graphisme
+- Modification du CSS/HTML de `login` => On a maintenant une petite fenêtre de login centrée avec un peu de style
+- Création d'un component `candidat-tests-liste` qui va récupérer tous les tests du candidat et les afficher dans un tableau
+- Modification de la méthode `userRetrieveAssignedTests` dans `UserEndPointService` => C'est maintenant une méthode async
+- Modification de la méthode `getAllUtilisateur` dans `UtilisateurService` => Maintenant async
+- Création d'un tableau qui contient tous les utilisateurs. Component : `utilisateur-list.component.ts`
+
+*Toujours pas énormément de progrès. Beaucoup bataillé avec bootstrap et quelques bugs. J'ai quelques erreurs de code à corriger dans le back mais elles sont
+minimes donc rien de grave. Je progresse plus lentement que prévu. Le header n'est pas super beau à mon goût, la fenêtre de login est pas mal mais je suis pas
+très orienté design lol. La dashboard candidat est relativement vide, je me demande si je ne vais pas tout regrouper dans la dashboard et faire des containers
+avec un pour les tests non passés, tests passés, tests récemment assignés, plutôt que de le séparer (ou alors permettre à l'utilisateur de "ticker" une box
+pour filter les tests affichés tout en gardant une liste des nouveaux tests assignés).*
+
+---
+### 28/12/2022
+
+__*FRONTEND*__
+
+__Modifications apportées au code :__
+- Création d'un nouveau dossier `_forms` dans `_components` : ce dossier contiendra les components pour les formulaires de création/modification
+- Création d'un nouveau component : `utilisateur-form` dans `_forms`
+- Création d'un nouveau component : `single-utilisateur` dans `_components`. Ce component nous servira à afficher un seul utilisateur avec toutes ses informations.
+- Modification du HTML/CSS dans le component `utilisateur-list`. Ajout de colonnes.
+- Modification du HTML/CSS dans le component `dashboard`. Début de la mise en page.
+- Modification du HTML/CSS dans le component `sidebar`.
+
+*Pas énormément de progrès ce jour. Je ne trouve aucune documentation qui répond à mes questions sur bootstrap. Bien évidemment il y'a la doc de bootstrap sur leur
+site mais elle ne m'aide pas. Impossible de faire une sidebar comme je veux ni même de disposer des éléments comme je le souhaite sur la page dashboard.*
+
+---
 ### 27/12/2022
 
 __*BACKEND*__

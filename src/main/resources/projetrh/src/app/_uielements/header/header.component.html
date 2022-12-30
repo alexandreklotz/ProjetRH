@@ -1,0 +1,19 @@
+<header class="navbar navbar-expand navbar-light flex-column flex-md-row bg-light">
+
+  <h3 class="navbar-text" id="navbartitle">ProjetRH</h3>
+
+  <div class="container" id="navbar-items">
+    <ul class="navbar-nav bd-navbar-nav flex-row">
+      <li class="nav-item">
+        <a class="navbar-text" href="dashboard" *ngIf="candUser">Dashboard</a>
+      </li>
+    </ul>
+    <form class="d-flex">
+      <input class="form-control me-2" type="search" placeholder="Rechercher..." aria-label="Search">
+<!--      <button class="btn btn-outline-secondary" type="submit">Recherche</button>-->
+    </form>
+  </div>
+
+  <button type="button" class="btn btn-outline-danger" (click)="logout()" id="logoutbtn">Déconnexion</button>
+
+</header>

@@ -10,12 +10,13 @@ import {Test} from "../../_models/test.model";
 })
 export class TestListComponent implements OnInit {
 
-  testList$!: Observable<Test[]>
+  testList$!: Test[]
+  testHeaders = ["Nom", "Score", "Candidat", "Statut"]
 
   constructor(private testService: TestService) { }
 
-  ngOnInit(): void {
-    this.testList$ = this.testService.getAllTest()
+  async ngOnInit(): Promise<void> {
+    this.testList$ = await this.testService.getAllTest()
   }
 
 }

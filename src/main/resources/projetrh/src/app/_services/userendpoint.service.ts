@@ -30,11 +30,12 @@ export class UserEndPointService {
     return this.http.get<Test>(`http://localhost:8080/user/test/id/${testId}`)
   }
 
-  userRetrieveAssignedTests(): Test[]{
-    this.http.get<Test[]>('http://localhost:8080/user/test/ownedtests').subscribe(tests =>
-      this.assignedTests = tests
-    )
+  async userRetrieveAssignedTests(): Promise<Test[]>{
+
+    let response = await lastValueFrom(this.http.get<Test[]>('http://localhost:8080/user/test/ownedtests'))
+    this.assignedTests = response
     return this.assignedTests
+
   }
 
 }

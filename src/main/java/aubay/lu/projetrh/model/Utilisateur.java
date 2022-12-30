@@ -53,6 +53,8 @@ public class Utilisateur {
     @Column
     private String userDescription;
 
+    //TODO: Implémenter date de création
+
 
     // CONSTRUCTOR //
     public Utilisateur(){}

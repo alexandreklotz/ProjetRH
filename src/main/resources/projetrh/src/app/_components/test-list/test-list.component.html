@@ -1,2 +1,22 @@
-<app-sidebar></app-sidebar>
-<app-test *ngFor="let test of testList$ | async" [test]="test"></app-test>
+<body>
+  <app-header></app-header>
+  <div class="container" id="testsContainer">
+    <table class="table table-bordered table-hover">
+      <thead class="table-dark">
+        <tr>
+          <th *ngFor="let column of testHeaders" class="text-center">
+            {{column}}
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let test of testList$">
+          <td>{{test.titre}}</td>
+          <td>{{test.score}}</td>
+          <td>{{test.utilisateur.userLogin}}</td>
+          <td>{{test.alreadySubmitted}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</body>

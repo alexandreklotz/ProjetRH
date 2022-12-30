@@ -1,0 +1,58 @@
+button {
+  padding: 10px;
+}
+
+header {
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+}
+
+.btn-circle {
+  width: 45px;
+  height: 45px;
+  line-height: 45px;
+  text-align: center;
+  padding: 0;
+  border-radius: 50%;
+}
+
+
+.btn-circle-lg {
+  width: 55px;
+  height: 55px;
+  line-height: 55px;
+  font-size: 1.1rem;
+}
+
+
+#logoutbtn {
+  margin-right: 25px;
+}
+
+#navbar-items {
+  margin-left: 70px;
+}
+
+.nav-item {
+  margin-left: 20px;
+}
+
+#navcontainer {
+  margin-left: 0px;
+}
+
+#navbartitle {
+  margin-left: 25px;
+  color: black;
+}
+
+a {
+  line-height: 40px;
+  text-align: center;
+  color: grey;
+  text-decoration: none;
+  font-size: 20px;
+}
+
+a:hover {
+  color: black;
+}

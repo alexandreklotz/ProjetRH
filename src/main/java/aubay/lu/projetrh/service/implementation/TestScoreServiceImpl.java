@@ -27,6 +27,9 @@ public class TestScoreServiceImpl implements TestScoreService {
 
     @Override
     public void setUtilisateurGlobalScore(Utilisateur testUtilisateur) {
+
+        //TODO : Réfléchir à une manière de calculer un pourcentage sur 100 à partir de l'ensemble des scores
+
         Optional<Utilisateur> candidat = utilisateurRepository.findById(testUtilisateur.getId());
         if(candidat.isPresent()){
             Double tempGlobalScore = 0.0;

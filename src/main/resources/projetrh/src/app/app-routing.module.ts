@@ -5,6 +5,8 @@ import {TestListComponent} from "./_components/test-list/test-list.component";
 import {LoginComponent} from "./login/login.component";
 import {AuthGuard} from "./_helpers/auth.guard";
 import {UtilisateurListComponent} from "./_components/utilisateur-list/utilisateur-list.component";
+import {SingleUtilisateurComponent} from "./_components/single-utilisateur/single-utilisateur.component";
+import {AdminPanelComponent} from "./admin/adminpanel/admin-panel.component";
 
 
 const routes: Routes = [
@@ -14,7 +16,9 @@ const routes: Routes = [
   {path: '', component:LoginComponent},
   {path: 'dashboard', component: DashboardComponent, canActivate:[AuthGuard], data : { allowedRoles : "CANDIDAT"}},
   {path: 'tests', component:TestListComponent, canActivate:[AuthGuard], data : { allowedRoles: ["RECRUTEUR", "ADMIN"]}},
-  {path: 'utilisateurs', component:UtilisateurListComponent, canActivate:[AuthGuard], data : { allowedRoles: "ADMIN"}}
+  {path: 'utilisateurs', component:UtilisateurListComponent, canActivate:[AuthGuard], data : { allowedRoles: "ADMIN"}},
+  {path: 'utilisateur/:id', component:SingleUtilisateurComponent, canActivate:[AuthGuard], data : { allowedRoles: "ADMIN"}},
+  {path: 'admin', component: AdminPanelComponent, canActivate:[AuthGuard], data : { allowedRoles: "ADMIN"}}
   /*{path: 'qcm', component:QcmListComponent, canActivate:[AuthGuard], data : { allowedRoles: ["RECRUTEUR", "ADMIN"]}},
   {path: 'qcm/:id', component:SingleQcmComponent, canActivate:[AuthGuard], data : { allowedRoles: ["RECRUTEUR", "ADMIN"]}},
   {path: 'test/:id', component:SingleTestComponent, canActivate:[AuthGuard], data : { allowedRoles: ["RECRUTEUR", "ADMIN", "CANDIDAT"]}},
@@ -24,7 +28,6 @@ const routes: Routes = [
   {path: 'reponse/:id', component: SingleReponseComponent, canActivate:[AuthGuard], data : { allowedRoles: ["RECRUTEUR", "ADMIN"]}},
   {path: 'utilisateur/:id', component:SingleUtilisateurComponent, canActivate:[AuthGuard], data : { allowedRoles: ["RECRUTEUR", "ADMIN"]}}*/
   //TODO : Créer des routes pour les rôles ? voir comment gérer utilisateur/:id/role/:id ?
-  //TODO : voir comment taper le lien de l'API pour self retrieve l'user ?
 ];
 
 @NgModule({

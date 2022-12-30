@@ -50,7 +50,7 @@ export class TokenService {
       this.router.navigate(['tests'])
     }
     else if(role.includes("ADMIN")){
-      this.router.navigate(['utilisateurs'])
+      this.router.navigate(['admin'])
     }
     else {
       this.router.navigate(['login']) //changer en unauthorized

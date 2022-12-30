@@ -1,2 +1,23 @@
-<app-sidebar></app-sidebar>
-<app-utilisateur *ngFor="let utilisateur of utilisateurList$ | async" [utilisateur]="utilisateur"></app-utilisateur>
+<body>
+  <app-header></app-header>
+  <div class="container" id="usersContainer">
+    <table class="table table-bordered table-hover">
+      <thead class="table-dark">
+        <tr>
+          <th *ngFor="let column of headers">
+            {{column}}
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let utilisateur of utilisateurList$">
+          <td>{{utilisateur.userLogin}}</td>
+          <td>{{utilisateur.role.denomination}}</td>
+          <td>{{utilisateur.userDescription}}</td>
+          <td>{{utilisateur.mailAddress}}</td>
+          <td>{{utilisateur.globalScore}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</body>

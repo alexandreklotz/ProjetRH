@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
-import {map, Observable, switchMap} from "rxjs";
+import {lastValueFrom, map, Observable, switchMap} from "rxjs";
 import {Test} from "../../_models/test.model";
 
 
@@ -10,10 +10,14 @@ import {Test} from "../../_models/test.model";
 
 export class TestService {
 
+  testListe!: Test[]
+
   constructor(private http: HttpClient){}
 
-  getAllTest(): Observable<Test[]>{
-    return this.http.get<Test[]>('http://localhost:8080/moderateur/test/all')
+  async getAllTest(): Promise<Test[]>{
+    let response = await lastValueFrom(this.http.get<Test[]>('http://localhost:8080/moderateur/test/all'))
+    this.testListe = response
+    return this.testListe
   }
 
   getTestById(testId: string): Observable<Test>{

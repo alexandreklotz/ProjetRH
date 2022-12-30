@@ -7,11 +7,13 @@ import {FormsModule} from "@angular/forms";
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import { LoginComponent } from './login/login.component';
 import {TokenInterceptorProvider} from "./_helpers/token.interceptor";
-import { SidebarComponent } from './_uielements/sidebar/sidebar.component';
-import { TestComponent } from './_components/test/test.component';
+import { HeaderComponent } from './_uielements/header/header.component';
 import { TestListComponent } from './_components/test-list/test-list.component';
-import { UtilisateurComponent } from './_components/utilisateur/utilisateur.component';
 import { UtilisateurListComponent } from './_components/utilisateur-list/utilisateur-list.component';
+import { SingleUtilisateurComponent } from './_components/single-utilisateur/single-utilisateur.component';
+import { UtilisateurFormComponent } from './_components/_forms/utilisateur-form/utilisateur-form.component';
+import { AdminPanelComponent } from './admin/adminpanel/admin-panel.component';
+import { SingleTestComponent } from './_components/single-test/single-test.component';
 
 
 
@@ -20,11 +22,13 @@ import { UtilisateurListComponent } from './_components/utilisateur-list/utilisa
     AppComponent,
     DashboardComponent,
     LoginComponent,
-    SidebarComponent,
-    TestComponent,
+    HeaderComponent,
     TestListComponent,
-    UtilisateurComponent,
     UtilisateurListComponent,
+    SingleUtilisateurComponent,
+    UtilisateurFormComponent,
+    AdminPanelComponent,
+    SingleTestComponent,
   ],
     imports: [
         BrowserModule,
