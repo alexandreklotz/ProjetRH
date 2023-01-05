@@ -53,7 +53,7 @@ public class Utilisateur {
     @Column
     private String userDescription;
 
-    //TODO: Implémenter date de création
+    //TODO: Implémenter date de création/inscription
 
 
     // CONSTRUCTOR //

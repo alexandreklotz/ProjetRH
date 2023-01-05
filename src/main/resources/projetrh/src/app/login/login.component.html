@@ -10,13 +10,13 @@
      <div class="form-group">
        <label for="login">Login</label>
        <input type="text" class="form-control" name="login" id="login" [(ngModel)]="form.userLogin" #login="ngModel" required>
-       <div *ngIf="login.errors && f.submitted">Veuillez entrer votre login</div>
+       <div class="alert alert-danger" *ngIf="login.errors && f.submitted" id="nologin">Veuillez entrer votre login</div>
      </div>
 
      <div class="form-group">
        <label for="password">Mot de passe</label>
        <input type="password" class="form-control" name="password" id="password" [(ngModel)]="form.userPassword" #password="ngModel" required>
-       <div *ngIf="password.errors && f.submitted">Veuillez entrer votre mot de passe</div>
+       <div class="alert alert-danger" *ngIf="password.errors && f.submitted" id="nopassword">Veuillez entrer votre mot de passe</div>
      </div>
 
      <button type="connexion" class="btn btn-primary" id="loginButton">Login</button>

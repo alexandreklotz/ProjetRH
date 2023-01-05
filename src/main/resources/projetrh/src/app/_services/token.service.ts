@@ -47,7 +47,7 @@ export class TokenService {
       this.router.navigate(['dashboard'])
     }
     else if(role.includes("RECRUTEUR")){
-      this.router.navigate(['tests'])
+      this.router.navigate(['recruteur'])
     }
     else if(role.includes("ADMIN")){
       this.router.navigate(['admin'])

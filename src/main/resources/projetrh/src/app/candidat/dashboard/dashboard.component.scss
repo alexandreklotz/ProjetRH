@@ -1,16 +1,38 @@
 #baseContainer {
-  left: 25%;
-  position: absolute;
-  margin-top: 60px;
-  display: block;
+  //left: 25%;
+  //right: 25%;
+  //position: absolute;
+  margin-top: 80px;
+
+  justify-content: center;
+  display: flex;
 }
 
 #userMessage {
 
+  min-width: fit-content;
+
+  border: 0px solid #000;
+  border-radius: 15px;
+  -moz-border-radius: 15px;
+
+  text-align: center;
+  padding: 30px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
 }
 
 #userScore {
 
+  min-width: fit-content;
+
+  border: 0px solid #000;
+  border-radius: 15px;
+  -moz-border-radius: 15px;
+
+  padding: 30px;
+  max-width: fit-content;
+  text-align: left;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
 }
 
 #testsRow {
@@ -18,5 +40,13 @@
 }
 
 #testsContainer {
-  margin-top: 200px;
+  margin-top: 90px;
+}
+
+.progress {
+  height: 27px;
+}
+
+#scorebar {
+  width: 25%;
 }

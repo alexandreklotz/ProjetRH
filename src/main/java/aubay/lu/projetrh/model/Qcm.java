@@ -29,6 +29,7 @@ public class Qcm {
     @Column(nullable = false)
     private String titre;
 
+    //TODO : implémenter date de création et qui l'a créé ?
 
     // CONSTRUCTOR //
     public Qcm(){}

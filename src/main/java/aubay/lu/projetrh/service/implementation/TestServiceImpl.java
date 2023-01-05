@@ -232,12 +232,24 @@ public class TestServiceImpl implements TestService {
                 return null;
             }
 
+            Integer numberOfCorrectRep = 0;
+
+            log.info("Compte du nombre de réponses correctes pour cette question pour calculer le nombre de points de chaque réponse.");
+            for(Reponse questReponse : qcmQuestionValue.getReponses()){
+                Optional<Reponse> rep = reponseRepository.findById(questReponse.getId());
+                if(rep.isEmpty()){
+                    return null;
+                }
+                if(questReponse.isCorrectAnswer()){
+                    numberOfCorrectRep++;
+                }
+            }
+
 
             log.info("Vérification si les réponses du test sont justes et calcul du score.");
             for (Reponse linkedReponse : tempTestReponses) {
 
-                //TODO : Modifier cette ligne ci-dessous, tout le calcul est faussé. Diviser le nombre de points par le nombre de réponses justes.
-                Double pointsParReponse = qcmQuestionValue.getPoints() / qcmQuestionValue.getReponses().size();
+                Double pointsParReponse = qcmQuestionValue.getPoints() / numberOfCorrectRep;
 
                 Optional<Reponse> finalReponse = reponseRepository.findById(linkedReponse.getId());
                 if(finalReponse.isEmpty()){

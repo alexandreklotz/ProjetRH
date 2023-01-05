@@ -1,0 +1,76 @@
+<body>
+  <app-header></app-header>
+
+  <div class="container-fluid" id="welcomeContainer">
+    <div class="row">
+      <div class="col-6" id="titreCol">
+        <h5>Bonjour, {{titre}} !</h5>
+      </div>
+
+      <div class="col">
+        <button class="btn btn-success dropdown-toggle" type="button" data-bs-toggle="dropdown" id="creerBtn">Créer</button>
+        <ul class="dropdown-menu" aria-labelledby="creerBtn">
+          <li><a href="candidat/nouveau" class="dropdown-item">Nouveau candidat</a></li>
+          <li><a href="test/nouveau" class="dropdown-item">Nouveau test</a></li>
+          <li><a href="qcm/nouveau" class="dropdown-item">Nouveau qcm</a></li>
+        </ul>
+
+        <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" id="gererBtn">Gérer</button>
+        <ul class="dropdown-menu" aria-labelledby="gererBtn">
+          <li><a href="candidats" class="dropdown-item">Candidats</a></li>
+          <li><a href="tests" class="dropdown-item">Tests</a></li>
+          <li><a href="qcm" class="dropdown-item">Qcm</a></li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="container" id="tablesContainer">
+
+    <div class="row">
+      <div class="col">
+        <h5>Vos derniers tests créés</h5>
+        <!-- contiendra le tableau des tests !-->
+        <table class="table text-center table-striped table-hover table-bordered" id="recruteurTests">
+          <thead class="table-dark">
+            <tr>
+              <th scope="col">Titre du test</th>
+              <th scope="col">Candidat</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Développeur junior</td>
+              <td>aklotz</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="col">
+        <!-- contiendra le tableau des derniers candidats créés par ce recruteur !-->
+        <h5>Derniers candidats créés</h5>
+        <table class="table text-center table-striped table-hover table-bordered" id="recruteurCandidats">
+          <thead class="table-dark">
+          <tr>
+            <th scope="col">Prénom</th>
+            <th scope="col">Nom</th>
+            <th scope="col">Description</th>
+            <th scope="col">Date de création</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td>Alexandre</td>
+            <td>Klotz</td>
+            <td>Développeur junior</td>
+            <td>10/11/2022</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+</body>

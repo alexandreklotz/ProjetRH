@@ -18,7 +18,10 @@ a {
 }
 
 #cardsContainer {
-  margin-top: 100px;
+  margin-top: 170px;
+
+  justify-content: center;
+  display: grid;
 }
 
 .card:hover {

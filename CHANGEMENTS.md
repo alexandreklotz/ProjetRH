@@ -1,3 +1,27 @@
+### 04/01/2O23
+
+__*FRONTEND*__
+
+__Modifications apportées au code :__
+- Modification du HTML/CSS dans `recruteur-panel` et `utilisateur-list`
+- Modification du HTML/CSS pour le formulaire `create-candidat-formulaire`
+- Création d'un nouveau component dans `_components/_forms` : `create-test-form`.
+
+*Beaucoup de "bricolage" et beaucoup d'idées. Prend pas mal de temps*
+
+
+---
+### 03/01/2023
+
+__*FRONTEND*__
+
+__Modifications apportées au code :__
+- Création de deux nouveau components qui seront des formulaires de création : `create-candidat-form` et `create-utilisateur-form`
+- Création d'un panel propre aux recruteurs `recruteur-panel`.
+
+*Principalement du bricolage en HTML/CSS sur le dashboard candidat, recruteur panel et create-candidat-form.*
+
+---
 ### 30/12/2022
 
 __*FRONTEND*__

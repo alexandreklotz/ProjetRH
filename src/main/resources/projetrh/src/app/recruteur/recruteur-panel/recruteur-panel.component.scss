@@ -1,0 +1,68 @@
+a {
+  text-decoration: none;
+}
+
+.card-body a {
+  color: black;
+}
+
+#menuContainer {
+  margin-top: 100px;
+
+  justify-content: center;
+  display: grid;
+}
+
+.card {
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+  display: block;
+  text-align: center;
+  width: 16rem;
+}
+
+.list-group-item {
+  text-align: center;
+}
+
+.col {
+  margin: 20px;
+}
+
+img {
+  margin: 40px;
+  width: 50%;
+  height: 50%;
+}
+
+#welcomeContainer {
+  margin-top: 50px;
+  left: 25%;
+  right: 25%;
+
+  border: 0px solid #000;
+  border-radius: 15px;
+  -moz-border-radius: 15px;
+
+  text-align: center;
+  padding: 30px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+}
+
+#titreCol {
+  margin-top: 35px;
+}
+
+#tablesContainer {
+  margin-top: 50px;
+
+  border: 0px solid #000;
+  border-radius: 15px;
+  -moz-border-radius: 15px;
+
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+
+}
+
+button {
+  margin: 15px;
+}

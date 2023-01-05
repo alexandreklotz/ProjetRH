@@ -1,0 +1,36 @@
+#formContainer {
+  display: flex;
+  justify-content: center;
+  margin-top: 80px;
+
+  width: fit-content;
+
+
+  border: 0px solid #000;
+  border-radius: 15px;
+  -moz-border-radius: 15px;
+
+  padding: 30px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+}
+
+.form-group {
+  padding: 5px;
+}
+
+#titreContainer {
+  margin-top: 60px;
+  width: fit-content;
+
+  border: 0px solid #000;
+  border-radius: 15px;
+  -moz-border-radius: 15px;
+
+  text-align: center;
+  padding: 30px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+}
+
+#submitTest {
+  margin-top: 15px;
+}
