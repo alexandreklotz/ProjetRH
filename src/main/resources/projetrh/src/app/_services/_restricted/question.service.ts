@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
-import {map, Observable, switchMap} from "rxjs";
+import {lastValueFrom, map, Observable, switchMap} from "rxjs";
 import {Question} from "../../_models/question.model";
 
 
@@ -10,10 +10,21 @@ import {Question} from "../../_models/question.model";
 
 export class QuestionService {
 
+  questionList$!: Question[]
+  unassignedQuestionList$!: Question[]
+
   constructor(private http: HttpClient) {}
 
-  getAllQuestions():Observable<Question[]>{
-    return this.http.get<Question[]>('http://localhost:8080/admin/question/all')
+  async getAllQuestions(): Promise<Question[]>{
+    let response = await lastValueFrom(this.http.get<Question[]>('http://localhost:8080/moderateur/question/all'))
+    this.questionList$ = response
+    return this.questionList$
+  }
+
+  async getUnassignedQuestion(): Promise<Question[]> {
+    let response = await lastValueFrom(this.http.get<Question[]>('http://localhost:8080/moderateur/question/unassigned'))
+    this.unassignedQuestionList$ = response
+    return this.unassignedQuestionList$
   }
 
   getQuestionById(questionId: string): Observable<Question>{
@@ -24,4 +35,8 @@ export class QuestionService {
     return this.http.get<Question[]>(`http://localhost:8080/admin/question/qcm/${qcmId}`)
   }
 
+  createQuestion(question: Question): void {
+    const jsonBody = JSON.stringify(question)
+    this.http.post<Question>('http://localhost:8080/moderateur/question/create', jsonBody)
+  }
 }

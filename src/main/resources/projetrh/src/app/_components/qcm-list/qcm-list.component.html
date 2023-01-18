@@ -1,0 +1,24 @@
+<body>
+  <app-header></app-header>
+
+  <div class="container" id="titreContainer">
+    <h5>Liste des QCM</h5>
+  </div>
+
+  <div class="container" id="qcmContainer">
+    <table class="table table-bordered table-hover">
+      <thead class="table-dark">
+        <tr>
+          <th>
+            Titre
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let qcm of qcmList$" (click)="onQcmClick(qcm.id)">
+          <td>{{qcm.titre}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</body>

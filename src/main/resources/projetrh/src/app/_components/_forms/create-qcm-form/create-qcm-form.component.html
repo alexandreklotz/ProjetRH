@@ -1,0 +1,34 @@
+<body>
+  <app-header></app-header>
+
+
+  <div class="container" id="titreContainer">
+    <h5>Créer un Qcm</h5>
+  </div>
+
+  <div class="container" id="formContainer">
+    <form action="">
+      <div class="form-group">
+        <label for="qcmTitre">Nom</label>
+        <input type="text" id="qcmTitre">
+      </div>
+
+      <div class="form-group">
+        <select name="questionSelector" id="questionSelect" [(ngModel)]="selectedQuestion" (change)="addSelectedObject()">
+          <option selected>Choisissez des questions</option>
+          <option *ngFor="let question of questionList$" [ngValue]="question.texte">{{question.texte}}</option>
+        </select>
+      </div>
+      <div class="form-group" id="selectedQuestions">
+        <div *ngFor="let selected of selectedQuestions">
+          {{selected.texte}}
+        </div>
+      </div>
+
+      <button class="btn btn-success" id="submitQcm">Créer</button>
+
+    </form>
+  </div>
+
+
+</body>

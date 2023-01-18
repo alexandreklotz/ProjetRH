@@ -17,6 +17,14 @@ import { RecruteurPanelComponent } from './recruteur/recruteur-panel/recruteur-p
 import { CreateCandidatFormComponent } from './_components/_forms/create-candidat-form/create-candidat-form.component';
 import { CreateUtilisateurFormComponent } from './_components/_forms/create-utilisateur-form/create-utilisateur-form.component';
 import { CreateTestFormComponent } from './_components/_forms/create-test-form/create-test-form.component';
+import { CreateQuestionFormComponent } from './_components/_forms/create-question-form/create-question-form.component';
+import { CreateQcmFormComponent } from './_components/_forms/create-qcm-form/create-qcm-form.component';
+import { CandidatListComponent } from './_components/candidat-list/candidat-list.component';
+import { QuestionListComponent } from './_components/question-list/question-list.component';
+import { QcmListComponent } from './_components/qcm-list/qcm-list.component';
+import { SingleQcmComponent } from './_components/single-qcm/single-qcm.component';
+import { SingleQuestionComponent } from './_components/single-question/single-question.component';
+import { SingleCandidatComponent } from './_components/single-candidat/single-candidat.component';
 
 
 
@@ -35,6 +43,14 @@ import { CreateTestFormComponent } from './_components/_forms/create-test-form/c
     CreateCandidatFormComponent,
     CreateUtilisateurFormComponent,
     CreateTestFormComponent,
+    CreateQuestionFormComponent,
+    CreateQcmFormComponent,
+    CandidatListComponent,
+    QuestionListComponent,
+    QcmListComponent,
+    SingleQcmComponent,
+    SingleQuestionComponent,
+    SingleCandidatComponent,
   ],
     imports: [
         BrowserModule,

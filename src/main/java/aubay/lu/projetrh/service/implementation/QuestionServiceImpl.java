@@ -3,9 +3,11 @@ package aubay.lu.projetrh.service.implementation;
 import aubay.lu.projetrh.model.Qcm;
 import aubay.lu.projetrh.model.Question;
 import aubay.lu.projetrh.model.Reponse;
+import aubay.lu.projetrh.model.Test;
 import aubay.lu.projetrh.repository.QcmRepository;
 import aubay.lu.projetrh.repository.QuestionRepository;
 import aubay.lu.projetrh.repository.ReponseRepository;
+import aubay.lu.projetrh.repository.TestRepository;
 import aubay.lu.projetrh.service.QuestionService;
 import aubay.lu.projetrh.service.ReponseService;
 import org.slf4j.Logger;
@@ -13,9 +15,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 public class QuestionServiceImpl implements QuestionService {
@@ -24,14 +24,22 @@ public class QuestionServiceImpl implements QuestionService {
     private QcmRepository qcmRepository;
     private ReponseRepository reponseRepository;
     private ReponseService reponseService;
+
+    private TestRepository testRepository;
     private static Logger log = LoggerFactory.getLogger(QuestionServiceImpl.class);
 
     @Autowired
-    QuestionServiceImpl(QuestionRepository questionRepository, QcmRepository qcmRepository, ReponseRepository reponseRepository, ReponseService reponseService){
+    QuestionServiceImpl(QuestionRepository questionRepository,
+                        QcmRepository qcmRepository,
+                        ReponseRepository reponseRepository,
+                        ReponseService reponseService,
+                        TestRepository testRepository){
+
         this.questionRepository = questionRepository;
         this.qcmRepository = qcmRepository;
         this.reponseRepository = reponseRepository;
         this.reponseService = reponseService;
+        this.testRepository = testRepository;
     }
 
     @Override
@@ -47,6 +55,16 @@ public class QuestionServiceImpl implements QuestionService {
     @Override
     public List<Question> getQuestionByQcmId(UUID qcmId) {
         return questionRepository.findQuestionByQcmId(qcmId);
+    }
+
+    @Override
+    public Set<Question> getQuestionByTestId(UUID testId) {
+        Optional<Test> testBdd = testRepository.findById(testId);
+        if(testBdd.isEmpty()){
+            log.error("Le test {} n'existe pas. Impossible de renvoyer les questions.", testId);
+            return null;
+        }
+        return testBdd.get().getQuestions();
     }
 
     @Override
@@ -88,6 +106,53 @@ public class QuestionServiceImpl implements QuestionService {
         return question;
     }
 
+    @Override
+    public void duplicateQuestionsFromQcm(Qcm qcm, Test test) {
+        Optional<Qcm> qcmQuest = qcmRepository.findById(qcm.getId());
+        if(qcmQuest.isEmpty()){
+            log.error("Le QCM {} n'existe pas/plus.", qcm.getId());
+            return;
+        }
+
+        Optional<Test> testBdd = testRepository.findById(test.getId());
+        if(testBdd.isEmpty()){
+            log.error("Le test {} auquel doivent être liées les questions n'existe pas/plus.", test.getId());
+            return;
+        }
+
+        for(Question question : qcmQuest.get().getQuestions()){
+            Optional<Question> questQcm = questionRepository.findById(question.getId());
+            if(qcmQuest.isEmpty()){
+                log.error("La question {} n'existe pas/plus.", question.getId());
+                return;
+            }
+
+            Question duplicateQuestion = new Question();
+
+            duplicateQuestion.setPoints(questQcm.get().getPoints());
+            duplicateQuestion.setTexte(questQcm.get().getTexte());
+            duplicateQuestion.setTest(testBdd.get());
+            duplicateQuestion.setTempsReponse(questQcm.get().getTempsReponse());
+
+            //On save la question pour qu'elle ait un ID qu'on pourra réassigner à chaque réponse
+            questionRepository.saveAndFlush(duplicateQuestion);
+
+            for(Reponse reponse : questQcm.get().getReponses()){
+                Optional<Reponse> reponseBdd = reponseRepository.findById(reponse.getId());
+                if(reponseBdd.isEmpty()){
+                    log.error("Cette réponse, liée à la question {} n'existe pas/plus.", questQcm.get().getId());
+                    return;
+                }
+                Reponse duplicateReponse = new Reponse();
+                duplicateReponse.setQuestion(duplicateQuestion);
+                duplicateReponse.setTexte(reponseBdd.get().getTexte());
+                duplicateReponse.setCorrectAnswer(reponseBdd.get().isCorrectAnswer());
+                reponseRepository.saveAndFlush(duplicateReponse);
+            }
+        }
+        testRepository.saveAndFlush(testBdd.get());
+        log.info("Les questions ainsi que leurs réponses ont été dupliquées avec succès.");
+    }
 
     @Override
     public Question updateQuestion(Question question) {

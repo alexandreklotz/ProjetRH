@@ -37,6 +37,10 @@ public class Test {
     @Column
     private boolean alreadySubmitted;
 
+    @JsonView(CustomJsonView.TestView.class)
+    @Column(nullable = false)
+    private UUID qcmId;
+
     //TODO : Implémenter date de création et date de passage. Peut-être même le recruteur qui a créé le test
 
     // CONSTRUCTOR //
@@ -49,14 +53,10 @@ public class Test {
     @JoinColumn(name="utilisateur_id")
     private Utilisateur utilisateur;
 
-    @JsonView(CustomJsonView.TestView.class)
-    @ManyToOne
-    @JoinColumn(name="qcm_id")
-    private Qcm qcm;
 
     @JsonView(CustomJsonView.TestView.class)
-    @ManyToMany(mappedBy = "tests")
-    private Set<Reponse> reponses;
+    @OneToMany(mappedBy = "test")
+    private Set<Question> questions;
 
 
     // GETTERS AND SETTERS //
@@ -92,6 +92,14 @@ public class Test {
         this.alreadySubmitted = alreadySubmitted;
     }
 
+    public UUID getQcmId() {
+        return qcmId;
+    }
+
+    public void setQcmId(UUID qcmId) {
+        this.qcmId = qcmId;
+    }
+
     public Utilisateur getUtilisateur() {
         return utilisateur;
     }
@@ -100,20 +108,12 @@ public class Test {
         this.utilisateur = utilisateur;
     }
 
-    public Qcm getQcm() {
-        return qcm;
+    public Set<Question> getQuestions() {
+        return questions;
     }
 
-    public void setQcm(Qcm qcm) {
-        this.qcm = qcm;
-    }
-
-    public Set<Reponse> getReponses() {
-        return reponses;
-    }
-
-    public void setReponses(Set<Reponse> reponses) {
-        this.reponses = reponses;
+    public void setQuestions(Set<Question> questions) {
+        this.questions = questions;
     }
 
 }

@@ -1,6 +1,5 @@
 package aubay.lu.projetrh.controller.login;
 
-import aubay.lu.projetrh.bean.AuthenticationBean;
 import aubay.lu.projetrh.model.Utilisateur;
 import aubay.lu.projetrh.repository.UtilisateurRepository;
 import aubay.lu.projetrh.security.JwtUtil;

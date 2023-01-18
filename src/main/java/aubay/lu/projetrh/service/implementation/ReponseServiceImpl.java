@@ -2,8 +2,10 @@ package aubay.lu.projetrh.service.implementation;
 
 import aubay.lu.projetrh.model.Question;
 import aubay.lu.projetrh.model.Reponse;
+import aubay.lu.projetrh.model.Test;
 import aubay.lu.projetrh.repository.QuestionRepository;
 import aubay.lu.projetrh.repository.ReponseRepository;
+import aubay.lu.projetrh.repository.TestRepository;
 import aubay.lu.projetrh.service.ReponseService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,7 +22,6 @@ public class ReponseServiceImpl implements ReponseService {
 
     private ReponseRepository reponseRepository;
     private QuestionRepository questionRepository;
-    //private Logger log;
     private static Logger log = LoggerFactory.getLogger(ReponseServiceImpl.class);
 
     @Autowired
@@ -45,7 +46,6 @@ public class ReponseServiceImpl implements ReponseService {
         return reponseRepository.findReponsesByQuestion(questionId);
     }
 
-
     @Override
     public Reponse createReponse(UUID questionId, Reponse reponse) {
         log.info("Création d'une réponse pour la question {}.", questionId);
@@ -54,6 +54,7 @@ public class ReponseServiceImpl implements ReponseService {
             log.error("La question {} n'existe pas. Création impossible.", questionId);
             return null;
         }
+        //reponse.setSelectedAnswer(false);
         reponse.setQuestion(repQuestion.get());
         log.info("Réponse créée avec succès.");
         return reponseRepository.saveAndFlush(reponse);
@@ -86,5 +87,28 @@ public class ReponseServiceImpl implements ReponseService {
         reponseRepository.deleteById(reponseId);
         log.info("La réponse {} a été supprimée.", reponseId);
         return "La réponse avec l'id " + reponseId + " a été supprimée";
+    }
+
+    @Override
+    public Integer getNumberOfCorrectReponses(Question question) {
+        Optional<Question> questionBdd = questionRepository.findById(question.getId());
+        if(questionBdd.isEmpty()){
+            log.error("La question {} n'existe pas/plus.", question.getId());
+            return null;
+        }
+
+        Integer numberOfCorrectReponses = 0;
+
+        for(Reponse reponse : questionBdd.get().getReponses()){
+            Optional<Reponse> reponseBdd = reponseRepository.findById(reponse.getId());
+            if(reponseBdd.isEmpty()){
+                log.error("La réponse {} n'existe pas/plus.", reponse.getId());
+                return null;
+            }
+            if(reponseBdd.get().isCorrectAnswer()){
+                numberOfCorrectReponses++;
+            }
+        }
+        return numberOfCorrectReponses;
     }
 }

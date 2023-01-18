@@ -14,6 +14,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 public class UtilisateurServiceImpl implements UtilisateurService {
@@ -70,12 +72,13 @@ public class UtilisateurServiceImpl implements UtilisateurService {
 
     @Override
     public List<Utilisateur> getAllCandidats() {
-        Optional<Roles> roleCandidat = rolesRepository.findRoleByName("CANDIDAT");
+        /*Optional<Roles> roleCandidat = rolesRepository.findRoleByName("CANDIDAT");
         if(roleCandidat.isEmpty()){
             return null;
         }
         List<Utilisateur> allCandidats = (List<Utilisateur>) roleCandidat.get().getUtilisateurs();
-        return allCandidats;
+        return allCandidats;*/
+        return utilisateurRepository.findUtilisateursWithRole(3L);
     }
 
     @Override

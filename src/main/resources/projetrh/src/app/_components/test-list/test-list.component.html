@@ -1,5 +1,10 @@
 <body>
   <app-header></app-header>
+
+  <div class="container" id="titreContainer">
+    <h5>Liste des tests</h5>
+  </div>
+
   <div class="container" id="testsContainer">
     <table class="table table-bordered table-hover">
       <thead class="table-dark">
@@ -10,7 +15,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let test of testList$">
+        <tr *ngFor="let test of testList$" (click)="onTestClick(test.id)">
           <td>{{test.titre}}</td>
           <td>{{test.score}}</td>
           <td>{{test.utilisateur.userLogin}}</td>

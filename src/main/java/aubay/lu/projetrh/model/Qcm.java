@@ -40,10 +40,6 @@ public class Qcm {
     @OneToMany(mappedBy = "qcm")
     private Set<Question> questions;
 
-    @JsonView(CustomJsonView.QcmView.class)
-    @OneToMany(mappedBy = "qcm")
-    private Set<Test> tests;
-
 
     // GETTERS AND SETTERS //
     public UUID getId() {
@@ -70,11 +66,4 @@ public class Qcm {
         this.questions = questions;
     }
 
-    public Set<Test> getTests() {
-        return tests;
-    }
-
-    public void setTests(Set<Test> tests) {
-        this.tests = tests;
-    }
 }

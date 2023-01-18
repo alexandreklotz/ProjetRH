@@ -1,3 +1,108 @@
+### 18/01/2023
+
+__*BACKEND*__
+__Modifications apportées au code :__
+- Création d'une __@Query__ dans `UtilisateurRepository` => `findUtilisateursWithRole`. La méthode `getAllCandidats` dans `UtilisateurServiceImpl` utilise cette query pour uniquement renvoyer les candidats au front.
+
+
+__*FRONTEND*__
+__Modifications apportées au code :__
+- Création de plusieurs components :
+  - `single-qcm` => servira à afficher un seul qcm
+  - `single-question` => Servira à afficher une seule question
+  - `single-candidat` => idem que précédemment mais pour candidat
+- Création d'une requête POST dans `QuestionService` pour créer des questions (pas fonctionnelle, à implémenter dans le formulaire)
+- Création d'une requête GET dans `QuestionService` pour récupérer les questions non assignées dans le formulaire de création d'un Qcm.
+- Modification de certaines routes car la manière dont je gère les UUID pose problème. Voir si j'arrive à régler le problème complètement.
+- Pour la liste des Qcm et des Tests accessibles à partir du panel recruteur (et qui le seront aussi à partir du panel admin), les lignes sont cliquables et nous redirigent vers une page contenant les détails du qcm/test.
+- Idem que ci-dessus pour la liste des candidats
+
+*Les formulaires de création pour `Question et Qcm` vont être un poil compliqués, il faut que j'arrive à gérer l'ajout de plusieurs réponses pour les questions
+et de plusieurs questions pour les qcm. Il faut que je puisse avoir une liste des questions déja sélectionnées dans le formulaire.
+Cela me demande donc de mettre en place des formulaires dynamiques.*
+
+*Une fois les formulaires dynamiques faits, je pourrais me concentrer sur l'envoi des requêtes et passer à l'étape finale qui sera
+l'affichage du Test lors du passage de ce dernier sur l'écran du candidat. Comment gérer l'affichage en fonction du temps imparti
+indiqué dans la question, etc...*
+
+---
+### 17/01/2023
+
+__*BACKEND*__
+
+__Modifications apportées au code :__
+- Finalisation de la modification de la méthode `submitTest` dans `TestServiceImpl` => Le score est maintenant calculé correctement.
+
+__*FRONTEND*__
+
+__Modifications apportées au code :__
+- Création d'un nouveau formulaire pour créer les questions => `create-question-form` dans *_components/_forms* et ajout de la route dans le app routing
+- Modification de la requête __GET__ dans `QcmService`. Elle est maintenant async
+
+
+*Pour faire un formulaire de création de question propre, il me faut un formulaire dynamique. Il faudra que j'implémente ça pour
+le formulaire de création utilisateur/candidat en essayant de faire en sorte de n'avoir qu'un seul formulaire/component pour
+ces deux fonctions. Une fois chaque formulaire créé, je rajouterais les requêtes manquantes dans les services et je ferais des
+JSON dynamiques qui seront envoyés au back.*
+
+---
+### 16/01/2023
+
+__*BACKEND*__
+
+__Modifications apportées au code :__
+- Création d'une __@Query__ SQL dans `QuestionRepository` => `getUnassignedQuestions`. Cette query renvoie une liste des questions n'étant pas assignées à un test ou un qcm.
+- Création d'un __@GetMapping__ dans `QuestionController` qui permet au recruteur/admin d'utiliser la requête mentionnée ci-dessus pour assigner une question non assignée à un qcm.
+
+---
+### 11/01/2023
+
+__*BACKEND*__
+
+__Modifications apportées au code :__
+- La méthode `submitTest` dans `TestServiceImpl` ne fonctionnait pas comme souhaité suite aux changements dans les classes, etc. Elle a été corrigée
+- Création d'une méthode `getNumberOfCorrectReponses` dans `ReponseService` => Sert à renvoyer un Integer égal au nombre de réponses justes pour la question indiquée. Nous sert à caculer le nombre de points de chaque réponse.
+
+*Il y'a des problèmes avec le calcul du score total du test dans `submitTest`. Il retourne un score négatif à chaque fois et itère
+en double sur la map (apparemment) à vérifier.*
+
+---
+### 10/01/2023
+
+__*BACKEND*__
+
+*Pas de changement, beaucoup de recherches pour régler certaines problématiques et certains changements mineurs.*
+
+---
+### 09/01/2023
+
+__*BACKEND*__
+
+__Modifications apportées au code :__
+- Modification de la méthode `setUtilisateurGlobalScore` dans `TestScoreServiceImpl` => La méthode calcule le pourcentage de chaque test pour calculer le pourcentage total de réussite de l'utilisateur peu importe la note maximale du test
+- Modification de la méthode `submitTest` dans `TestServiceImpl` => Adaptée aux modifications apportées aux classes `Test`, `Qcm` et `Question`.
+- Modification de la méthode `deleteTest` dans `TestServiceImpl` => Adaptée aux modifications apportées citées ci-dessus
+
+---
+### 05/01/2023
+
+__*BACKEND*__
+
+__Modifications apportées au code :__
+- Suppression du package `bean`
+- Suppression des relations suivantes :
+  - __@OneToMany__ de `Test` vers `Reponses`
+  - __@ManyToOne__ de `Test` vers  `Qcm`
+- Création des relations suivantes :
+  - __@ManyToMany__ de `Question` vers `Test`
+- Création d'une nouvelle méthode : `duplicateQuestionsFromQcm` dans `QuestionService` => Récupère les questions du qcm, et créé de nouvelles identiques qui seront assignées au test indiqué
+
+*La méthode submit test va devoir être modifiée. Plutôt que de récupérer les questions/réponses du qcm lié, les vérifier
+et les mettre dans une map pour ensuite comparer tout ça avec celles du test, on vérifiera directement les questions/réponses du
+test de base (qui est assigné à l'utilisateur dans sa forme de base, donc non soumis et vierge) pour vérifier que tout est identique
+puis on se servira du booléen `isSelectedAnswer` qui a été créé dans `Reponse` pour le reste.*
+
+---
 ### 04/01/2O23
 
 __*FRONTEND*__

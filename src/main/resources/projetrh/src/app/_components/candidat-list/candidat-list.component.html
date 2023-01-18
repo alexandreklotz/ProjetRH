@@ -1,0 +1,29 @@
+<body>
+  <app-header></app-header>
+
+
+  <div class="container" id="titreContainer">
+    <h5>Liste des candidats</h5>
+  </div>
+
+  <div class="container" id="candidatsContainer">
+    <table class="table table-bordered table-hover">
+      <thead class="table-dark">
+        <tr>
+          <th *ngFor="let column of headers">
+            {{column}}
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let candidat of candidatList$" (click)="onCandidatClick(candidat.id)">
+          <td>{{candidat.lastName}}</td>
+          <td>{{candidat.firstName}}</td>
+          <td>{{candidat.userDescription}}</td>
+          <td>{{candidat.userLogin}}</td>
+          <td>{{candidat.mailAddress}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</body>

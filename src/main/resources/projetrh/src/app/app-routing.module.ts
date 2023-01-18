@@ -10,6 +10,15 @@ import {AdminPanelComponent} from "./admin/adminpanel/admin-panel.component";
 import {RecruteurPanelComponent} from "./recruteur/recruteur-panel/recruteur-panel.component";
 import {CreateCandidatFormComponent} from "./_components/_forms/create-candidat-form/create-candidat-form.component";
 import {CreateTestFormComponent} from "./_components/_forms/create-test-form/create-test-form.component";
+import {CreateQuestionFormComponent} from "./_components/_forms/create-question-form/create-question-form.component";
+import {CreateQcmFormComponent} from "./_components/_forms/create-qcm-form/create-qcm-form.component";
+import {QcmListComponent} from "./_components/qcm-list/qcm-list.component";
+import {CandidatListComponent} from "./_components/candidat-list/candidat-list.component";
+import {SingleCandidatComponent} from "./_components/single-candidat/single-candidat.component";
+import {SingleQuestionComponent} from "./_components/single-question/single-question.component";
+import {SingleQcmComponent} from "./_components/single-qcm/single-qcm.component";
+import {QuestionListComponent} from "./_components/question-list/question-list.component";
+import {SingleTestComponent} from "./_components/single-test/single-test.component";
 
 
 const routes: Routes = [
@@ -23,16 +32,17 @@ const routes: Routes = [
   {path: 'utilisateur/:id', component:SingleUtilisateurComponent, canActivate:[AuthGuard], data : { allowedRoles: "ADMIN"}},
   {path: 'admin', component: AdminPanelComponent, canActivate:[AuthGuard], data : { allowedRoles: "ADMIN"}},
   {path: 'recruteur', component: RecruteurPanelComponent, canActivate:[AuthGuard], data : { allowedRoles: ["ADMIN", "RECRUTEUR"]}},
-  {path: 'candidat/nouveau', component: CreateCandidatFormComponent, canActivate: [AuthGuard], data : { allowedRoles: ["ADMIN", "RECRUTEUR"]}},
-  {path: 'test/nouveau', component: CreateTestFormComponent, canActivate: [AuthGuard], data : { allowedRoles: ["ADMIN", "RECRUTEUR"]}}
-  /*{path: 'qcm', component:QcmListComponent, canActivate:[AuthGuard], data : { allowedRoles: ["RECRUTEUR", "ADMIN"]}},
-  {path: 'qcm/:id', component:SingleQcmComponent, canActivate:[AuthGuard], data : { allowedRoles: ["RECRUTEUR", "ADMIN"]}},
-  {path: 'test/:id', component:SingleTestComponent, canActivate:[AuthGuard], data : { allowedRoles: ["RECRUTEUR", "ADMIN", "CANDIDAT"]}},
-  {path: 'questions', component: QuestionListComponent, canActivate:[AuthGuard], data : { allowedRoles: ["RECRUTEUR", "ADMIN"]}},
-  {path: 'question/:id', component:SingleQuestionComponent, canActivate:[AuthGuard], data : { allowedRoles: ["RECRUTEUR", "ADMIN"]}},
-  {path: 'reponses', component: ReponseListComponent, canActivate:[AuthGuard], data : { allowedRoles: ["RECRUTEUR", "ADMIN"]}},
-  {path: 'reponse/:id', component: SingleReponseComponent, canActivate:[AuthGuard], data : { allowedRoles: ["RECRUTEUR", "ADMIN"]}},
-  {path: 'utilisateur/:id', component:SingleUtilisateurComponent, canActivate:[AuthGuard], data : { allowedRoles: ["RECRUTEUR", "ADMIN"]}}*/
+  {path: 'creer/candidat', component: CreateCandidatFormComponent, canActivate: [AuthGuard], data : { allowedRoles: ["ADMIN", "RECRUTEUR"]}},
+  {path: 'creer/test', component: CreateTestFormComponent, canActivate: [AuthGuard], data : { allowedRoles: ["ADMIN", "RECRUTEUR"]}},
+  {path: 'question/:id', component: SingleQuestionComponent, canActivate: [AuthGuard], data : {allowedRoles: ["ADMIN", "RECRUTEUR"]}},
+  {path: 'creer/question', component: CreateQuestionFormComponent, canActivate: [AuthGuard], data : { allowedRoles: ["ADMIN", "RECRUTEUR"]}},
+  {path: 'creer/qcm', component: CreateQcmFormComponent, canActivate: [AuthGuard], data : { allowedRoles: ["ADMIN", "RECRUTEUR"]}},
+  {path: 'qcm/:id', component: SingleQcmComponent, canActivate: [AuthGuard], data : {allowedRoles: ["ADMIN", "RECRUTEUR"]}},
+  {path: 'qcms', component: QcmListComponent, canActivate: [AuthGuard], data : { allowedRoles: ["ADMIN", "RECRUTEUR"]}},
+  {path: 'questions', component: QuestionListComponent, canActivate: [AuthGuard], data : {allowedRoles: ["ADMIN", "RECRUTEUR"]}},
+  {path: 'candidats', component: CandidatListComponent, canActivate: [AuthGuard], data : {allowedRoles: ["ADMIN", "RECRUTEUR"]}},
+  {path: 'candidat/:id', component: SingleCandidatComponent, canActivate: [AuthGuard], data : { allowedRoles: ["ADMIN", "RECRUTEUR"]}},
+  {path: 'test/:id', component: SingleTestComponent, canActivate: [AuthGuard], data : {allowedRoles: ["ADMIN", "RECRUTEUR"]}}
   //TODO : Créer des routes pour les rôles ? voir comment gérer utilisateur/:id/role/:id ?
 ];
 

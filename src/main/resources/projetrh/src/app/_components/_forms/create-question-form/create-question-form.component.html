@@ -1,0 +1,38 @@
+<body>
+  <app-header></app-header>
+
+  <div class="container" id="titreContainer">
+    <h5>Créer une nouvelle question</h5>
+  </div>
+
+  <div class="container" id="formContainer">
+    <form>
+      <div class="form-group">
+        <label for="questionTexte">Intitulé</label>
+        <input type="text" class="form-control" id="questionTexte">
+      </div>
+
+      <div class="form-group">
+        <label for="questionPoints">Points</label>
+        <input type="number" class="form-control" id="questionPoints">
+      </div>
+
+      <div class="form-group">
+        <label for="questionTemps">Temps limite</label>
+        <input type="number" class="form-control" id="questionTemps">
+      </div>
+
+      <!-- Ajouter réponses, voir pour formulaire dynamique !-->
+
+      <div class="form-select">
+        <select name="qcmSelect" id="qcmSelector">
+          <option *ngFor="let qcm of qcmList$" [value]="qcm.titre">{{qcm.titre}}</option>
+        </select>
+      </div>
+
+      <button class="btn btn-success" id="submitQuestion">Créer</button>
+
+    </form>
+
+  </div>
+</body>

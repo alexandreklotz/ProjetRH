@@ -33,6 +33,10 @@ public class Reponse {
     @Column(nullable = false)
     private boolean correctAnswer;
 
+    @JsonView(CustomJsonView.ReponseView.class)
+    @Column(nullable = false)
+    private boolean isSelectedAnswer;
+
 
     // CONSTRUCTOR //
     public Reponse(){}
@@ -43,15 +47,6 @@ public class Reponse {
     @ManyToOne
     @JoinColumn(name="question_id")
     private Question question;
-
-    @JsonView(CustomJsonView.ReponseView.class)
-    @ManyToMany
-    @JoinTable(
-            name = "reponse_test",
-            joinColumns = @JoinColumn(name = "reponse_id"),
-            inverseJoinColumns = @JoinColumn(name = "test_id")
-    )
-    private Set<Test> tests;
 
 
     // GETTERS AND SETTERS //
@@ -79,6 +74,14 @@ public class Reponse {
         this.correctAnswer = correctAnswer;
     }
 
+    public boolean isSelectedAnswer() {
+        return isSelectedAnswer;
+    }
+
+    public void setSelectedAnswer(boolean selectedAnswer) {
+        isSelectedAnswer = selectedAnswer;
+    }
+
     public Question getQuestion() {
         return question;
     }
@@ -87,11 +90,4 @@ public class Reponse {
         this.question = question;
     }
 
-    public Set<Test> getTests() {
-        return tests;
-    }
-
-    public void setTests(Set<Test> tests) {
-        this.tests = tests;
-    }
 }

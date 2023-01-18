@@ -10,5 +10,4 @@ import java.util.stream.Stream;
 public interface MapFilterService {
 
     public <Reponse, Question> Stream<Reponse> keys(Map<Reponse, Question> map, Question question);
-
 }

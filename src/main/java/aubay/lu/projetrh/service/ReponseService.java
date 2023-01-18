@@ -1,7 +1,7 @@
 package aubay.lu.projetrh.service;
 
+import aubay.lu.projetrh.model.Question;
 import aubay.lu.projetrh.model.Reponse;
-import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 import java.util.Optional;
@@ -20,4 +20,6 @@ public interface ReponseService {
     public Reponse updateReponse(Reponse reponse);
 
     public String deleteReponse(UUID reponseId);
+
+    public Integer getNumberOfCorrectReponses(Question question);
 }

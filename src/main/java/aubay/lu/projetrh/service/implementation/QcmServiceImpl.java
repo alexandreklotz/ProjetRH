@@ -5,6 +5,7 @@ import aubay.lu.projetrh.model.Question;
 import aubay.lu.projetrh.repository.QcmRepository;
 import aubay.lu.projetrh.repository.QuestionRepository;
 import aubay.lu.projetrh.service.QcmService;
+import aubay.lu.projetrh.service.QuestionService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,12 +20,14 @@ public class QcmServiceImpl implements QcmService {
 
     private QcmRepository qcmRepository;
     private QuestionRepository questionRepository;
+    private QuestionService questionService;
     private static Logger log = LoggerFactory.getLogger(QcmServiceImpl.class);
 
     @Autowired
-    QcmServiceImpl(QcmRepository qcmRepository, QuestionRepository questionRepository){
+    QcmServiceImpl(QcmRepository qcmRepository, QuestionRepository questionRepository, QuestionService questionService){
         this.qcmRepository = qcmRepository;
         this.questionRepository = questionRepository;
+        this.questionService = questionService;
     }
 
     @Override
@@ -49,9 +52,11 @@ public class QcmServiceImpl implements QcmService {
             log.info("Des questions sont renseignées dans le formulaire, création des questions inexistantes.");
             for(Question question : qcm.getQuestions()){
                 Optional<Question> qcmQuestion = questionRepository.findById(question.getId());
-                if(qcmQuestion.isEmpty()){
-                    log.error("La question {} n'existe pas.", question.getId());
-                    return null; //return erreur
+                if(qcmQuestion.isPresent()){
+                    log.info("La question {} existe déja", question.getId());
+                } else if (qcmQuestion.isEmpty()){
+                    log.info("Création d'une question inexistante pour le qcm {}.", qcm.getTitre());
+                    questionService.createQuestion(question);
                 }
                 log.info("Question {} assignée au qcm {}", question.getId(), qcm.getTitre());
                 qcmQuestion.get().setQcm(qcm);

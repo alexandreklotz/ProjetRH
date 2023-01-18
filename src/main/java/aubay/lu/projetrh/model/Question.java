@@ -21,11 +21,11 @@ public class Question {
             name = "UUID",
             strategy = "org.hibernate.id.UUIDGenerator"
     )
-    @JsonView({CustomJsonView.QuestionView.class, CustomJsonView.ReponseView.class})
+    @JsonView({CustomJsonView.QuestionView.class, CustomJsonView.ReponseView.class, CustomJsonView.TestView.class})
     @Column(columnDefinition = "BINARY(16)")
     private UUID id;
 
-    @JsonView({CustomJsonView.QuestionView.class, CustomJsonView.QcmView.class, CustomJsonView.ReponseView.class})
+    @JsonView({CustomJsonView.QuestionView.class, CustomJsonView.QcmView.class, CustomJsonView.ReponseView.class, CustomJsonView.TestView.class})
     @Column(nullable = false)
     private String texte;
 
@@ -52,8 +52,13 @@ public class Question {
     @OneToMany(mappedBy = "question")
     private Set<Reponse> reponses;
 
+    @JsonView(CustomJsonView.QuestionView.class)
+    @ManyToOne
+    @JoinColumn(name = "test_id")
+    private Test test;
 
 
+    //GETTERS & SETTERS
     public UUID getId() {
         return id;
     }
@@ -102,4 +107,11 @@ public class Question {
         this.reponses = reponses;
     }
 
+    public Test getTest() {
+        return test;
+    }
+
+    public void setTest(Test tests) {
+        this.test = tests;
+    }
 }

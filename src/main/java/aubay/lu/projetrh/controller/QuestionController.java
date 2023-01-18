@@ -1,6 +1,7 @@
 package aubay.lu.projetrh.controller;
 
 import aubay.lu.projetrh.model.Question;
+import aubay.lu.projetrh.repository.QuestionRepository;
 import aubay.lu.projetrh.service.QuestionService;
 import aubay.lu.projetrh.view.CustomJsonView;
 import com.fasterxml.jackson.annotation.JsonView;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.UUID;
 
 @RestController
@@ -16,10 +18,12 @@ import java.util.UUID;
 public class QuestionController {
 
     private QuestionService questionService;
+    private QuestionRepository questionRepository;
 
     @Autowired
-    QuestionController(QuestionService questionService){
+    QuestionController(QuestionService questionService, QuestionRepository questionRepository){
         this.questionService = questionService;
+        this.questionRepository = questionRepository;
     }
 
     @JsonView(CustomJsonView.QuestionView.class)
@@ -38,6 +42,18 @@ public class QuestionController {
     @GetMapping("moderateur/question/qcm/{qcmId}")
     public List<Question> getQuestionByQcmId(@PathVariable UUID qcmId){
         return questionService.getQuestionByQcmId(qcmId);
+    }
+
+    @JsonView(CustomJsonView.QuestionView.class)
+    @GetMapping("moderateur/question/{testId}/all")
+    public Set<Question> getQuestionByTestId(@PathVariable UUID testId){
+        return questionService.getQuestionByTestId(testId);
+    }
+
+    @JsonView(CustomJsonView.QuestionView.class)
+    @GetMapping("moderateur/question/unassigned")
+    public List<Question> getUnassignedQuestions(){
+        return questionRepository.getUnassignedQuestion();
     }
 
     @JsonView(CustomJsonView.QuestionView.class)

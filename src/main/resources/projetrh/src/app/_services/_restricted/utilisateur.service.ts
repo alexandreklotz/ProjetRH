@@ -21,6 +21,12 @@ export class UtilisateurService{
     return this.utilisateursList
   }
 
+  async getAllCandidats(): Promise<Utilisateur[]> {
+    let response = await lastValueFrom(this.http.get<Utilisateur[]>('http://localhost:8080/moderateur/utilisateur/candidats'))
+    this.utilisateursList = response
+    return this.utilisateursList
+  }
+
   getUtilisateurById(userId: string): Observable<Utilisateur>{
     return this.http.get<Utilisateur>(`http://localhost:8080/admin/utilisateur/id/${userId}`)
   }
