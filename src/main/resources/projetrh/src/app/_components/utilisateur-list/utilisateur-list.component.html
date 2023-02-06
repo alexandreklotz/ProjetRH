@@ -2,7 +2,7 @@
   <app-header></app-header>
 
   <div class="container" id="buttonsContainer">
-    <a href="utilisateur/nouveau" class="btn btn-success" role="button">Créer</a>
+    <a href="creer/utilisateur" class="btn btn-success" role="button">Créer</a>
     <a href="" class="btn btn-danger" role="button">Supprimer</a>
   </div>
 
@@ -16,7 +16,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let utilisateur of utilisateurList$">
+        <tr *ngFor="let utilisateur of utilisateurList$" (click)="onUtilisateurClick(utilisateur.id)">
           <td>{{utilisateur.userLogin}}</td>
           <td>{{utilisateur.role.denomination}}</td>
           <td>{{utilisateur.userDescription}}</td>

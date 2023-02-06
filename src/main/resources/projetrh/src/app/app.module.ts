@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import {AppRoutingModule} from "./app-routing.module";
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './candidat/dashboard/dashboard.component';
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import { LoginComponent } from './login/login.component';
 import {TokenInterceptorProvider} from "./_helpers/token.interceptor";
@@ -56,7 +56,8 @@ import { SingleCandidatComponent } from './_components/single-candidat/single-ca
         BrowserModule,
         AppRoutingModule,
         FormsModule,
-        HttpClientModule
+        HttpClientModule,
+        ReactiveFormsModule
     ],
   providers: [
     TokenInterceptorProvider

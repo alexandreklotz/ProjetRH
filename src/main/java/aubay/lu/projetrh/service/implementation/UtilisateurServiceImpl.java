@@ -121,11 +121,7 @@ public class UtilisateurServiceImpl implements UtilisateurService {
             return null;
         }
 
-        if(utilisateur.getRole() != null){
-            utilisateur.setRole(candidatRole.get());
-        } else if (utilisateur.getRole() == null){
-            utilisateur.setRole(candidatRole.get());
-        }
+        utilisateur.setRole(candidatRole.get());
 
 
         utilisateur.setUserPassword(passwordEncoder.encode(utilisateur.getUserPassword()));

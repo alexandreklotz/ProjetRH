@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {lastValueFrom, map, Observable, switchMap} from "rxjs";
 import {Test} from "../../_models/test.model";
 
@@ -26,6 +26,10 @@ export class TestService {
 
   getTestByCandidat(userId: string): Observable<Test[]>{
     return this.http.get<Test[]>(`http://localhost:8080/moderateur/test/candidat/${userId}`)
+  }
+
+  createTest(data: any, headers : { headers: HttpHeaders }): Observable<any>{
+    return this.http.post('http://localhost:8080/moderateur/test/create', data, headers)
   }
 
 }

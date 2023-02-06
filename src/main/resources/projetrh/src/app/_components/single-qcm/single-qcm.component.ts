@@ -11,7 +11,7 @@ import {ActivatedRoute} from "@angular/router";
 })
 export class SingleQcmComponent implements OnInit {
 
-  qcm!: Observable<Qcm>;
+  qcm!: Observable<Qcm>
 
   constructor(private qcmService: QcmService,
               private route: ActivatedRoute) { }
@@ -21,6 +21,7 @@ export class SingleQcmComponent implements OnInit {
     if (id){
       this.qcm = this.qcmService.getQcmById(id)
     }
+
   }
 
 }

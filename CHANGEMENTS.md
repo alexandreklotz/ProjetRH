@@ -1,11 +1,92 @@
+### 06/02/2023
+
+__*BACKEND*__
+
+__Modifications apportées au code :__
+- Ajout de __l'id du rôle de l'utilisateur__ dans la __JsonView__ de l'utilisateur
+
+
+__*FRONTEND*__
+
+__Modifications apportées au code :__
+- Le formulaire de visualisation/modification `single-utilisateur` récupère l'utilisateur et nous permet de le modifier.
+
+---
+### 01/02/2023
+
+*Encore beaucoup de bagarre avec les formulaires... Une usine à gaz*
+
+__*BACKEND*__
+
+__Modifications apportées au code :__
+- Création de `RolesController` => Ne contient qu'un seul __@GetMapping__ qui est utilisé par le front pour récupérer la liste de tous les rôles pour la création des utilisateurs
+
+
+__*FRONTEND*__
+
+__Modifications apportées au code :__
+- Finalisation du formulaire `create-utilisateur-form` => Un admin peut maintenant créer un utilisateur et lui attribuer un rôle
+- Sur la vue admin, dans la liste des tests, le bouton __Créer__ redirige maintenant l'admin vers le formulaire de création d'un test
+- Des interfaces ont été créées pour chaque classe : `question`, `test`, `reponse` plus ceux cités ci-dessous. Certaines interfaces pourraient ne pas être utilisées
+- Refactor de `UtilisateurInterface` vers `CandidatInterface` (Lire ligne ci-dessous)
+- Création de `UtilisateurInterface` qui nous permet de normaliser un JSON qui sera envoyé au back pour création d'un utilisateur
+- Création d'une route dans `app.routing.ts` pour créer des utilisateurs => __http://.../creer/utilisateur__
+- Ajout des boutons `Créer` et `Supprimer` dans `test-liste` et `qcm-liste` dans le panel admin.
+
+*Les formulaires pour créer une question et un qcm sont en cours. Je regarde comment je peux faire.
+Il y'a encore deux/trois petites fonctionnalités comme la barre de pourcentage à "animer" sur le dashboard
+candidat, la liste des derniers tests/candidats créés sur le panel recruteur (voir si il faudra créer une variable
+date dans le back)*
+
+---
+### 25-31/01/2023
+
+*Beaucoup de recherches, de faire pour défaire, lecture de doc, etc...*
+
+__*FRONTEND*__
+
+__Modifications apportées au code :__
+- Modification du code pour `create-test-form.component.ts` et `create-test-form.component.html` => Au lieu de créer un formulaire dynamique et de récupérer ses valeurs, on récupère juste les valeurs renseignées dans le formulaire qu'on stocke dans une variable qui par la suite est renseignée dans le JSON qui est envoyé au back. __ET CA MARCHE !__
+- Ajout de la variable `points` dans `Question.model` => Oubliée lors de la création
+- Suppression de la variable `points` dans `reponse.model.ts` => Une réponse n'a pas de points dans ce logiciel
+- Création de `QuestionInterface` qui servira à envoyer une question dans un JSON au back pour la création.
+
+---
+### 25/01/2023
+
+__*FRONTEND*__
+
+__Modifications apportées au code :__
+- Le formulaire de création de test fonctionne cependant pour l'instant je n'arrive pas à récupérer l'id du candidat sélectionné
+- Création de `test-interface`.
+
+*J'ai passé beaucoup de temps à bricoler les formulaires, j'ai tenté de modifier le formulaire pour créer des qcm mais ça se complique.
+Il va en être de même pour le formulaire de création de questions.*
+
+---
+### 24/01/2023
+
+__*FRONTEND*__
+
+__Modifications apportées au code :__
+- Création d'une interface : `candidat-interface.ts` => Nous permet de formaliser un modèle qui sera repris pour créer un JSON
+- Création d'une __PostRequest__ dans `utilisateur.service.ts` => `createCandidat`. Cette méthode nous permet de créer des candidats
+- Modification de `create-candidat-form.ts` => ajout d'un `FormBuilder` dans lequel j'implémente un `FormGroup` qui correspond à un formulaire sur lequel pointe le HTML. Il récupère les données de chaque champ et complète ce dernier qui est ensuite envoyé au back.
+- La création de candidats fonctionne !
+
+*La même modification va être apportée à tous les formulaires.*
+
+---
 ### 18/01/2023
 
 __*BACKEND*__
+
 __Modifications apportées au code :__
 - Création d'une __@Query__ dans `UtilisateurRepository` => `findUtilisateursWithRole`. La méthode `getAllCandidats` dans `UtilisateurServiceImpl` utilise cette query pour uniquement renvoyer les candidats au front.
 
 
 __*FRONTEND*__
+
 __Modifications apportées au code :__
 - Création de plusieurs components :
   - `single-qcm` => servira à afficher un seul qcm

@@ -9,6 +9,18 @@
   padding: 25px;
 }
 
+#buttonsContainer {
+  margin-top: 50px;
+
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+#buttonsContainer a {
+  margin: 10px;
+}
+
 #titreContainer {
   margin-top: 60px;
   width: fit-content;

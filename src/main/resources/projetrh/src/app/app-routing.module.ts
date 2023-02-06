@@ -19,6 +19,9 @@ import {SingleQuestionComponent} from "./_components/single-question/single-ques
 import {SingleQcmComponent} from "./_components/single-qcm/single-qcm.component";
 import {QuestionListComponent} from "./_components/question-list/question-list.component";
 import {SingleTestComponent} from "./_components/single-test/single-test.component";
+import {
+  CreateUtilisateurFormComponent
+} from "./_components/_forms/create-utilisateur-form/create-utilisateur-form.component";
 
 
 const routes: Routes = [
@@ -30,6 +33,7 @@ const routes: Routes = [
   {path: 'tests', component:TestListComponent, canActivate:[AuthGuard], data : { allowedRoles: ["RECRUTEUR", "ADMIN"]}},
   {path: 'utilisateurs', component:UtilisateurListComponent, canActivate:[AuthGuard], data : { allowedRoles: "ADMIN"}},
   {path: 'utilisateur/:id', component:SingleUtilisateurComponent, canActivate:[AuthGuard], data : { allowedRoles: "ADMIN"}},
+  {path: 'creer/utilisateur', component:CreateUtilisateurFormComponent, canActivate:[AuthGuard], data : {allowedRoles: "ADMIN"}},
   {path: 'admin', component: AdminPanelComponent, canActivate:[AuthGuard], data : { allowedRoles: "ADMIN"}},
   {path: 'recruteur', component: RecruteurPanelComponent, canActivate:[AuthGuard], data : { allowedRoles: ["ADMIN", "RECRUTEUR"]}},
   {path: 'creer/candidat', component: CreateCandidatFormComponent, canActivate: [AuthGuard], data : { allowedRoles: ["ADMIN", "RECRUTEUR"]}},

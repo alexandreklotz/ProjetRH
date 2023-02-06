@@ -14,7 +14,7 @@ public class Roles {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @JsonView(CustomJsonView.RolesView.class)
+    @JsonView({CustomJsonView.RolesView.class, CustomJsonView.UtilisateurView.class})
     @Column
     private Long id;
 

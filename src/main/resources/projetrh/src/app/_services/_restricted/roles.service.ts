@@ -1,5 +1,7 @@
 import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
+import {Roles} from "../../_models/roles.model";
+import {lastValueFrom} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -7,7 +9,14 @@ import {HttpClient} from "@angular/common/http";
 
 export class RolesService{
 
+  rolesList$!: Roles[]
+
   constructor(private http: HttpClient){}
 
-  //TODO : Implémenter les get pour récupérer les rôles.
+  async getAllRoles(): Promise<Roles[]> {
+    let response = await lastValueFrom(this.http.get<Roles[]>('http://localhost:8080/admin/roles/all'))
+    this.rolesList$ = response
+    return this.rolesList$
+  }
+
 }

@@ -6,30 +6,31 @@
   </div>
 
   <div class="container" id="formContainer">
-    <form action="">
+
+    <form (ngSubmit)="onSubmit()">
+
       <div class="form-group">
         <label for="titre">Titre</label>
-        <input type="text" class="form-control" id="titre">
+        <input type="text" class="form-control" id="titre" [(ngModel)]="titre" [ngModelOptions]="{standalone: true}">
       </div>
 
       <div class="form-group">
-        <select class="form-select">
+        <select class="form-select" [(ngModel)]="qcmId" [ngModelOptions]="{standalone: true}">
           <option selected>Sélectionnez un Qcm</option>
-          <option value="1">Qcm Java</option>
-          <option value="2">Qcm C#</option>
+          <option *ngFor="let qcm of qcmListe$" [value]="qcm.id">{{qcm.titre}}</option>
         </select>
       </div>
 
       <div class="form-group">
-        <select class="form-select">
+        <select class="form-select" [(ngModel)]="candidatId" [ngModelOptions]="{standalone: true}">
           <option selected>Sélectionnez un candidat</option>
-          <option value="1">Alexandre KLOTZ</option>
-          <option value="2">Louis Legrand</option>
+          <option *ngFor="let candidat of candidatsListe$" [value]="candidat.id">{{candidat.firstName + " " + candidat.lastName}}</option>
         </select>
       </div>
 
       <button class="btn btn-success" id="submitTest">Créer le test</button>
 
     </form>
+
   </div>
 </body>

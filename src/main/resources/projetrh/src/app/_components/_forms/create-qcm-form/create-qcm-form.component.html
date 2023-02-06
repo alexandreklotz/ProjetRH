@@ -7,13 +7,21 @@
   </div>
 
   <div class="container" id="formContainer">
-    <form action="">
+    <form [formGroup]="form">
       <div class="form-group">
         <label for="qcmTitre">Nom</label>
-        <input type="text" id="qcmTitre">
+        <input type="text" id="qcmTitre" formControlName="titre">
       </div>
 
       <div class="form-group">
+        <select name="questionSelector" id="questionSelect">
+          <option *ngFor="let question of questionList$" [ngValue]="question.id">{{question.texte}}</option>
+        </select>
+        <button class="btn btn-primary" id="addQuestion" (click)="addQuestion()">Ajouter une question</button>
+      </div>
+
+
+      <!-- <div class="form-group">
         <select name="questionSelector" id="questionSelect" [(ngModel)]="selectedQuestion" (change)="addSelectedObject()">
           <option selected>Choisissez des questions</option>
           <option *ngFor="let question of questionList$" [ngValue]="question.texte">{{question.texte}}</option>
@@ -23,7 +31,9 @@
         <div *ngFor="let selected of selectedQuestions">
           {{selected.texte}}
         </div>
-      </div>
+      </div> !-->
+
+
 
       <button class="btn btn-success" id="submitQcm">Créer</button>
 
