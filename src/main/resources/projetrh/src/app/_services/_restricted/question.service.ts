@@ -11,6 +11,7 @@ import {Question} from "../../_models/question.model";
 export class QuestionService {
 
   questionList$!: Question[]
+  qcmQuestionsList$!: Question[]
   unassignedQuestionList$!: Question[]
 
   constructor(private http: HttpClient) {}
@@ -21,6 +22,12 @@ export class QuestionService {
     return this.questionList$
   }
 
+  async getQcmQuestions(): Promise<Question[]> {
+    let response = await lastValueFrom(this.http.get<Question[]>('http://localhost:8080/moderateur/question/qcmquestions'))
+    this.qcmQuestionsList$ = response
+    return this.qcmQuestionsList$
+  }
+
   async getUnassignedQuestion(): Promise<Question[]> {
     let response = await lastValueFrom(this.http.get<Question[]>('http://localhost:8080/moderateur/question/unassigned'))
     this.unassignedQuestionList$ = response
@@ -28,7 +35,7 @@ export class QuestionService {
   }
 
   getQuestionById(questionId: string): Observable<Question>{
-    return this.http.get<Question>(`http://localhost:8080/admin/question/${questionId}`)
+    return this.http.get<Question>(`http://localhost:8080/moderateur/question/id/${questionId}`)
   }
 
   getQuestionByQcmId(qcmId: string): Observable<Question[]>{

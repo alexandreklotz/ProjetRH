@@ -3,11 +3,62 @@
 
 
   <div class="container" id="titreContainer">
-    <h5>Propriétés de la question</h5>
+    <h5>Voir / Modifier une question</h5>
   </div>
 
   <div class="container" id="questionContainer">
+    <form action="">
+      <div class="form-group">
+        <label for="questionTexte">Intitulé</label>
+        <input type="text" class="form-control" id="questionTexte" name="questionTexte" [(ngModel)]="question$.texte">
+      </div>
 
+      <div class="form-group" id="reponsesContainer">
+        <label>Réponses</label>
+        <table class="table table-hover" id="reponsesTable">
+          <thead>
+            <tr>
+              <th *ngFor="let header of headers">{{header}}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let reponse of questionReponses$">
+              <td><input type="text" class="form-control" [(ngModel)]="reponse.texte" [value]="reponse.texte"></td>
+              <td>
+                <select class="form-select" [(ngModel)]="reponse.correctAnswer" [ngModelOptions]="{standalone: true}">
+                  <option selected>{{reponse.correctAnswer}}</option>
+                  <option value="1">{{reponse.correctAnswer === true ? 'false' : 'true'}}</option>
+                </select>
+              </td>
+              <td>
+                <button class="btn btn-danger">Supprimer</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+
+      <!--
+      <div class="form-group" id="addReponseContainer">
+        <label>Créer une réponse</label>
+        <div class="form-group" id="intituleForm">
+          <label for="reponseTexte">Intitulé</label>
+          <input type="text" id="reponseTexte" name="reponseTexte" [(ngModel)]="reponse$.texte">
+        </div>
+        <div class="form-group" id="reponseForm">
+          <label for="reponseCorrecte">Réponse juste</label>
+          <select [(ngModel)]="reponse$.correctAnswer" id="reponseCorrecte" name="reponseCorrecte">
+            <option value="1">true</option>
+            <option value="2">false</option>
+          </select>
+        </div>
+      </div>
+      !-->
+
+      <button class="btn btn-warning">Modifier</button>
+
+    </form>
   </div>
 
 </body>

@@ -25,4 +25,6 @@ public interface UtilisateurRepository extends JpaRepository<Utilisateur, UUID> 
     @Query("FROM Utilisateur u JOIN FETCH u.role WHERE u.role.id = :roleId")
     List<Utilisateur> findUtilisateursWithRole(@Param("roleId")Long roleId);
 
+    @Query("FROM Utilisateur u JOIN FETCH u.role WHERE u.role.id = :roleId AND u.id = :candidatId")
+    Optional<Utilisateur> findCandidatById(@Param("roleId") Long roleId, @Param("candidatId") UUID candidatId);
 }

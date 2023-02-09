@@ -18,6 +18,8 @@ public interface UtilisateurService {
 
     public Optional<Utilisateur> getUtilisateurByLogin(String userlogin);
 
+    public Optional<Utilisateur> getCandidatById(UUID candidatId);
+
     public List<Utilisateur> getAllCandidats();
 
     public Utilisateur createUtilisateur(Utilisateur utilisateur);

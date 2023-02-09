@@ -20,4 +20,7 @@ public interface QuestionRepository extends JpaRepository<Question, UUID> {
     @Query("FROM Question q WHERE (q.qcm IS NULL) AND (q.test IS NULL)")
     List<Question> getUnassignedQuestion();
 
+    @Query("FROM Question q WHERE (q.test IS NULL)")
+    List<Question> getNoTestQuestions();
+
 }

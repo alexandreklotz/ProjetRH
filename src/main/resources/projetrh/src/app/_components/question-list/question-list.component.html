@@ -1,1 +1,29 @@
-<p>question-list works!</p>
+<body>
+  <app-header></app-header>
+
+  <div class="container" id="buttonsContainer">
+    <a href="creer/question" class="btn btn-success" role="button">Créer</a>
+  </div>
+
+  <div class="container" id="tableContainer">
+    <table class="table table-bordered table-hover">
+      <thead class="table-dark">
+        <tr>
+          <th *ngFor="let column of headers">
+            {{column}}
+          </th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let question of questionList$" (click)="onQuestionClick(question.id)">
+          <td>{{question.texte}}</td>
+          <td>{{question.tempsReponse}}</td>
+          <td>{{question.points}}</td>
+          <td>{{question.qcm.titre}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</body>

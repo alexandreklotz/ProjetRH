@@ -1,3 +1,59 @@
+### 09/02/2023
+
+__*FRONTEND*__
+
+__Modifications apportées au code :__
+- Beaucoup de modifications apportées dans diverses pages HTML suite à des oublis de classe dans les balises <input>.
+- Ajout d'un lien dans `Utilisateur-Service` : `getCandidatById`. Pointe vers un nouveau lien du back pour récupérer un candidat avec son id.
+
+
+__*BACKEND*__
+
+__Modifications apportées au code :__
+- Création d'une __@Query__ dans `UtilisateurRepository` => `findCandidatById`.
+- Création de la méthode `getCandidatById` dans `UtilisateurService` et implémentation dans `UtilisateurServiceImpl` qui utilise la query mentionnée ci-dessus.
+
+
+---
+### 08/02/2023
+
+__*FRONTEND*__
+
+__Modifications apportées au code :__
+- Création du component `utilisateur-self-update` : permet à l'utilisateur de modifier ses informations
+
+
+*Pour abréger ce changelog, j'ai continué la mise en place des composants propres aux admins/recruteurs pour
+la création/gestion/suppression d'éléments. Il y'a aussi eu de la mise en page et des nouvelles méthodes ont été créées
+pour assurer les fonctions de ces composants.*
+
+
+__*BACKEND*__
+
+__Modifications apportées au code :__
+- Création d'une __@Query__ SQL dans `QuestionRepository` pour récupérer les questions étant liées à un qcm ou à rien du tout mais aucune question liée à un test
+- Création d'un __@GetMapping__ dans `QuestionController` qui tape sur la Query mentionnée ci-dessus
+
+---
+### 07/02/2023
+
+__*FRONTEND*__
+
+__Modifications apportées au code :__
+- Création d'un nouveau component : `unauthorized.component.ts` => affichera une page qui indique que l'utilisateur n'est pas autorisé à accéder la page à laquelle il souhaite accéder
+- Modification de `auth.guard.ts` pour rediriger les requêtes non autorisées vers `unauthorized`
+- Suppression du bouton `Supprimer` dans les listes accessibles par l'administrateur (`utilisateur-liste`, `qcm-liste`, etc)
+- Modification du formulaire de modification d'un utilisateur pour gérer les rôles (`single-utilisateur`)
+- Le formulaire de modification d'un qcm `single-qcm` est presque terminé, il me faut juste finaliser la gestion des questions dans le formulaire/typescript
+- Le component `question-liste` récupère les questions étant assignées à un qcm ou à rien du tout mais ne récupère pas les questions liées à un test
+
+
+__*BACKEND*__
+
+__Modifications apportées au code :__
+- Création d'une nouvelle Query dans `QuestionRepository` pour récupérer les questions n'étant assignées à aucun test (mais qui peuvent être assignées qu'à un qcm ou rien du tout) : `getNoTestQuestion()`
+
+---
 ### 06/02/2023
 
 __*BACKEND*__

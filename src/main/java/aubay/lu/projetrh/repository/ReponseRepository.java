@@ -12,6 +12,6 @@ import java.util.UUID;
 @Repository
 public interface ReponseRepository extends JpaRepository<Reponse, UUID> {
 
-    @Query("FROM Reponse r WHERE r.question = :questionId")
+    @Query("FROM Reponse r WHERE r.question.id = :questionId")
     List<Reponse> findReponsesByQuestion(@Param("questionId")UUID questionId);
 }

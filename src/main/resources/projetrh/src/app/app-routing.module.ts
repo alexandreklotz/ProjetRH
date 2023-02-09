@@ -22,6 +22,8 @@ import {SingleTestComponent} from "./_components/single-test/single-test.compone
 import {
   CreateUtilisateurFormComponent
 } from "./_components/_forms/create-utilisateur-form/create-utilisateur-form.component";
+import {UnauthorizedComponent} from "./_components/unauthorized/unauthorized.component";
+import {UtilisateurSelfUpdateComponent} from "./utilisateur-self-update/utilisateur-self-update.component";
 
 
 const routes: Routes = [
@@ -46,7 +48,9 @@ const routes: Routes = [
   {path: 'questions', component: QuestionListComponent, canActivate: [AuthGuard], data : {allowedRoles: ["ADMIN", "RECRUTEUR"]}},
   {path: 'candidats', component: CandidatListComponent, canActivate: [AuthGuard], data : {allowedRoles: ["ADMIN", "RECRUTEUR"]}},
   {path: 'candidat/:id', component: SingleCandidatComponent, canActivate: [AuthGuard], data : { allowedRoles: ["ADMIN", "RECRUTEUR"]}},
-  {path: 'test/:id', component: SingleTestComponent, canActivate: [AuthGuard], data : {allowedRoles: ["ADMIN", "RECRUTEUR"]}}
+  {path: 'test/:id', component: SingleTestComponent, canActivate: [AuthGuard], data : {allowedRoles: ["ADMIN", "RECRUTEUR"]}},
+  {path: 'unauthorized', component: UnauthorizedComponent, canActivate: [AuthGuard], data : {allowedRoles: ["ADMIN", "RECRUTEUR", "CANDIDAT"]}},
+  {path: 'profilupdate', component: UtilisateurSelfUpdateComponent, canActivate: [AuthGuard], data : {allowedRoles: ["ADMIN", "RECRUTEUR", "CANDIDAT"]}}
   //TODO : Créer des routes pour les rôles ? voir comment gérer utilisateur/:id/role/:id ?
 ];
 

@@ -19,8 +19,12 @@ export class QcmService {
     return this.qcmList
   }
 
-  getQcmById(qcmId: string): Observable<Qcm>{
-    return this.http.get<Qcm>(`http://localhost:8080/moderateur/qcm/${qcmId}`)
+  getQcmById(qcmId: any): Observable<Qcm>{
+    return this.http.get<Qcm>(`http://localhost:8080/moderateur/qcm/id/${encodeURIComponent(qcmId)}`)
+  }
+
+  updateQcm(qcm: Qcm): Observable<Qcm>{
+    return this.http.put<Qcm>('http://localhost:8080/moderateur/qcm/update', qcm)
   }
 
 }

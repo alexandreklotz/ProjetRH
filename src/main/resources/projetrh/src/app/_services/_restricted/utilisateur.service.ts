@@ -35,6 +35,10 @@ export class UtilisateurService{
     return this.http.get<Utilisateur>(`http://localhost:8080/admin/utilisateur/login/${userLogin}`)
   }
 
+  getCandidatById(candidatId: any): Observable<Utilisateur> {
+    return this.http.get<Utilisateur>(`http://localhost:8080/moderateur/utilisateur/candidat/id/${encodeURIComponent(candidatId)}`)
+  }
+
   createUtilisateur(data: any, headers : {headers: HttpHeaders}): Observable<any> {
     return this.http.post('http://localhost:8080/admin/utilisateur/create', data, headers)
   }

@@ -1,0 +1,44 @@
+<body>
+  <app-header></app-header>
+
+  <div class="container" id="titreContainer">
+    <h5>Mettre à jour ses informations</h5>
+  </div>
+
+  <div class="container" id="formContainer">
+    <form (ngSubmit)="onUpdate()" *ngIf="utilisateur$">
+      <div class="form-group">
+        <label for="firstname">Prénom</label>
+        <input type="text" class="form-control" id="firstname" name="firstname" [(ngModel)]="utilisateur$.firstName">
+      </div>
+
+      <div class="form-group">
+        <label for="lastname">Nom</label>
+        <input type="text" class="form-control" id="lastname" name="lastname" [(ngModel)]="utilisateur$.lastName">
+      </div>
+
+      <div class="form-group">
+        <label for="userlogin">Login</label>
+        <input type="text" class="form-control" id="userlogin" name="userlogin" [(ngModel)]="utilisateur$.userLogin" disabled readonly>
+      </div>
+
+      <div class="form-group">
+        <label for="mailaddr">Adresse mail</label>
+        <input type="text" class="form-control" id="mailaddr" name="mailaddr" [(ngModel)]="utilisateur$.mailAddress">
+      </div>
+
+      <div class="form-group">
+        <label for="userpassword">Mot de passe</label>
+        <input type="password" class="form-control" id="userpassword" name="userpassword" [(ngModel)]="utilisateur$.userPassword">
+      </div>
+
+      <div class="form-group">
+        <label for="userdesc">Description</label>
+        <input type="text" class="form-control" id="userdesc" name="userdesc" [(ngModel)]="utilisateur$.userDescription" disabled readonly>
+      </div>
+
+      <button class="btn btn-warning">Mettre à jour ses informations</button>
+
+    </form>
+  </div>
+</body>

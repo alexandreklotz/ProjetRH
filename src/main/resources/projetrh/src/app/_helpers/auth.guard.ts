@@ -38,19 +38,19 @@ export class AuthGuard implements CanActivate {
       if (hasMatch) {
         return true;
       } else {
-        this.router.navigate(['login']);
+        this.router.navigate(['unauthorized']);
         return false;
       }
     } else if (typeof allowedRoles === 'string') {
       if (allowedRoles.includes(userRole)) {
         return true;
       } else {
-        this.router.navigate(['login']);
+        this.router.navigate(['unauthorized']);
         return false;
       }
     }
 
-    this.router.navigate(['login']) //TODO : créer un component unauthorized et remplacer login par ce dernier
+    this.router.navigate(['unauthorized']) //TODO : créer un component unauthorized et remplacer login par ce dernier
     return false;
 
   }

@@ -29,7 +29,7 @@
 
       <div class="form-group">
         <label for="userpwd">Mot de passe</label>
-        <input type="password" class="form-control" id="userpwd" placeholder="Remplir si modification">
+        <input type="password" class="form-control" id="userpwd" placeholder="Remplir si modification" [(ngModel)]="utilisateur$.userPassword">
       </div>
 
       <div class="form-group">
@@ -42,9 +42,16 @@
         <input type="text" class="form-control" id="userscore" name="userscore" [(ngModel)]="utilisateur$.globalScore" disabled readonly>
       </div>
 
-      <div class="form-group">
+      <!-- <div class="form-group">
         <label for="userrole">Rôle</label>
         <input type="text" class="form-control" id="userrole" name="userrole" [(ngModel)]="utilisateur$.role.denomination">
+      </div> !-->
+
+      <div class="form-group" id="rolesDiv">
+        <select class="form-select">
+          <option selected>{{utilisateur$.role.denomination}}</option>
+          <option *ngFor="let role of rolesList$" [ngValue]="role.id">{{role.denomination}}</option>
+        </select>
       </div>
 
       <button class="btn btn-warning" id="modifierBtn">Modifier</button>

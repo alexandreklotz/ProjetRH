@@ -71,6 +71,26 @@ public class UtilisateurServiceImpl implements UtilisateurService {
     }
 
     @Override
+    public Optional<Utilisateur> getCandidatById(UUID candidatId) {
+
+        Optional<Utilisateur> utilisateur = utilisateurRepository.findById(candidatId);
+        if(utilisateur.isEmpty()){
+            log.error("Le candidat {} n'existe pas.", candidatId);
+            return null;
+        }
+
+        Optional<Roles> role = rolesRepository.findById(utilisateur.get().getRole().getId());
+        if(role.isEmpty()){
+            log.error("Le role {} lié à l'utilisateur {} n'existe pas.", utilisateur.get().getRole().getId(), candidatId);
+            return null;
+        }
+
+        Long roleId = role.get().getId();
+
+        return utilisateurRepository.findCandidatById(roleId, candidatId);
+    }
+
+    @Override
     public List<Utilisateur> getAllCandidats() {
         /*Optional<Roles> roleCandidat = rolesRepository.findRoleByName("CANDIDAT");
         if(roleCandidat.isEmpty()){

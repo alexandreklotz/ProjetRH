@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import {QuestionService} from "../../_services/_restricted/question.service";
+import {Router} from "@angular/router";
+import {Question} from "../../_models/question.model";
+import {Qcm} from "../../_models/qcm.model";
 
 @Component({
   selector: 'app-question-list',
@@ -7,9 +11,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class QuestionListComponent implements OnInit {
 
-  constructor() { }
+  headers = ["Intitulé", "Temps imparti", "Points", "QCM"]
+  questionList$!: Question[]
 
-  ngOnInit(): void {
+  constructor(private questionService: QuestionService,
+              private router: Router) { }
+
+  async ngOnInit(): Promise<void> {
+    this.questionList$ = await this.questionService.getQcmQuestions()
+  }
+
+  onQuestionClick(id: string){
+    this.router.navigateByUrl('question/' + id)
   }
 
 }

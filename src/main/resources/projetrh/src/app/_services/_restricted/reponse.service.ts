@@ -19,8 +19,8 @@ export class ReponseService {
     return this.http.get<Reponse>(`http://localhost:8080/admin/reponse/${reponseId}`)
   }
 
-  getReponseByQuestion(questionId: string): Observable<Reponse[]>{
-    return this.http.get<Reponse[]>(`http://localhost:8080/admin/reponse/question/${questionId}`)
+  getReponseByQuestion(questionId: any): Observable<Reponse[]>{
+    return this.http.get<Reponse[]>(`http://localhost:8080/moderateur/reponse/question/${encodeURIComponent(questionId)}`)
   }
 
 }

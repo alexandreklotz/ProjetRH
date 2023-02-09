@@ -9,12 +9,12 @@
   <div class="container" id="formContainer">
     <form [formGroup]="form">
       <div class="form-group">
-        <label for="qcmTitre">Nom</label>
-        <input type="text" id="qcmTitre" formControlName="titre">
+        <label for="qcmTitre">Titre</label>
+        <input type="text" class="form-control" id="qcmTitre" formControlName="titre">
       </div>
 
       <div class="form-group">
-        <select name="questionSelector" id="questionSelect">
+        <select class="form-select" name="questionSelector" id="questionSelect">
           <option *ngFor="let question of questionList$" [ngValue]="question.id">{{question.texte}}</option>
         </select>
         <button class="btn btn-primary" id="addQuestion" (click)="addQuestion()">Ajouter une question</button>

@@ -21,7 +21,7 @@ export class TestService {
   }
 
   getTestById(testId: string): Observable<Test>{
-    return this.http.get<Test>(`http://localhost:8080/moderateur/test/${testId}`)
+    return this.http.get<Test>(`http://localhost:8080/moderateur/test/${encodeURIComponent(testId)}`)
   }
 
   getTestByCandidat(userId: string): Observable<Test[]>{

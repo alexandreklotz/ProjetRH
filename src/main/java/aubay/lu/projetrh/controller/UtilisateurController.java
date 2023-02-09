@@ -1,6 +1,7 @@
 package aubay.lu.projetrh.controller;
 
 import aubay.lu.projetrh.model.Utilisateur;
+import aubay.lu.projetrh.repository.UtilisateurRepository;
 import aubay.lu.projetrh.service.UtilisateurService;
 import aubay.lu.projetrh.view.CustomJsonView;
 import com.fasterxml.jackson.annotation.JsonView;
@@ -17,6 +18,7 @@ import java.util.UUID;
 public class UtilisateurController {
 
     private UtilisateurService utilisateurService;
+    private UtilisateurRepository utilisateurRepository;
 
     @Autowired
     UtilisateurController(UtilisateurService utilisateurService){
@@ -58,6 +60,12 @@ public class UtilisateurController {
     @PostMapping("moderateur/utilisateur/candidat/create")
     public Utilisateur createCandidat(@RequestBody Utilisateur utilisateur){
         return utilisateurService.createCandidat(utilisateur);
+    }
+
+    @JsonView(CustomJsonView.UtilisateurView.class)
+    @GetMapping("moderateur/utilisateur/candidat/id/{candidatId}")
+    public Optional<Utilisateur> getCandidatById(@PathVariable UUID candidatId){
+        return utilisateurService.getCandidatById(candidatId);
     }
 
     @JsonView(CustomJsonView.UtilisateurView.class)

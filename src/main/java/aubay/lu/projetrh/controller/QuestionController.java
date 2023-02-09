@@ -57,6 +57,12 @@ public class QuestionController {
     }
 
     @JsonView(CustomJsonView.QuestionView.class)
+    @GetMapping("moderateur/question/qcmquestions")
+    public List<Question> getQcmQuestions(){
+        return questionRepository.getNoTestQuestions();
+    }
+
+    @JsonView(CustomJsonView.QuestionView.class)
     @PostMapping("moderateur/question/create")
     public Question createQuestion(@RequestBody Question question){
         return questionService.createQuestion(question);

@@ -1,12 +1,47 @@
 <body>
   <app-header></app-header>
 
-  <div class="container" id="qcmTitre">
-
+  <div class="container" id="titreContainer">
+    <h5>Voir / Modifier un Qcm</h5>
   </div>
 
-  <div class="container" id="qcmContainer">
+  <div class="container" id="formContainer">
+    <form (ngSubmit)="onUpdate()" *ngIf="qcm$">
+      <div class="form-group">
+        <label for="qcmtitre">Titre</label>
+        <input type="text" class="form-control" id="qcmtitre" name="qcmtitre" [(ngModel)]="qcm$.titre">
+      </div>
 
+      <div class="form-group" id="questionsContainer">
+        <label>Questions</label>
+        <div class="container" id="questionsGridContainer">
+          <div class="row" *ngFor="let question of qcmQuestions">
+            <div class="col-md-auto">
+              {{question.texte}}
+            </div>
+            <div class="col-md-auto">
+              <button class="btn btn-warning" (click)="editQuestion(question.id)">Modifier</button>
+            </div>
+            <div class="col-md-auto">
+              <button class="btn btn-danger" (click)="removeQuestion(question.id)">Retirer</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group" id="addQuestionsContainer">
+        <label>Ajouter une question</label>
+        <div class="container" id="selectorContainer">
+          <select class="form-select" name="questionSelector" id="questionSelect" [(ngModel)]="selectedQuestionId">
+            <option *ngFor="let question of unassignedQuestions$" [ngValue]="question.id">{{question.texte}}</option>
+          </select>
+          <button class="btn btn-primary" id="addQuestionButton" (click)="addQuestion(selectedQuestionId)">Ajouter</button>
+        </div>
+      </div>
+
+      <button class="btn btn-warning" id="updateButton">Modifier</button>
+
+    </form>
   </div>
 
 </body>

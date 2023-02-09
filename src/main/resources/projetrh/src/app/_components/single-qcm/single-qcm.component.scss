@@ -1,0 +1,55 @@
+#titreContainer {
+  margin-top: 60px;
+  width: fit-content;
+
+  border: 0px solid #000;
+  border-radius: 15px;
+  -moz-border-radius: 15px;
+
+  text-align: center;
+  padding: 30px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+}
+
+#formContainer {
+  display: flex;
+  justify-content: center;
+  margin-top: 80px;
+
+  width: fit-content;
+
+  padding: 30px;
+
+  border: 0px solid #000;
+  border-radius: 15px;
+  -moz-border-radius: 15px;
+
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+}
+
+#modifierBtn {
+  margin-top: 15px;
+}
+
+#questionsContainer {
+  margin-top: 15px;
+}
+
+#questionsGridContainer {
+  margin-top: 10px;
+  margin-bottom: 15px;
+  padding: 12px;
+}
+
+#qcmQuestions {
+  margin-top: 7px;
+  width: fit-content;
+}
+
+#addQuestionButton {
+  margin-left: 15px;
+}
+
+.col-md-auto {
+  margin-top: 4px;
+}

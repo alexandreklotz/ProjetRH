@@ -23,8 +23,8 @@
       </div>
 
 
-      <div class="form-select">
-        <select name="qcmSelect" id="qcmSelector" [(ngModel)]="qcmId" [ngModelOptions]="{standalone: true}">
+      <div class="form-group">
+        <select class="form-select" name="qcmSelect" id="qcmSelector" [(ngModel)]="qcmId" [ngModelOptions]="{standalone: true}">
           <option *ngFor="let qcm of qcmList$" [value]="qcm.id">{{qcm.titre}}</option>
         </select>
       </div>
