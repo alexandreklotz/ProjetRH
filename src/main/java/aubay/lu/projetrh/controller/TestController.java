@@ -32,7 +32,7 @@ public class TestController {
     }
 
     @JsonView(CustomJsonView.TestView.class)
-    @GetMapping("moderateur/test/{testId}")
+    @GetMapping("moderateur/test/id/{testId}")
     public Optional<Test> getTestById(@PathVariable UUID testId){
         return testService.getTestById(testId);
     }

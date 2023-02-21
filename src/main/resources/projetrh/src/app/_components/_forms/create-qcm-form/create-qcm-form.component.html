@@ -7,31 +7,34 @@
   </div>
 
   <div class="container" id="formContainer">
-    <form [formGroup]="form">
+    <form [formGroup]="qcmForm" (ngSubmit)="onSubmit()">
       <div class="form-group">
         <label for="qcmTitre">Titre</label>
         <input type="text" class="form-control" id="qcmTitre" formControlName="titre">
       </div>
 
-      <div class="form-group">
-        <select class="form-select" name="questionSelector" id="questionSelect">
-          <option *ngFor="let question of questionList$" [ngValue]="question.id">{{question.texte}}</option>
-        </select>
-        <button class="btn btn-primary" id="addQuestion" (click)="addQuestion()">Ajouter une question</button>
-      </div>
-
-
-      <!-- <div class="form-group">
-        <select name="questionSelector" id="questionSelect" [(ngModel)]="selectedQuestion" (change)="addSelectedObject()">
-          <option selected>Choisissez des questions</option>
-          <option *ngFor="let question of questionList$" [ngValue]="question.texte">{{question.texte}}</option>
-        </select>
-      </div>
-      <div class="form-group" id="selectedQuestions">
-        <div *ngFor="let selected of selectedQuestions">
-          {{selected.texte}}
+      <div class="form-group" id="questionsContainer">
+        <label>Questions</label>
+        <div class="container" id="questionsGridContainer">
+          <div class="row" *ngFor="let question of formQuestions.controls">
+            <div class="col-md-auto">
+              <!-- {{question.}} !-->
+              {{question.value}}
+            </div>
+            <div class="col-md-auto">
+              <button class="btn btn-danger">Supprimer</button>
+            </div>
+          </div>
         </div>
-      </div> !-->
+      </div>
+
+      <div class="form-group" id="questionsSelector" formArrayName="questions">
+        <label>Ajouter une question</label>
+        <select class="form-select" id="addQuestion" formControlName="id">
+          <option *ngFor="let question of questionList$" [value]="question.id">{{question.texte}}</option>
+        </select>
+        <button class="btn btn-primary" (click)="addQuestion()">Ajouter</button>
+      </div>
 
 
 

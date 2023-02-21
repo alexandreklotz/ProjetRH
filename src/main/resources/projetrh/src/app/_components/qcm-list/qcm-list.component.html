@@ -13,8 +13,8 @@
     <table class="table table-bordered table-hover">
       <thead class="table-dark">
         <tr>
-          <th>
-            Titre
+          <th *ngFor="let header of headers">
+            {{header}}
           </th>
         </tr>
       </thead>

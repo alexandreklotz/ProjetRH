@@ -11,7 +11,7 @@ import {Router} from "@angular/router";
 export class QcmListComponent implements OnInit {
 
   qcmList$!: Qcm[]
-  //headers = ["Titre"]
+  headers = ["Titre"]
 
   constructor(private qcmService: QcmService,
               private router: Router) { }

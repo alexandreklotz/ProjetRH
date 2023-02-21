@@ -39,7 +39,15 @@
         </div>
       </div>
 
-      <button class="btn btn-warning" id="updateButton">Modifier</button>
+      <div class="row" id="buttonsContainer">
+        <div class="col-md-auto">
+          <button class="btn btn-warning" id="updateButton">Modifier</button>
+        </div>
+        <div class="col-md-auto">
+          <button class="btn btn-danger" id="supprimerButton" (click)="deleteQcm(qcm$.id)">Supprimer</button>
+        </div>
+      </div>
+
 
     </form>
   </div>

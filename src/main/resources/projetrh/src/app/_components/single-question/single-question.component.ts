@@ -43,4 +43,8 @@ export class SingleQuestionComponent implements OnInit {
     this.questionReponses$.filter(reponse => reponse.id !== reponseId)
   }
 
+  deleteQuestion(questionId: any){
+    this.questionService.deleteQuestion(questionId)
+  }
+
 }

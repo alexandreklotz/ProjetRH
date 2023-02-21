@@ -6,30 +6,64 @@
   </div>
 
   <div class="container" id="formContainer">
-    <form (ngSubmit)="onSubmit()">
+    <form [formGroup]="questionForm" (ngSubmit)="onSubmit()">
       <div class="form-group">
         <label for="questionTexte">Intitulé</label>
-        <input type="text" class="form-control" id="questionTexte" [(ngModel)]="texte" [ngModelOptions]="{standalone: true}">
+        <input type="text" class="form-control" id="questionTexte" formControlName="texte">
       </div>
 
       <div class="form-group">
         <label for="questionPoints">Points</label>
-        <input type="number" class="form-control" id="questionPoints" [(ngModel)]="points" [ngModelOptions]="{standalone: true}">
+        <input type="number" class="form-control" id="questionPoints" formControlName="points">
       </div>
 
       <div class="form-group">
         <label for="questionTemps">Temps limite</label>
-        <input type="number" class="form-control" id="questionTemps" [(ngModel)]="tempsReponse" [ngModelOptions]="{standalone: true}">
+        <input type="number" class="form-control" id="questionTemps" formControlName="tempsReponse">
       </div>
 
 
       <div class="form-group">
-        <select class="form-select" name="qcmSelect" id="qcmSelector" [(ngModel)]="qcmId" [ngModelOptions]="{standalone: true}">
+        <label for="questionQcm" formGroupName="qcm">Qcm lié</label>
+        <select class="form-select" name="qcmSelect" id="questionQcm" formControlName="id">
           <option *ngFor="let qcm of qcmList$" [value]="qcm.id">{{qcm.titre}}</option>
         </select>
       </div>
 
-      <!-- implémenter réponses !-->
+
+      <div class="form-group" id="reponsesContainer">
+        <label>Réponses</label>
+        <div class="container" id="reponsesGridContainer" *ngIf="reponsesForm">
+          <div class="row" *ngFor="let reponse of reponsesForm.controls; let i = index" [formGroupName]="i">
+            <div class="col-md-auto">
+              <!-- {{reponse.texte}} !-->
+            </div>
+            <div class="col-md-auto">
+              <button class="btn btn-danger">Supprimer</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+      <div class="form-group" id="newReponseContainer" formArrayName="reponses">
+        <label>Créer une réponse</label>
+        <div class="form-group">
+          <label for="reponseTexte">Intitulé</label>
+          <input type="text" id="reponseTexte" class="form-control" formControlName="texte">
+        </div>
+
+        <div class="form-group">
+          <label for="reponseStatus">Réponse correcte ?</label>
+          <select name="correctReponseSelector" id="reponseStatus" class="form-select" formControlName="correctAnswer">
+            <option value="1">true</option>
+            <option value="2">false</option>
+          </select>
+        </div>
+
+        <button class="btn btn-primary" (click)="addReponse()">Ajouter réponse</button>
+      </div>
 
 
       <button class="btn btn-success" id="submitQuestion">Créer</button>

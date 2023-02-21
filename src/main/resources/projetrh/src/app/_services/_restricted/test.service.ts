@@ -20,8 +20,8 @@ export class TestService {
     return this.testListe
   }
 
-  getTestById(testId: string): Observable<Test>{
-    return this.http.get<Test>(`http://localhost:8080/moderateur/test/${encodeURIComponent(testId)}`)
+  getTestById(testId: any): Observable<Test>{
+    return this.http.get<Test>(`http://localhost:8080/moderateur/test/id/${encodeURIComponent(testId)}`)
   }
 
   getTestByCandidat(userId: string): Observable<Test[]>{
@@ -30,6 +30,10 @@ export class TestService {
 
   createTest(data: any, headers : { headers: HttpHeaders }): Observable<any>{
     return this.http.post('http://localhost:8080/moderateur/test/create', data, headers)
+  }
+
+  deleteTest(testId: any){
+    this.http.delete(`http://localhost:8080/moderateur/test/delete/${encodeURIComponent(testId)}`)
   }
 
 }

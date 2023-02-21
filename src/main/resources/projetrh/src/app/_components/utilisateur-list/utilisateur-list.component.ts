@@ -27,4 +27,8 @@ export class UtilisateurListComponent implements OnInit {
     this.router.navigateByUrl('utilisateur/' + id)
   }
 
+  deleteUser(userId: any){
+    this.utilisateurService.deleteUtilisateur(userId)
+  }
+
 }

@@ -1,3 +1,38 @@
+### 15/02/2023
+
+*Bagarre encore et toujours avec les formulaires, je pense pourtant être tout près...*
+
+---
+### 14/02/2023
+
+__*FRONTEND*__
+
+*On persiste sur les formulaires et je pense toucher au but (tardivement certes). J'ai réussi à avoir un JSON
+comme je veux cependant le formulaire ne renvoie pas les valeurs des 'formArray' qui sont des sous formulaires,
+comme par exemple dans une question il y'a un array de réponses, il n'arrive pas à ajouter les variables souhaitées
+dans l'array réponses.*
+
+*J'ai aussi des bug d'affichage dans les HTML de ces mêmes formulaires, lorsque je créé une réponse dans une question,
+au lieu d'avoir le texte de cette dernière comme souhaité j'ai juste [Object] [object]. Cela est du à comment je gère
+l'array des réponses, je vais tout de suite les récupérer dans le formulaire. Cela n'est pas ma priorité immédiate,
+je cherche à pouvoir créer des objets avant tout.*
+
+---
+### 13/02/2023
+
+__*FRONTEND*__
+
+__Modifications apportées au code :__
+*Modification des formulaires et de leur vue, correction d'éléments dans des services et création d'éléments comme
+qcm-interface*
+
+
+__*BACKEND*__
+
+__Modifications apportées au code :__
+- Modification de l'URL du __@GetMapping__ dans `TestController` => auparavant `moderateur/test/{testId}`, maintenant `moderateur/test/id/{testId}`
+
+---
 ### 09/02/2023
 
 __*FRONTEND*__

@@ -6,11 +6,45 @@
   </div>
 
   <div class="container" id="formContainer">
-    <form action="">
+    <form (ngSubmit)="onUpdate()" *ngIf="test$">
+      <div class="form-group">
+        <label for="titre">Titre</label>
+        <input type="text" id="titre" class="form-control" [(ngModel)]="test$.titre" name="titre">
+      </div>
 
+      <div class="form-group">
+        <label for="score">Score</label>
+        <input type="number" id="score" class="form-control" [(ngModel)]="test$.score" name="score" disabled readonly>
+      </div>
 
+      <div class="form-group">
+        <label for="alreadySubmitted">Etat du test</label>
+        <input type="text" id="alreadySubmitted" class="form-control" [(ngModel)]="test$.alreadySubmitted" name="alreadySubmitted" disabled readonly>
+      </div>
+
+      <div class="form-group">
+        <label for="utilisateur">Candidat</label>
+        <select name="candidatSelect" id="utilisateur" class="form-select" [(ngModel)]="test$.utilisateur.id" [ngModelOptions]="{standalone: true}">
+          <option selected>{{test$.utilisateur.firstName + " " + test$.utilisateur.lastName}}</option>
+          <option *ngFor="let candidat of candidats$" [ngValue]="candidat.id">{{candidat.firstName + " " + candidat.lastName}}</option>
+        </select>
+      </div>
+
+      <div class="row" id="buttonsContainer">
+        <div class="col-md-auto">
+          <button class="btn btn-warning" id="editBtn">Modifier</button>
+        </div>
+        <div class="col-md-auto">
+          <button class="btn btn-danger" id="supprimerBtn" (click)="deleteTest(test$.id)">Supprimer</button>
+        </div>
+      </div>
 
     </form>
+  </div>
+
+  <div class="container" id="questRepContainer">
+    <h5>Questions et réponses</h5>
+
   </div>
 
 

@@ -61,4 +61,8 @@ export class SingleQcmComponent implements OnInit {
     this.qcmQuestions = this.qcmQuestions.filter(question => question.id !== questionId);
   }
 
+  deleteQcm(qcmId: any){
+    this.qcmService.deleteQcm(qcmId)
+  }
+
 }

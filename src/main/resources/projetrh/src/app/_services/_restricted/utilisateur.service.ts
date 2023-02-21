@@ -51,8 +51,16 @@ export class UtilisateurService{
     return this.http.put<Utilisateur>('http://localhost:8080/admin/utilisateur/update', utilisateur)
   }
 
-  deleteUtilisateur(userId: String): void {
-    this.http.delete<Utilisateur>(`http://localhost:8080/admin/utilisateur/delete/${userId}`)
+  updateCandidat(candidat: Utilisateur): Observable<Utilisateur>{
+    return this.http.put<Utilisateur>('http://localhost:8080/moderateur/utilisateur/candidat/update', candidat)
+  }
+
+  deleteUtilisateur(userId: any): void {
+    this.http.delete<Utilisateur>(`http://localhost:8080/admin/utilisateur/delete/${encodeURIComponent(userId)}`)
+  }
+
+  deleteCandidat(candidatId: any): void {
+    this.http.delete(`http://localhost:8080/moderateur/utilisateur/candidat/delete/${encodeURIComponent(candidatId)}`)
   }
 
 }

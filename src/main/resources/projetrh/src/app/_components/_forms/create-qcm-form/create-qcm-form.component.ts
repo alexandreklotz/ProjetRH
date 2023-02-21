@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {Question} from "../../../_models/question.model";
 import {QuestionService} from "../../../_services/_restricted/question.service";
-import {FormArray, FormBuilder, FormControl, FormGroup} from "@angular/forms";
+import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {Reponse} from "../../../_models/reponse.model";
+import {HttpHeaders} from "@angular/common/http";
+import {QcmService} from "../../../_services/_restricted/qcm.service";
 
 @Component({
   selector: 'app-create-qcm-form',
@@ -11,32 +14,65 @@ import {FormArray, FormBuilder, FormControl, FormGroup} from "@angular/forms";
 export class CreateQcmFormComponent implements OnInit {
 
   questionList$!: Question[];
+  newQuestion$!: Question
+
+  questionTemps$!: Question[]
 
   questionsForm!: FormArray
-  form!: FormGroup
+  qcmForm!: FormGroup
 
-  constructor(private questionService: QuestionService) { }
+  constructor(private questionService: QuestionService,
+              private qcmService: QcmService,
+              private fb: FormBuilder) { }
 
-  async ngOnInit(): Promise<void> {
-    this.questionList$ = await this.questionService.getUnassignedQuestion()
+  ngOnInit(): void {
 
-    this.form = new FormGroup({
-      "titre": new FormControl(''),
-      "questions": new FormArray([])
+    this.getUnassignedQuestions()
+
+    this.qcmForm = new FormGroup({
+      titre: new FormControl(''),
+      questions: new FormArray([
+        this.initQuestion()
+      ])
     });
-    this.questionsForm = this.form.get('questions') as FormArray
+  }
+
+  get formQuestions(){
+    return this.qcmForm.get('questions') as FormArray
+  }
+
+  initQuestion(){
+    return new FormGroup({
+      id: new FormControl('')
+    })
   }
 
   addQuestion(){
-    this.questionsForm.push(new FormControl(''));
+    const control = <FormArray>this.qcmForm.controls['questions']
+    control.push(this.initQuestion())
   }
+
+  async getUnassignedQuestions(): Promise<void> {
+    this.questionList$ = await this.questionService.getUnassignedQuestion()
+  }
+
 
   removeQuestion(index: number){
     this.questionsForm.removeAt(index);
   }
 
   onSubmit(){
-    console.log(this.form)
+
+    const formValue = JSON.stringify(this.qcmForm.value)
+    console.log("formulaire envoyé : " + formValue)
+
+    /*const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+
+    this.qcmService.createQcm()*/
   }
 
 }

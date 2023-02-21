@@ -42,8 +42,14 @@
       <input type="text" class="form-control" id="userscore" name="userscore" [(ngModel)]="candidat$.globalScore" disabled readonly>
     </div>
 
-
-    <button class="btn btn-warning" id="modifierBtn">Modifier</button>
+    <div class="row" id="buttonsContainer">
+      <div class="col-md-auto">
+        <button class="btn btn-warning" id="modifierBtn">Modifier</button>
+      </div>
+      <div class="col-md-auto">
+        <button class="btn btn-danger" (click)="deleteCandidat(candidat$.id)">Supprimer</button>
+      </div>
+    </div>
 
   </form>
 </div>

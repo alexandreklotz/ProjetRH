@@ -56,7 +56,14 @@
       </div>
       !-->
 
-      <button class="btn btn-warning">Modifier</button>
+      <div class="row" id="buttonsContainer">
+        <div class="col-md-auto">
+          <button class="btn btn-warning">Modifier</button>
+        </div>
+        <div class="col-md-auto">
+          <button class="btn btn-danger" (click)="deleteQuestion(question$.id)">Supprimer</button>
+        </div>
+      </div>
 
     </form>
   </div>

@@ -23,4 +23,16 @@ export class SingleCandidatComponent implements OnInit {
 
   }
 
+  onUpdate(candidat: Utilisateur){
+    this.utilisateurService.updateCandidat(this.candidat$).subscribe(data => {
+      console.log(this.candidat$)
+      console.log("Update du candidat")
+    })
+
+  }
+
+  deleteCandidat(candidatId: any){
+    this.utilisateurService.deleteCandidat(candidatId)
+  }
+
 }

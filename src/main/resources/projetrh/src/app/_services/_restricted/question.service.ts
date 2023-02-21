@@ -1,7 +1,8 @@
 import {Injectable} from "@angular/core";
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {lastValueFrom, map, Observable, switchMap} from "rxjs";
 import {Question} from "../../_models/question.model";
+import {Utilisateur} from "../../_models/utilisateur.model";
 
 
 @Injectable({
@@ -42,8 +43,12 @@ export class QuestionService {
     return this.http.get<Question[]>(`http://localhost:8080/admin/question/qcm/${qcmId}`)
   }
 
-  createQuestion(question: Question): void {
-    const jsonBody = JSON.stringify(question)
-    this.http.post<Question>('http://localhost:8080/moderateur/question/create', jsonBody)
+  createQuestion(data: any, headers : {headers : HttpHeaders}): Observable<Question> {
+    //const jsonBody = JSON.stringify(question)
+    return this.http.post<Question>('http://localhost:8080/moderateur/question/create', data, headers)
+  }
+
+  deleteQuestion(questionId: any){
+    this.http.delete(`http://localhost:8080/moderateur/question/delete/${encodeURIComponent(questionId)}`)
   }
 }

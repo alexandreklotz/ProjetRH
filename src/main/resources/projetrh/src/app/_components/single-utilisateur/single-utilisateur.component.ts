@@ -42,4 +42,8 @@ export class SingleUtilisateurComponent implements OnInit {
     })
   }
 
+  deleteUser(userId: any){
+    this.utilisateurService.deleteUtilisateur(userId)
+  }
+
 }

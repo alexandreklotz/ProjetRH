@@ -5,10 +5,12 @@ export interface QuestionInterface {
   points: number,
   qcm : {
     id: string
-  }/*,
-  reponses : {
+  },
+  reponses : [{
     texte: string,
-    isCorrectAnswer: boolean
-  }[]*/
+    points: number,
+    tempsReponse: number,
+    correctAnswer: boolean
+  }]
 
 }
