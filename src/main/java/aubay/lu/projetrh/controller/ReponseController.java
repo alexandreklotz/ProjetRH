@@ -47,15 +47,15 @@ public class ReponseController {
         return reponseService.createReponse(reponse);
     }*/
 
-    /*@JsonView(CustomJsonView.ReponseView.class)
+    @JsonView(CustomJsonView.ReponseView.class)
     @PutMapping("moderateur/reponse/update")
     public Reponse updateReponse(@RequestBody Reponse reponse){
         return reponseService.updateReponse(reponse);
-    }*/
+    }
 
-    /*@JsonView(CustomJsonView.ReponseView.class)
+    @JsonView(CustomJsonView.ReponseView.class)
     @DeleteMapping("moderateur/reponse/delete/{reponseId}")
     public String deleteReponse(@PathVariable UUID reponseId){
         return reponseService.deleteReponse(reponseId);
-    }*/
+    }
 }

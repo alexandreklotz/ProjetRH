@@ -54,7 +54,7 @@ public class ReponseServiceImpl implements ReponseService {
             log.error("La question {} n'existe pas. Création impossible.", questionId);
             return null;
         }
-        //reponse.setSelectedAnswer(false);
+        reponse.setSelectedAnswer(false);
         reponse.setQuestion(repQuestion.get());
         log.info("Réponse créée avec succès.");
         return reponseRepository.saveAndFlush(reponse);

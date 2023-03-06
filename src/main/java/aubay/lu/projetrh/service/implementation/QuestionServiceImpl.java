@@ -106,6 +106,11 @@ public class QuestionServiceImpl implements QuestionService {
         return question;
     }
 
+    /*@Override
+    public Question createQuestion(Question question){
+        return questionRepository.saveAndFlush(question);
+    }*/
+
     @Override
     public void duplicateQuestionsFromQcm(Qcm qcm, Test test) {
         Optional<Qcm> qcmQuest = qcmRepository.findById(qcm.getId());

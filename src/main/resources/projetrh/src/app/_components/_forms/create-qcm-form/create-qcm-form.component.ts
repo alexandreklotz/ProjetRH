@@ -5,6 +5,8 @@ import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from "@angul
 import {Reponse} from "../../../_models/reponse.model";
 import {HttpHeaders} from "@angular/common/http";
 import {QcmService} from "../../../_services/_restricted/qcm.service";
+import {QuestionDto} from "../../../_models/_dto/question-dto";
+import {QcmInterface} from "../../../_interfaces/_json/qcm-interface";
 
 @Component({
   selector: 'app-create-qcm-form',
@@ -14,42 +16,38 @@ import {QcmService} from "../../../_services/_restricted/qcm.service";
 export class CreateQcmFormComponent implements OnInit {
 
   questionList$!: Question[];
-  newQuestion$!: Question
+  qcmTempQuestions$!: String[]
 
-  questionTemps$!: Question[]
+  qcmQuestions$!: Array<QuestionDto>
 
-  questionsForm!: FormArray
-  qcmForm!: FormGroup
+  json!: QcmInterface
+
+  qcmTitre!: string
+  questionId!: string
+
 
   constructor(private questionService: QuestionService,
-              private qcmService: QcmService,
-              private fb: FormBuilder) { }
+              private qcmService: QcmService) { }
+
 
   ngOnInit(): void {
-
     this.getUnassignedQuestions()
 
-    this.qcmForm = new FormGroup({
-      titre: new FormControl(''),
-      questions: new FormArray([
-        this.initQuestion()
-      ])
-    });
+    this.qcmQuestions$ = new Array<QuestionDto>
   }
 
-  get formQuestions(){
-    return this.qcmForm.get('questions') as FormArray
+
+  addQuestion(id: string){
+
+    let questionDto$ = new QuestionDto()
+    questionDto$.id = this.questionId
+    this.qcmQuestions$.push(questionDto$)
+
+    //this.qcmTempQuestions$.push()
   }
 
-  initQuestion(){
-    return new FormGroup({
-      id: new FormControl('')
-    })
-  }
+  getQuestionsTitre(){
 
-  addQuestion(){
-    const control = <FormArray>this.qcmForm.controls['questions']
-    control.push(this.initQuestion())
   }
 
   async getUnassignedQuestions(): Promise<void> {
@@ -58,21 +56,34 @@ export class CreateQcmFormComponent implements OnInit {
 
 
   removeQuestion(index: number){
-    this.questionsForm.removeAt(index);
+    this.qcmQuestions$.splice(index);
   }
 
   onSubmit(){
 
-    const formValue = JSON.stringify(this.qcmForm.value)
-    console.log("formulaire envoyé : " + formValue)
+    this.json = {
+      titre: this.qcmTitre,
+      questions: this.qcmQuestions$
+    }
 
-    /*const httpOptions = {
+
+    const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       })
     };
 
-    this.qcmService.createQcm()*/
+    console.log("JSON avant stringify : " + this.json)
+    const qcmJson = JSON.stringify(this.json)
+    console.log("JSON final : " + qcmJson)
+
+
+    this.qcmService.createQcm(qcmJson, httpOptions).subscribe((res) => {
+      console.log(res)
+    },
+      (err) => {
+      console.log(err)
+      })
   }
 
 }

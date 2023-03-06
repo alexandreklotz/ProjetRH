@@ -3,7 +3,7 @@ import {Roles} from "./roles.model";
 
 export class Utilisateur {
 
-  id!: string; //TODO : Vérifier pour les UUID, je les ai mis en tant que String pour le moment, à vérifier.
+  id!: string;
   firstName!: string;
   lastName!: string;
   userLogin!: string;

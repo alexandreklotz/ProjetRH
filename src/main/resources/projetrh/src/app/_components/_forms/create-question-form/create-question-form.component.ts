@@ -7,6 +7,8 @@ import {QuestionInterface} from "../../../_interfaces/_json/question-interface";
 import {Question} from "../../../_models/question.model";
 import {HttpHeaders} from "@angular/common/http";
 import {Reponse} from "../../../_models/reponse.model";
+import {lastValueFrom, Observable, Subscription} from "rxjs";
+import {ReponseDto} from "../../../_models/_dto/reponse-dto";
 
 @Component({
   selector: 'app-create-question-form',
@@ -17,62 +19,61 @@ export class CreateQuestionFormComponent implements OnInit {
 
   qcmList$!: Qcm[];
 
+  questionTexte!: string
+  questionTempsReponse!: number
+  questionPoints!: number
+  qcmId!: string
+
   json!: QuestionInterface
 
-  texte!: string
-  tempsReponse!: number
-  points!: number
-  qcmId!: string
-  correctAnswer!: boolean
-  reponses$!: Reponse[]
 
-  questionForm!: FormGroup
+  correctAnswer!: boolean
+  reponseTexte!: string
+  reponses$!: Array<ReponseDto>
+
 
   constructor(private qcmService: QcmService,
-              private questionService: QuestionService,
-              private fb: FormBuilder) {
+              private questionService: QuestionService) {
   }
 
   ngOnInit(): void {
+
     this.getQcm()
 
-    //idée : créer un array de réponses et créer une réponse avec un id temporaire égal à l'index du tableau puis ensuite
-    //le push dans le form. enlever l'id lors de l'envoi du json ou alors indiquer dans le model que la variable peut être null
-
-    this.questionForm = new FormGroup({
-      texte: new FormControl('', Validators.required),
-      tempsReponse: new FormControl('', Validators.required),
-      points: new FormControl('', Validators.required),
-      qcm: new FormGroup ({
-        id: new FormControl('')
-      }),
-      reponses: new FormArray([
-        this.initReponse()
-      ])
-    });
+    this.reponses$ = new Array<ReponseDto>()
   }
 
   async getQcm(): Promise<void> {
     this.qcmList$ = await this.qcmService.getAllQcm()
   }
 
-  get reponsesForm(){
-    return this.questionForm.get('reponses') as FormArray
-  }
-
-  initReponse(){
-    return new FormGroup({
-      texte: new FormControl('', Validators.required),
-      correctAnswer: new FormControl(false, Validators.required)
-    });
-  }
 
   addReponse(){
-    const control = <FormArray>this.questionForm.controls['reponses']
-    control.push(this.initReponse())
+    let reponseDto$ = new ReponseDto()
+    reponseDto$.texte = this.reponseTexte
+    reponseDto$.correctAnswer = this.correctAnswer
+
+    this.reponses$.push(reponseDto$)
   }
 
+
+  removeReponse(index: number){
+    this.reponses$.splice(index)
+  }
+
+
   onSubmit(){
+
+    this.json = {
+      texte: this.questionTexte,
+      tempsReponse: this.questionTempsReponse,
+      points: this.questionPoints,
+      qcm : {
+        id: this.qcmId
+      },
+      reponses: this.reponses$
+    }
+
 
     const httpOptions = {
       headers: new HttpHeaders({
@@ -80,11 +81,9 @@ export class CreateQuestionFormComponent implements OnInit {
       })
     };
 
-    const formValue = JSON.stringify(this.questionForm.value)
-    console.log("formulaire envoyé : " + formValue)
+    const questionJson = JSON.stringify(this.json)
 
-
-    this.questionService.createQuestion(formValue, httpOptions).subscribe((res) => {
+    this.questionService.createQuestion(questionJson, httpOptions).subscribe((res) => {
       console.log(res)
     },
       (err) => {

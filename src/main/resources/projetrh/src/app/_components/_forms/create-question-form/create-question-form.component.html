@@ -6,26 +6,25 @@
   </div>
 
   <div class="container" id="formContainer">
-    <form [formGroup]="questionForm" (ngSubmit)="onSubmit()">
+    <form>
       <div class="form-group">
         <label for="questionTexte">Intitulé</label>
-        <input type="text" class="form-control" id="questionTexte" formControlName="texte">
+        <input type="text" class="form-control" id="questionTexte" [ngModel]="questionTexte" [ngModelOptions]="{standalone: true}" (ngModelChange)="questionTexte = $event">
       </div>
 
       <div class="form-group">
         <label for="questionPoints">Points</label>
-        <input type="number" class="form-control" id="questionPoints" formControlName="points">
+        <input type="number" class="form-control" id="questionPoints" [ngModel]="questionPoints" [ngModelOptions]="{standalone: true}" (ngModelChange)="questionPoints = $event">
       </div>
 
       <div class="form-group">
         <label for="questionTemps">Temps limite</label>
-        <input type="number" class="form-control" id="questionTemps" formControlName="tempsReponse">
+        <input type="number" class="form-control" id="questionTemps" [ngModel]="questionTempsReponse" [ngModelOptions]="{standalone: true}" (ngModelChange)="questionTempsReponse = $event">
       </div>
 
-
       <div class="form-group">
-        <label for="questionQcm" formGroupName="qcm">Qcm lié</label>
-        <select class="form-select" name="qcmSelect" id="questionQcm" formControlName="id">
+        <label for="questionQcm">Qcm lié</label>
+        <select class="form-select" name="qcmSelect" id="questionQcm" [ngModel]="qcmId" [ngModelOptions]="{standalone: true}" (ngModelChange)="qcmId = $event">
           <option *ngFor="let qcm of qcmList$" [value]="qcm.id">{{qcm.titre}}</option>
         </select>
       </div>
@@ -33,32 +32,36 @@
 
       <div class="form-group" id="reponsesContainer">
         <label>Réponses</label>
-        <div class="container" id="reponsesGridContainer" *ngIf="reponsesForm">
-          <div class="row" *ngFor="let reponse of reponsesForm.controls; let i = index" [formGroupName]="i">
+        <div class="container" id="reponsesGridContainer">
+          <div class="row" *ngFor="let reponseDto of reponses$, let i = index">
             <div class="col-md-auto">
-              <!-- {{reponse.texte}} !-->
+              {{reponseDto.texte}}
             </div>
+
             <div class="col-md-auto">
-              <button class="btn btn-danger">Supprimer</button>
+              {{reponseDto.correctAnswer}}
+            </div>
+
+            <div class="col-md-auto">
+              <button class="btn btn-danger" (click)="removeReponse(i)">Supprimer</button>
             </div>
           </div>
         </div>
       </div>
 
 
-
-      <div class="form-group" id="newReponseContainer" formArrayName="reponses">
+      <div class="form-group" id="newReponseContainer">
         <label>Créer une réponse</label>
         <div class="form-group">
           <label for="reponseTexte">Intitulé</label>
-          <input type="text" id="reponseTexte" class="form-control" formControlName="texte">
+          <input type="text" id="reponseTexte" class="form-control" [(ngModel)]="reponseTexte" [ngModelOptions]="{standalone: true}">
         </div>
 
         <div class="form-group">
           <label for="reponseStatus">Réponse correcte ?</label>
-          <select name="correctReponseSelector" id="reponseStatus" class="form-select" formControlName="correctAnswer">
-            <option value="1">true</option>
-            <option value="2">false</option>
+          <select name="correctReponseSelector" id="reponseStatus" class="form-select" [(ngModel)]="correctAnswer" [ngModelOptions]="{standalone: true}">
+            <option value="true">Oui</option>
+            <option value="false">Non</option>
           </select>
         </div>
 
@@ -66,7 +69,7 @@
       </div>
 
 
-      <button class="btn btn-success" id="submitQuestion">Créer</button>
+      <button class="btn btn-success" id="submitQuestion" (click)="onSubmit()">Créer</button>
 
     </form>
 

@@ -3,7 +3,7 @@ import {Reponse} from "./reponse.model";
 
 export class Question {
 
-  id!: string; //TODO : Vérifier pour les UUID, je les ai mis en tant que String pour le moment, à vérifier.
+  id: string; //TODO : Vérifier pour les UUID, je les ai mis en tant que String pour le moment, à vérifier.
   texte!: string;
   tempsReponse!: number;
   qcm!: Qcm;

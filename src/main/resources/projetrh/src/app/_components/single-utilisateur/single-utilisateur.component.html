@@ -29,12 +29,12 @@
 
       <div class="form-group">
         <label for="userpwd">Mot de passe</label>
-        <input type="password" class="form-control" id="userpwd" placeholder="Remplir si modification" [(ngModel)]="utilisateur$.userPassword">
+        <input type="password" class="form-control" id="userpwd" placeholder="Remplir si modification" [(ngModel)]="newUserPassword" name="userpwd">
       </div>
 
       <div class="form-group">
         <label for="userdesc">Description</label>
-        <input type="text" class="form-control" id="userdesc" name="userdesc" [(ngModel)]="utilisateur$.userDescription">
+        <input type="text" class="form-control" id="userdesc" name="userDescription" [(ngModel)]="utilisateur$.userDescription">
       </div>
 
       <div class="form-group">

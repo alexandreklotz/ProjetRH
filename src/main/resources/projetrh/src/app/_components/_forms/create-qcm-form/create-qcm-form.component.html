@@ -7,19 +7,18 @@
   </div>
 
   <div class="container" id="formContainer">
-    <form [formGroup]="qcmForm" (ngSubmit)="onSubmit()">
+    <form>
       <div class="form-group">
         <label for="qcmTitre">Titre</label>
-        <input type="text" class="form-control" id="qcmTitre" formControlName="titre">
+        <input type="text" class="form-control" id="qcmTitre" [(ngModel)]="qcmTitre" [ngModelOptions]="{standalone: true}">
       </div>
 
       <div class="form-group" id="questionsContainer">
         <label>Questions</label>
         <div class="container" id="questionsGridContainer">
-          <div class="row" *ngFor="let question of formQuestions.controls">
+          <div class="row" *ngFor="let questionDto of qcmQuestions$, let i = index">
             <div class="col-md-auto">
-              <!-- {{question.}} !-->
-              {{question.value}}
+              {{questionDto.id}}
             </div>
             <div class="col-md-auto">
               <button class="btn btn-danger">Supprimer</button>
@@ -28,17 +27,17 @@
         </div>
       </div>
 
-      <div class="form-group" id="questionsSelector" formArrayName="questions">
+      <div class="form-group" id="questionsSelector">
         <label>Ajouter une question</label>
-        <select class="form-select" id="addQuestion" formControlName="id">
+        <select class="form-select" id="addQuestion" [(ngModel)]="questionId" [ngModelOptions]="{standalone: true}" (ngModelChange)="questionId = $event">
           <option *ngFor="let question of questionList$" [value]="question.id">{{question.texte}}</option>
         </select>
-        <button class="btn btn-primary" (click)="addQuestion()">Ajouter</button>
+        <button class="btn btn-primary" (click)="addQuestion(questionId)">Ajouter</button>
       </div>
 
 
 
-      <button class="btn btn-success" id="submitQcm">Créer</button>
+      <button class="btn btn-success" id="submitQcm" (click)="onSubmit()">Créer</button>
 
     </form>
   </div>

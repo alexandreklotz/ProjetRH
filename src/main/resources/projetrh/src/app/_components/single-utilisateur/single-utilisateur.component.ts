@@ -18,6 +18,9 @@ export class SingleUtilisateurComponent implements OnInit {
   utilisateur$!: Utilisateur
   rolesList$!: Roles[]
 
+  newUserPassword!: string
+  previousUserPassword!: string
+
   constructor(private utilisateurService: UtilisateurService,
               private rolesService: RolesService,
               private route: ActivatedRoute) { }
@@ -29,6 +32,7 @@ export class SingleUtilisateurComponent implements OnInit {
     this.utilisateurService.getUtilisateurById(utilisateurId).subscribe(data => {
       this.utilisateur$ = data
     })
+
   }
 
   async retrieveAllRoles(): Promise<void> {
@@ -36,6 +40,11 @@ export class SingleUtilisateurComponent implements OnInit {
   }
 
   onUpdate(): void{
+
+    if(this.newUserPassword != null) {
+      this.utilisateur$.userPassword = this.newUserPassword
+    }
+
     this.utilisateurService.updateUtilisateur(this.utilisateur$).subscribe(data => {
       console.log(this.utilisateur$)
       console.log("Update de l'utilisateur")

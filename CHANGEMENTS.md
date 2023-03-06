@@ -1,3 +1,30 @@
+### 1/03/2023 - 6/03/2023
+
+__*FRONTEND*__
+
+__Modifications apportées au code :__
+- Le bug de la mise à jour des mots de passe lors de la modification d'un utilisateur a été partiellement corrigée. Il faut maintenant gérer le cas lorsqu'on ne renvoie pas de mot de passe.
+
+*Beaucoup de bricolage, peu de choses concrètes à ajouter dans le changelog*
+
+---
+### 28/02/2O23
+
+__*FRONTEND*__
+
+*Pas de changelog depuis un bon moment, j'ai fait pas mal de modifications/essais sans rien noter, ça aurait été trop lourd
+et créé beaucoup de superflu.*
+
+__Modifications apportées au code :__
+- Création de deux "DTO" (pas vraiment des DTO) : `question-dto` et `reponse-dto`.
+- Modification de `qcm-interface`, `question-interface`.
+- Modification de la logique et des formulaires pour les deux composants suivants : `create-question-form` et `create-qcm-form`
+
+*La création d'un QCM et d'une Question avec plusieurs réponses est maintenant possible ! Il y'a juste de la logique à corriger/
+nettoyer dans certains composants sinon c'est fonctionnel.*
+
+
+---
 ### 15/02/2023
 
 *Bagarre encore et toujours avec les formulaires, je pense pourtant être tout près...*
