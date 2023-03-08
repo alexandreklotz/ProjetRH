@@ -1,3 +1,19 @@
+### 08/03/2023
+
+__*BACKEND*__
+__Modifications apportées au code :__
+- Réactivation du post mapping `createReponse` dans `ReponseController`
+- Ajout de l'id des questions dans la liste des questions d'un qcm, corrige un problème ou l'id de la question n'était pas récupéré dans le front
+
+__*FRONTEND*__
+__Modifications apportées au code :__
+- Modification de `QcmInterface` et `QuestionInterface` => Un Qcm peut être null dans une Question et vice versa
+- Modification des models `Qcm` et `Question` en fonction de la modification indiquée ci-dessus
+- Modification des formulaires de modification `single-qcm` et `single-question` => La modification fonctionne. Il ne me reste qu'à finaliser quelques bricoles pour `single-question` et c'est bon
+- Modification de `QuestionService` => Création de la requête `updateQuestion`
+- Modification de `ReponseService` => Création des requêtes `createNewReponseInQuestion` et `deleteQuestion`
+
+---
 ### 1/03/2023 - 6/03/2023
 
 __*FRONTEND*__

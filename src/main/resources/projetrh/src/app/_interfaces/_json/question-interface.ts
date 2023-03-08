@@ -6,7 +6,7 @@ export interface QuestionInterface {
   texte: string,
   tempsReponse: number,
   points: number,
-  qcm: {
+  qcm?: {
     id: string
   },
   reponses : ReponseDto[]

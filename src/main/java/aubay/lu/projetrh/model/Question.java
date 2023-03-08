@@ -21,7 +21,7 @@ public class Question {
             name = "UUID",
             strategy = "org.hibernate.id.UUIDGenerator"
     )
-    @JsonView({CustomJsonView.QuestionView.class, CustomJsonView.ReponseView.class, CustomJsonView.TestView.class})
+    @JsonView({CustomJsonView.QuestionView.class, CustomJsonView.ReponseView.class, CustomJsonView.TestView.class, CustomJsonView.QcmView.class})
     @Column(columnDefinition = "BINARY(16)")
     private UUID id;
 

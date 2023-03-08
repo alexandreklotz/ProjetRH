@@ -68,9 +68,10 @@ export class CreateQuestionFormComponent implements OnInit {
       texte: this.questionTexte,
       tempsReponse: this.questionTempsReponse,
       points: this.questionPoints,
-      qcm : {
+      /*qcm : {
         id: this.qcmId
-      },
+      },*/
+      ...(this.qcmId ? { qcm: { id: this.qcmId } } : {}),
       reponses: this.reponses$
     }
 

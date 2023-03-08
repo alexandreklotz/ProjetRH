@@ -41,11 +41,11 @@ public class ReponseController {
         return reponseService.getReponsesByQuestion(questionId);
     }
 
-    /*@JsonView(CustomJsonView.ReponseView.class)
-    @PostMapping("moderateur/reponse/create")
-    public Reponse createReponse(@RequestBody Reponse reponse){
-        return reponseService.createReponse(reponse);
-    }*/
+    @JsonView(CustomJsonView.ReponseView.class)
+    @PostMapping("moderateur/reponse/create/{questionId}")
+    public Reponse createReponse(@RequestBody Reponse reponse, @PathVariable UUID questionId){
+        return reponseService.createReponse(questionId, reponse);
+    }
 
     @JsonView(CustomJsonView.ReponseView.class)
     @PutMapping("moderateur/reponse/update")

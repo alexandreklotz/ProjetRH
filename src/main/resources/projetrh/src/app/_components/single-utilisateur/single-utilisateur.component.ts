@@ -19,7 +19,6 @@ export class SingleUtilisateurComponent implements OnInit {
   rolesList$!: Roles[]
 
   newUserPassword!: string
-  previousUserPassword!: string
 
   constructor(private utilisateurService: UtilisateurService,
               private rolesService: RolesService,
@@ -41,8 +40,10 @@ export class SingleUtilisateurComponent implements OnInit {
 
   onUpdate(): void{
 
-    if(this.newUserPassword != null) {
+    if(this.newUserPassword){
       this.utilisateur$.userPassword = this.newUserPassword
+    } else {
+
     }
 
     this.utilisateurService.updateUtilisateur(this.utilisateur$).subscribe(data => {

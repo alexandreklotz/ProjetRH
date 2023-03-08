@@ -63,7 +63,8 @@ export class CreateQcmFormComponent implements OnInit {
 
     this.json = {
       titre: this.qcmTitre,
-      questions: this.qcmQuestions$
+      //questions: this.qcmQuestions$
+      ...(this.qcmQuestions$ ? { questions: this.qcmQuestions$ } : {}),
     }
 
 

@@ -7,10 +7,18 @@
   </div>
 
   <div class="container" id="questionContainer">
-    <form action="">
+    <form>
       <div class="form-group">
         <label for="questionTexte">Intitulé</label>
         <input type="text" class="form-control" id="questionTexte" name="questionTexte" [(ngModel)]="question$.texte">
+      </div>
+
+      <div class="form-group">
+        <label>Qcm</label>
+        <select class="form-select" [(ngModel)]="question$.qcm" [ngModelOptions]="{standalone: true}">
+          <option selected>{{question$.qcm?.titre}}</option>
+          <option *ngFor="let qcm of qcmList$" [ngValue]="qcm">{{qcm.titre}}</option>
+        </select>
       </div>
 
       <div class="form-group" id="reponsesContainer">
@@ -36,29 +44,26 @@
             </tr>
           </tbody>
         </table>
-      </div>
-
-
-      <!--
-      <div class="form-group" id="addReponseContainer">
         <label>Créer une réponse</label>
-        <div class="form-group" id="intituleForm">
+        <div class="form-group">
           <label for="reponseTexte">Intitulé</label>
-          <input type="text" id="reponseTexte" name="reponseTexte" [(ngModel)]="reponse$.texte">
+          <input type="text" id="reponseTexte" class="form-control" [(ngModel)]="reponseTexte" [ngModelOptions]="{standalone: true}">
         </div>
-        <div class="form-group" id="reponseForm">
-          <label for="reponseCorrecte">Réponse juste</label>
-          <select [(ngModel)]="reponse$.correctAnswer" id="reponseCorrecte" name="reponseCorrecte">
-            <option value="1">true</option>
-            <option value="2">false</option>
+
+        <div class="form-group">
+          <label for="reponseStatus">Réponse correcte ?</label>
+          <select name="correctReponseSelector" id="reponseStatus" class="form-select" [(ngModel)]="correctAnswer" [ngModelOptions]="{standalone: true}">
+            <option value="true">Oui</option>
+            <option value="false">Non</option>
           </select>
         </div>
+
+        <button class="btn btn-success" (click)="addReponse()">Créer réponse</button>
       </div>
-      !-->
 
       <div class="row" id="buttonsContainer">
         <div class="col-md-auto">
-          <button class="btn btn-warning">Modifier</button>
+          <button class="btn btn-warning" (click)="onUpdate(question$)">Modifier</button>
         </div>
         <div class="col-md-auto">
           <button class="btn btn-danger" (click)="deleteQuestion(question$.id)">Supprimer</button>

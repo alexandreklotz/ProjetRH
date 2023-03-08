@@ -48,6 +48,10 @@ export class QuestionService {
     return this.http.post<Question>('http://localhost:8080/moderateur/question/create', data, headers)
   }
 
+  updateQuestion(data: any, headers : {headers : HttpHeaders}): Observable<Question>{
+    return this.http.put<Question>('http://localhost:8080/moderateur/question/update', data, headers)
+  }
+
   deleteQuestion(questionId: any){
     this.http.delete(`http://localhost:8080/moderateur/question/delete/${encodeURIComponent(questionId)}`)
   }

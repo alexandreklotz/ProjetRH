@@ -32,8 +32,11 @@ export class SingleQcmComponent implements OnInit {
     const qcmId = this.route.snapshot.params['id'];
     this.qcmService.getQcmById(qcmId).subscribe(data => {
       this.qcm$ = data
+      // @ts-ignore
       this.qcmQuestions = this.qcm$.questions
     })
+
+
   }
 
   async retrieveUnassignedQuestions(): Promise<void> {
@@ -41,6 +44,17 @@ export class SingleQcmComponent implements OnInit {
   }
 
   onUpdate(): void {
+
+    if(this.qcmQuestions){
+      this.qcm$.questions = this.qcmQuestions
+      this.qcm$.questions.forEach((question) => {
+        console.log("final questions id for each : " + question.id)
+      })
+      console.log("qcm questions : " + this.qcm$.questions)
+    } else {
+      delete this.qcm$.questions
+    }
+
     this.qcmService.updateQcm(this.qcm$).subscribe(data => {
       console.log("Update du qcm")
     })
@@ -49,7 +63,7 @@ export class SingleQcmComponent implements OnInit {
   addQuestion(questionId: any): void {
     this.questionService.getQuestionById(questionId).subscribe(data => {
       this.question$ = data
-      this.qcm$.questions.push(this.question$)
+      this.qcmQuestions.push(this.question$)
     })
   }
 

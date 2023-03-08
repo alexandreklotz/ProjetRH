@@ -5,6 +5,8 @@ import {Test} from "../../_models/test.model";
 import {FormControl} from "@angular/forms";
 import {Utilisateur} from "../../_models/utilisateur.model";
 import {UtilisateurService} from "../../_services/_restricted/utilisateur.service";
+import {Question} from "../../_models/question.model";
+import {Reponse} from "../../_models/reponse.model";
 
 @Component({
   selector: 'app-single-test',
@@ -16,6 +18,9 @@ export class SingleTestComponent implements OnInit {
   test$!: Test
   canBeEdited!: boolean
   candidats$!: Utilisateur[]
+
+  testQuestions$!: Array<Question>
+  testReponses$!: Array<Reponse>
 
   constructor(private testService: TestService,
               private utilisateurService: UtilisateurService,
