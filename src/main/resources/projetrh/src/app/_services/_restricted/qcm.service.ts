@@ -32,7 +32,7 @@ export class QcmService {
   }
 
   deleteQcm(qcmId: any){
-    this.http.delete(`http://localhost:8080/moderateur/qcm/delete/${encodeURIComponent(qcmId)}`)
+    this.http.delete(`http://localhost:8080/moderateur/qcm/delete/${encodeURIComponent(qcmId)}`).subscribe()
   }
 
 }

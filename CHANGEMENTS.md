@@ -1,11 +1,25 @@
+### 09/03/2023
+
+__*FRONTEND*__
+
+__Modifications apportées au code :__
+- Ajout de __.subscribe()__ dans chaque appel de type `delete` dans `qcm.service`, `reponse.service`, `question.service`
+- Mise en place de redirections lors de la suppression d'éléments (question, réponse, qcm) et de refresh lors de la création d'autres (réponses dans question)
+
+*D'autres modifications doivent être faites telles que la mise à jour d'un utilisateur si son mot de passe est vide donc inchangé,
+self-modification d'un utilisateur et nettoyer/clarifier certains bouts de code.*
+
+---
 ### 08/03/2023
 
 __*BACKEND*__
+
 __Modifications apportées au code :__
 - Réactivation du post mapping `createReponse` dans `ReponseController`
 - Ajout de l'id des questions dans la liste des questions d'un qcm, corrige un problème ou l'id de la question n'était pas récupéré dans le front
 
 __*FRONTEND*__
+
 __Modifications apportées au code :__
 - Modification de `QcmInterface` et `QuestionInterface` => Un Qcm peut être null dans une Question et vice versa
 - Modification des models `Qcm` et `Question` en fonction de la modification indiquée ci-dessus

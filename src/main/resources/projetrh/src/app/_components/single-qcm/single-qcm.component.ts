@@ -43,6 +43,12 @@ export class SingleQcmComponent implements OnInit {
     this.unassignedQuestions$ = await this.questionService.getUnassignedQuestion()
   }
 
+  goBackToList(){
+    setTimeout(() => {
+      this.router.navigateByUrl('/qcms', {replaceUrl: true})
+    }, 1000)
+  }
+
   onUpdate(): void {
 
     if(this.qcmQuestions){
@@ -58,6 +64,8 @@ export class SingleQcmComponent implements OnInit {
     this.qcmService.updateQcm(this.qcm$).subscribe(data => {
       console.log("Update du qcm")
     })
+
+    this.goBackToList()
   }
 
   addQuestion(questionId: any): void {
@@ -77,6 +85,7 @@ export class SingleQcmComponent implements OnInit {
 
   deleteQcm(qcmId: any){
     this.qcmService.deleteQcm(qcmId)
+    this.goBackToList()
   }
 
 }

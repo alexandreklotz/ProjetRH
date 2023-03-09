@@ -30,16 +30,19 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let reponse of questionReponses$">
-              <td><input type="text" class="form-control" [(ngModel)]="reponse.texte" [value]="reponse.texte"></td>
+            <tr *ngFor="let reponse of question$.reponses">
+              <td>
+                <input type="text" class="form-control" [(ngModel)]="reponse.texte" [value]="reponse.texte">
+              </td>
               <td>
                 <select class="form-select" [(ngModel)]="reponse.correctAnswer" [ngModelOptions]="{standalone: true}">
-                  <option selected>{{reponse.correctAnswer}}</option>
-                  <option value="1">{{reponse.correctAnswer === true ? 'false' : 'true'}}</option>
+                  <!-- <option selected>{{reponse.correctAnswer}}</option> !-->
+                  <option [ngValue]="true" [selected]="reponse.correctAnswer === true">Oui</option>
+                  <option [ngValue]="false" [selected]="reponse.correctAnswer === false">Non</option>
                 </select>
               </td>
               <td>
-                <button class="btn btn-danger">Supprimer</button>
+                <button class="btn btn-danger" (click)="deleteReponse(reponse.id)">Supprimer</button>
               </td>
             </tr>
           </tbody>

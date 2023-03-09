@@ -28,7 +28,7 @@ export class ReponseService {
   }
 
   deleteReponse(reponseId: string, headers : {headers : HttpHeaders}) {
-    this.http.delete(`http://localhost:8080/moderateur/reponse/delete/${encodeURIComponent(reponseId)}`)
+    this.http.delete(`http://localhost:8080/moderateur/reponse/delete/${encodeURIComponent(reponseId)}`, headers).subscribe()
   }
 
 }

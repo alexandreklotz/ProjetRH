@@ -53,6 +53,6 @@ export class QuestionService {
   }
 
   deleteQuestion(questionId: any){
-    this.http.delete(`http://localhost:8080/moderateur/question/delete/${encodeURIComponent(questionId)}`)
+    this.http.delete(`http://localhost:8080/moderateur/question/delete/${encodeURIComponent(questionId)}`).subscribe()
   }
 }
