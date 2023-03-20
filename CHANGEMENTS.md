@@ -1,3 +1,12 @@
+### 20/03/2023
+
+*Arrêt du projet. Reprise éventuelle dans le futur en solo ou dans le même contexte que depuis le début.*
+
+*La vue des tests n'est pas finalisée, aussi bien pour le passage des tests pour un candidat que pour la vue générale
+pour un recruteur/admin. La modification du mot de passe du candidat par le candidat n'est pas finalisée non plus.
+Sinon, toutes les créations/modifications/suppressions sont fonctionnelles.*
+
+---
 ### 09/03/2023
 
 __*FRONTEND*__

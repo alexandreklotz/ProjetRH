@@ -29,11 +29,11 @@ public class Reponse {
     @Column(nullable = false)
     private String texte;
 
-    @JsonView(CustomJsonView.ReponseView.class)
+    @JsonView({CustomJsonView.ReponseView.class, CustomJsonView.TestView.class})
     @Column(nullable = false)
     private boolean correctAnswer;
 
-    @JsonView(CustomJsonView.ReponseView.class)
+    @JsonView({CustomJsonView.ReponseView.class, CustomJsonView.TestView.class})
     @Column(nullable = false)
     private boolean isSelectedAnswer;
 
@@ -43,7 +43,7 @@ public class Reponse {
 
 
     // RELATIONS //
-    @JsonView({CustomJsonView.ReponseView.class, CustomJsonView.TestView.class})
+    @JsonView(CustomJsonView.ReponseView.class)
     @ManyToOne
     @JoinColumn(name="question_id")
     private Question question;

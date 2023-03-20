@@ -43,6 +43,10 @@ export class QuestionService {
     return this.http.get<Question[]>(`http://localhost:8080/admin/question/qcm/${qcmId}`)
   }
 
+  getQuestionByTestId(testId: string): Observable<Question[]>{
+    return this.http.get<Question[]>(`moderateur/question/${encodeURIComponent(testId)}/all`)
+  }
+
   createQuestion(data: any, headers : {headers : HttpHeaders}): Observable<Question> {
     //const jsonBody = JSON.stringify(question)
     return this.http.post<Question>('http://localhost:8080/moderateur/question/create', data, headers)

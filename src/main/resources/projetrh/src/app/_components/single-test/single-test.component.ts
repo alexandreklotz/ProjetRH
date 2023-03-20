@@ -7,6 +7,8 @@ import {Utilisateur} from "../../_models/utilisateur.model";
 import {UtilisateurService} from "../../_services/_restricted/utilisateur.service";
 import {Question} from "../../_models/question.model";
 import {Reponse} from "../../_models/reponse.model";
+import {ReponseService} from "../../_services/_restricted/reponse.service";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-single-test',
@@ -23,6 +25,7 @@ export class SingleTestComponent implements OnInit {
   testReponses$!: Array<Reponse>
 
   constructor(private testService: TestService,
+              private reponseService: ReponseService,
               private utilisateurService: UtilisateurService,
               private route: ActivatedRoute) { }
 
@@ -41,8 +44,11 @@ export class SingleTestComponent implements OnInit {
         this.canBeEdited = false
       }
 
+      this.testQuestions$ = data.questions
     })
+
   }
+
 
   async retrieveCandidats(): Promise<void> {
     this.candidats$ = await this.utilisateurService.getAllCandidats()

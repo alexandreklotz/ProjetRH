@@ -27,6 +27,7 @@ import { SingleQuestionComponent } from './_components/single-question/single-qu
 import { SingleCandidatComponent } from './_components/single-candidat/single-candidat.component';
 import { UnauthorizedComponent } from './_components/unauthorized/unauthorized.component';
 import { UtilisateurSelfUpdateComponent } from './utilisateur-self-update/utilisateur-self-update.component';
+import { CandidatTestComponent } from './_components/candidat-test/candidat-test.component';
 
 
 
@@ -54,7 +55,8 @@ import { UtilisateurSelfUpdateComponent } from './utilisateur-self-update/utilis
     SingleQuestionComponent,
     SingleCandidatComponent,
     UnauthorizedComponent,
-    UtilisateurSelfUpdateComponent
+    UtilisateurSelfUpdateComponent,
+    CandidatTestComponent
   ],
     imports: [
         BrowserModule,

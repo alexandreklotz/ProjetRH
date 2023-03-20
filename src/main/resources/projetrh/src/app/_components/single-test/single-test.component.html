@@ -46,6 +46,18 @@
     <h5>Questions et réponses</h5>
   </div>
 
+  <div class="container" id="questRepListeContainer">
+    <ul>
+      <li *ngFor="let question of testQuestions$">
+        {{question.texte}}
+        <ul>
+          <li *ngFor="let reponse of question.reponses">
+            <span>{{reponse.texte}}</span>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </div>
 
 
 </body>

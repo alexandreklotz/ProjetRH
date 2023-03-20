@@ -29,11 +29,11 @@ public class Question {
     @Column(nullable = false)
     private String texte;
 
-    @JsonView(CustomJsonView.QuestionView.class)
+    @JsonView({CustomJsonView.QuestionView.class, CustomJsonView.TestView.class})
     @Column(nullable = false)
     private int tempsReponse;
 
-    @JsonView(CustomJsonView.QuestionView.class)
+    @JsonView({CustomJsonView.QuestionView.class, CustomJsonView.TestView.class})
     @Column(nullable = false)
     private Double points;
 
@@ -48,7 +48,7 @@ public class Question {
     @JoinColumn(name = "qcm_id")
     private Qcm qcm;
 
-    @JsonView(CustomJsonView.QuestionView.class)
+    @JsonView({CustomJsonView.QuestionView.class, CustomJsonView.TestView.class})
     @OneToMany(mappedBy = "question")
     private Set<Reponse> reponses;
 

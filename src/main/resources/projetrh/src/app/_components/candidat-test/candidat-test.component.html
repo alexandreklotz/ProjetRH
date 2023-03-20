@@ -1,0 +1,28 @@
+<body>
+  <app-header></app-header>
+
+  <div class="container" id="titreContainer">
+    {{test$.titre}}
+  </div>
+
+  <div class="container" id="questionContainer" *ngFor="let question of test$.questions">
+    <div class="container" id="questRepGrid">
+      <div class="row">
+        <div class="col" id="questionTexte">
+          <p>{{question.texte}}</p>
+        </div>
+        <div class="row">
+          <div class="col" id="gridColReponse" *ngFor="let reponse of question.reponses">
+            <div class="btn-group" aria-label="Basic check toggle button group">
+              <input type="checkbox" class="btn-check" id="reponseBtn" autocomplete="off">
+              <label for="reponseBtn" class="btn btn-outline-primary">{{reponse.texte}}</label>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</body>
